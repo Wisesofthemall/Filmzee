@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Logo from "../../assets/Logo.png";
 import Search from "./Search";
 import MessageIcon from "./message/MessageIcon";
-import UserIcon from "./user/userIcon";
+import UserIcon from "./user/UserIcon";
+
 type Props = {};
 
 function Navbar({}: Props) {
@@ -17,7 +19,7 @@ function Navbar({}: Props) {
           height={20}
           alt="Logo"
         />
-        <div className="p-1 hidden md:block">Filmzee</div>
+        <div className="p-1 hidden md:block">ilmzee</div>
       </div>
       <Search />
       <MessageIcon />
