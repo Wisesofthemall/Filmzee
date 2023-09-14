@@ -10,7 +10,7 @@ type Props = {};
 
 function Navbar({}: Props) {
   return (
-    <div className="p-3 flex flex-row justify-around">
+    <div className="p-4 flex flex-row justify-around">
       <div className="flex">
         <Image
           className="filter brightness-0 invert"
