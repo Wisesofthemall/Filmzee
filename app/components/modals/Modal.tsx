@@ -3,7 +3,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Button from "../inputs/Button";
-
+import Logo from "@/assets/Logo.png";
+import Image from "next/image";
 type Props = {
   isOpen?: boolean;
   onClose: () => void;
@@ -74,7 +75,7 @@ function Modal({
         z-50
         outline-none
         focus:outline-none
-        bg-neutral-800/70
+        bg-black
         "
       >
         <div
@@ -106,7 +107,7 @@ function Modal({
               relative
               flex-cols
               w-full
-              bg-[#01002e]
+              bg-[#000000]
               outline-none
               focus:outline-none"
             >
@@ -121,13 +122,20 @@ function Modal({
               >
                 <button
                   onClick={handleClose}
-                  className="p-1 border-0 hover:opacity-70  text-green-400 transition absolute left-9"
+                  className="p-1 border-0 hover:opacity-70  text-slate-50 transition absolute left-9"
                 >
                   <IoMdClose size={18} />
                 </button>
-                <div className="text-lg font-semibold text-green-500">
+                <div className="text-lg font-semibold text-slate-50 ">
                   {title}
                 </div>
+                <Image
+                  className="filter brightness-0 invert absolute right-9"
+                  width={20}
+                  height={20}
+                  src={Logo}
+                  alt="Logo"
+                />
               </div>
               <div className="relative p-6 flex-auto">{body}</div>
               <div className="flex flex-col gap-2 p-6">

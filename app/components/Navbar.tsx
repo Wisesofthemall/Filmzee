@@ -23,6 +23,7 @@ function Navbar({}: Props) {
       </div>
       <Search />
       <MessageIcon />
+
       <UserIcon />
     </div>
   );
