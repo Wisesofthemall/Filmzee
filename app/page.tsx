@@ -1,11 +1,7 @@
-import Navbar from "./components/Navbar";
-import LoginModal from "./components/modals/LoginModal";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="">
-      <LoginModal />
-      <Navbar />
-    </main>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
   );
 }

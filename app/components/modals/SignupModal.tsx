@@ -2,29 +2,26 @@
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-//import useLoginModal from "../hooks/useLoginModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import {
   GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signInWithPopup,
   GithubAuthProvider,
-  FacebookAuthProvider,
 } from "firebase/auth";
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
 import Button from "../inputs/Button";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
+
 import Modal from "./Modal";
-import useLoginModal from "@/app/hooks/useLoginModal";
-import { firebaseAuth } from "@/auth/Firebase";
-
 import useSignupModal from "@/app/hooks/useSignupModal";
-
+import { Message } from "postcss";
+import { firebaseAuth } from "@/auth/Firebase";
 type Props = {};
 
-function LoginModal({}: Props) {
+function SignupModal({}: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -33,11 +30,9 @@ function LoginModal({}: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
   //* This function handles the google provider through firebase
-
   const handleGoogle = async () => {
     try {
       await signInWithPopup(firebaseAuth, new GoogleAuthProvider());
-
       toast.success("Welcome to Filmzee 🎉");
     } catch (error: any) {
       toast.error(error.message);
@@ -54,27 +49,27 @@ function LoginModal({}: Props) {
   };
   //* This function handles email and password logins
   const handleEmailAndPassword = async () => {
-    toast.success("yooo");
     try {
-      await signInWithEmailAndPassword(firebaseAuth, email, password);
+      await createUserWithEmailAndPassword(firebaseAuth, email, password);
       toast.success("Welcome to Filmzee 🎉");
     } catch (error: any) {
-      console.log(error.message);
       toast.error(error.message);
     }
   };
+
   const toggle = useCallback(() => {
-    loginModal.onClose();
-    signupModal.onOpen();
+    signupModal.onClose();
+    loginModal.onOpen();
   }, [loginModal, signupModal]);
 
   const bodyContent = (
     <div className="items-center">
-      <Heading title="Welcome Back 🎉" subtitle="Login to your account! " />
+      <Heading title="Welcome to Filmzee ❤️" subtitle="Create an account! " />
       <hr />
       <Input
         id="email"
         label="Email"
+        disabled={isLoading}
         value={email}
         stateChange={setEmail}
         required
@@ -85,6 +80,7 @@ function LoginModal({}: Props) {
         label="Password"
         value={password}
         stateChange={setPassword}
+        disabled={isLoading}
         required
       />
     </div>
@@ -108,12 +104,12 @@ function LoginModal({}: Props) {
 
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
-          <div className="">First time using Filmzee?</div>
+          <div className="">Already have an account?</div>
           <div
             onClick={toggle}
             className="text-slate-50 cursor-pointer hover:underline"
           >
-            Create an account
+            Login
           </div>
         </div>
       </div>
@@ -121,10 +117,10 @@ function LoginModal({}: Props) {
   );
   return (
     <Modal
-      isOpen={loginModal.isOpen}
-      title="Login"
+      isOpen={signupModal.isOpen}
+      title="Signup"
       actionLabel="Continue"
-      onClose={loginModal.onClose}
+      onClose={signupModal.onClose}
       onSubmit={handleGoogle}
       body={bodyContent}
       footer={footerContent}
@@ -133,4 +129,4 @@ function LoginModal({}: Props) {
   );
 }
 
-export default LoginModal;
+export default SignupModal;

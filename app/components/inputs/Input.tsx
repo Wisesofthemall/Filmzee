@@ -34,7 +34,8 @@ function Input({ id, label, type, disabled, stateChange, value }: Props) {
         disabled:cursor-not-allowed
         pl-4
         border-neutral-300
-        focus:border-black`}
+        focus:border-black
+        text-black`}
       />
       <label
         className={`absolute
