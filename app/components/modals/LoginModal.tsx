@@ -54,7 +54,6 @@ function LoginModal({}: Props) {
   };
   //* This function handles email and password logins
   const handleEmailAndPassword = async () => {
-    toast.success("yooo");
     try {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
       toast.success("Welcome to Filmzee 🎉");
