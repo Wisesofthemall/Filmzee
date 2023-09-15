@@ -3,14 +3,14 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 //import { toast } from "react-hot-toast";
 //import useLoginModal from "../hooks/useLoginModal";
-//! import {
-//!   GoogleAuthProvider,
-//!   onAuthStateChanged,
-//!   signInWithEmailAndPassword,
-//!   signInWithPopup,
-//!   GithubAuthProvider,
-//!   FacebookAuthProvider,
-//! } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GithubAuthProvider,
+  FacebookAuthProvider,
+} from "firebase/auth";
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
 import Button from "../inputs/Button";
@@ -18,6 +18,8 @@ import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import Modal from "./Modal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { firebaseAuth } from "@/auth/firebase";
+
 //! import { firebaseAuth } from "@/firebase/Firebase";
 //! import useSignupModal from "../hooks/useSignupModal";
 
@@ -33,36 +35,37 @@ function LoginModal({}: Props) {
 
   //? This function handles the google provider through firebase
 
-  //! const handleGoogle = async () => {
-  //!   try {
-  //!     signInWithPopup(firebaseAuth, new GoogleAuthProvider());
-  //!   } catch (error: any) {
-  //!     console.log(error);
-  //!     toast.error(error.message);
-  //!   }
-  //! };
+  const handleGoogle = async () => {
+    try {
+      console.log("boom");
+      signInWithPopup(firebaseAuth, new GoogleAuthProvider());
+    } catch (error: any) {
+      console.log(error);
+      //!toast.error(error.message);
+    }
+  };
   //? This function handles the github provider through firebase
-  //! const handleGithub = async () => {
-  //   try {
-  //     signInWithPopup(firebaseAuth, new GithubAuthProvider());
-  //   } catch (error: any) {
-  //     console.log(error);
-  //     toast.error(error.message);
-  //   }
-  //! };
+  const handleGithub = async () => {
+    try {
+      signInWithPopup(firebaseAuth, new GithubAuthProvider());
+    } catch (error: any) {
+      console.log(error);
+      //!toast.error(error.message);
+    }
+  };
   //? This function handles email and password logins
-  //! const handleEmailAndPassword = async () => {
-  //!   try {
-  //!     await signInWithEmailAndPassword(firebaseAuth, email, password);
-  //!   } catch (error: any) {
-  //!     console.log(error);
-  //!     toast.error(error.message);
-  //!   }
-  //! };
-  //! const toggle = useCallback(() => {
-  //!   loginModal.onClose();
-  //!   signupModal.onOpen();
-  //! }, [loginModal, signupModal]);
+  const handleEmailAndPassword = async () => {
+    try {
+      await signInWithEmailAndPassword(firebaseAuth, email, password);
+    } catch (error: any) {
+      console.log(error);
+      //toast.error(error.message);
+    }
+  };
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    //!signupModal.onOpen();
+  }, [loginModal /*!signupModal */]);
 
   const bodyContent = (
     <div className="items-center">
@@ -93,20 +96,20 @@ function LoginModal({}: Props) {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}} //TODO: handle google
+        onClick={() => handleGoogle()} //TODO: handle google
       />
       <Button
         outline
         label="Continue with Github"
         icon={BsGithub}
-        onClick={() => {}} //TODO: handle Github
+        onClick={() => handleGithub()} //TODO: handle Github
       />
 
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
           <div className="">First time using Filmzee?</div>
           <div
-            onClick={() => {}} //TODO: toggle
+            onClick={toggle} //TODO: toggle
             className="text-slate-50 cursor-pointer hover:underline"
           >
             Create an account
@@ -121,10 +124,10 @@ function LoginModal({}: Props) {
       title="Login"
       actionLabel="Continue"
       onClose={loginModal.onClose}
-      onSubmit={() => {}} // TODO: handle Google
+      onSubmit={handleGoogle}
       body={bodyContent}
       footer={footerContent}
-      secondaryAction={() => {}} // TODO: handle email and password
+      secondaryAction={handleEmailAndPassword}
     />
   );
 }
