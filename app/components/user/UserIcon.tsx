@@ -79,7 +79,7 @@ function UserIcon({}: Props) {
     signOut(firebaseAuth);
   };
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center z-40">
       {user ? (
         <div className="mx-1 ">
           <Menu isLazy>

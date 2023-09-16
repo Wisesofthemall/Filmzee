@@ -58,7 +58,6 @@ function LoginModal({}: Props) {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
       toast.success("Welcome to Filmzee 🎉");
     } catch (error: any) {
-      console.log(error.message);
       toast.error(error.message);
     }
   };

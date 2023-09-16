@@ -25,14 +25,14 @@ function Button({
       onClick={onClick}
       disabled={disabled}
       className={` relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition w-full ${
-        outline ? "bg-white" : "bg-green-600"
-      }  ${outline ? "border-black" : "bg-green-600"} ${
-        outline ? "text-black" : "bg-green-600"
+        outline ? "bg-white" : "bg-transparent"
+      }  ${outline ? "border-black" : "bg-transparent"} ${
+        outline ? "text-black" : "bg-transparent"
       } ${small ? "py-1" : "py-3"} ${small ? "text-sm" : "text-md"} ${
         outline ? "border-[1px]" : "border-[2px]"
       } ${outline ? "font-light" : "font-semibold"}`}
     >
-      {Icon && <Icon size={24} className="absolute left-4 top-3" />}
+      {Icon && <Icon size={24} className="absolute left-4 top-3 " />}
       {label}
     </button>
   );

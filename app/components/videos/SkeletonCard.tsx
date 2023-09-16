@@ -18,14 +18,23 @@ function SkeletonCard({ n }: Props) {
           width={210}
           height={200}
           className="rounded-lg"
+          sx={{ bgcolor: "grey.800" }}
         />
 
-        <Skeleton variant="text" sx={{ fontSize: "1rem" }} width={200} />
+        <Skeleton
+          variant="text"
+          sx={{ fontSize: "1rem", bgcolor: "grey.800" }}
+          width={200}
+        />
 
         {/* For other variants, adjust the size with `width` and `height` */}
 
         <div className="">
-          <Skeleton variant="text" sx={{ fontSize: "1rem" }} width={150} />
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "1rem", bgcolor: "grey.800" }}
+            width={150}
+          />
         </div>
       </Stack>
     </div>
