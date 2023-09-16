@@ -30,6 +30,7 @@ import { FaRegBookmark, FaUserCircle } from "react-icons/fa";
 import { signOut } from "firebase/auth";
 import { firebaseAuth } from "@/auth/Firebase";
 import useSignupModal from "@/app/hooks/useSignupModal";
+import UserMenu from "./UserMenu";
 type Props = {};
 
 function UserIcon({}: Props) {
@@ -75,9 +76,7 @@ function UserIcon({}: Props) {
   const OpenModal = () => {
     signup.onOpen();
   };
-  const handleLogOut = () => {
-    signOut(firebaseAuth);
-  };
+
   return (
     <div className="flex justify-center items-center z-40">
       {user ? (
@@ -89,8 +88,8 @@ function UserIcon({}: Props) {
                   className="rounded-full "
                   src={user.photoUrl}
                   alt="profile image"
-                  width={28}
-                  height={28}
+                  width={40}
+                  height={40}
                 />
               ) : (
                 <Avatar
@@ -102,50 +101,7 @@ function UserIcon({}: Props) {
                 </Avatar>
               )}
             </MenuButton>
-            <MenuList
-              className="grid justify-center bg-gray-800  text-white rounded-lg"
-              boxSize={177}
-            >
-              {/* MenuItems are not rendered unless Menu is open */}
-
-              <MenuItem as="a" href="#" className="my-1">
-                <div className="mx-2">
-                  <AiOutlineUser />
-                </div>
-                View Profile
-              </MenuItem>
-              <MenuItem as="a" href="#" className="my-1">
-                <div className="mx-2">
-                  <FaRegBookmark />
-                </div>
-                Favorites
-              </MenuItem>
-              <MenuItem as="a" href="#" className="my-1">
-                <div className="mx-2">
-                  <FiHeart />
-                </div>
-                Likes
-              </MenuItem>
-              <MenuItem as="a" href="#" className="my-1 mb-2">
-                <div className="mx-2">
-                  <FiSettings />
-                </div>
-                Settings
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem
-                as="a"
-                onClick={() => {
-                  handleLogOut();
-                }}
-                className="my-3"
-              >
-                <div className="mx-2">
-                  <FiLogOut />
-                </div>
-                Log Out
-              </MenuItem>
-            </MenuList>
+            <UserMenu />
           </Menu>
         </div>
       ) : (
