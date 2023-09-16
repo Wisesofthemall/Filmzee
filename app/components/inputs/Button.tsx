@@ -7,6 +7,8 @@ type Props = {
   label: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
+  selected?: boolean;
+  mobile?: boolean;
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
@@ -19,6 +21,8 @@ function Button({
   outline,
   small,
   icon: Icon,
+  selected,
+  mobile,
 }: Props) {
   return (
     <button
@@ -30,10 +34,13 @@ function Button({
         outline ? "text-black" : "bg-transparent"
       } ${small ? "py-1" : "py-3"} ${small ? "text-sm" : "text-md"} ${
         outline ? "border-[1px]" : "border-[2px]"
-      } ${outline ? "font-light" : "font-semibold"}`}
+      } ${outline ? "font-light" : "font-semibold"}
+      ${selected ? "border-rose-500" : ""}
+      ${selected ? "text-rose-500" : ""}`}
     >
       {Icon && <Icon size={24} className="absolute left-4 top-3 " />}
-      {label}
+      <div className={`${mobile ? "hidden md:block" : ""}`}>{label}</div>
+      <div className="block md:hidden">ㅤ</div>
     </button>
   );
 }
