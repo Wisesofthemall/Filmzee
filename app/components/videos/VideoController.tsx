@@ -4,11 +4,17 @@ import Button from "../inputs/Button";
 import { FaHouse } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
 import { BiCompass } from "react-icons/bi";
+import { getShorts } from "@/api/Youtube";
 type Props = {};
 
 function VideoController({}: Props) {
   const [selected, setSelected] = useState("");
 
+  const shortsss = async () => {
+    const response = await getShorts("music");
+    console.log(response);
+    return response;
+  };
   const getQueryParam = (key: string) => {
     // Get the current URL
     const url = new URL(window.location.href);
@@ -29,6 +35,7 @@ function VideoController({}: Props) {
   };
 
   useEffect(() => {
+    shortsss();
     const select = getQueryParam("select");
     setSelected(select as string);
   }, []);

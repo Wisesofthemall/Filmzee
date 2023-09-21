@@ -17,7 +17,6 @@ import { BsGithub } from "react-icons/bs";
 
 import Modal from "./Modal";
 import useSignupModal from "@/app/hooks/useSignupModal";
-import { Message } from "postcss";
 import { firebaseAuth } from "@/auth/Firebase";
 type Props = {};
 

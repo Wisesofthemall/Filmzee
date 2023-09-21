@@ -15,6 +15,7 @@ function Navbar({}: Props) {
   const user = useAuth();
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();
+
   useEffect(() => {
     if (user) {
       signupModal.onClose();
