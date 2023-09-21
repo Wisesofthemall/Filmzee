@@ -9,7 +9,7 @@ type Props = {};
 function MessageContainer({}: Props) {
   const [selectedChat, setSelectedChat] = useState(false);
   return (
-    <div className="grid  grid-cols-10 w-full h-full">
+    <div className="grid  grid-cols-10 w-full h-full p-9">
       <MyChats selected={selectedChat} />
       <CurrentChats selected={selectedChat} />
     </div>
