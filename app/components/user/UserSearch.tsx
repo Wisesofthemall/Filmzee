@@ -4,13 +4,17 @@ import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import SearchQuery from "./SearchQuery";
 import { AiOutlineClose } from "react-icons/ai";
+import useAuth from "@/auth/AuthState";
+import { UserType } from "@/types/Types";
 type Props = {};
 
 function UserSearch({}: Props) {
+  const [username, setUsername] = useState<string>("");
   const [hide, setHide] = useState(false);
   const [query, setQuery] = useState("");
   const [apiQuery, setApiQuery] = useState("");
   const [typing, setTyping] = useState(false);
+  const user = useAuth();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setApiQuery(query);
@@ -24,6 +28,17 @@ function UserSearch({}: Props) {
     setQuery(event.target.value);
     setTyping(true);
   };
+
+  useEffect(() => {
+    if (user) {
+      if (user.displayName) {
+        setUsername(user.displayName);
+      } else {
+        const parsedName = user.email?.split("@")[0];
+        setUsername(parsedName);
+      }
+    }
+  }, [user]);
 
   return (
     <div className="">
@@ -53,7 +68,7 @@ function UserSearch({}: Props) {
             height={50}
           />
         ) : (
-          <SearchQuery query={apiQuery} hide={hide} />
+          <SearchQuery query={apiQuery} hide={hide} name={username} />
         )}
       </div>
     </div>

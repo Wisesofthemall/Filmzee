@@ -25,8 +25,7 @@ const colorShadePicker = (inputNumber: number) => {
 
 const colorPicker = (inputNumber: number) => {
   const colors: any = [red, blue, lightBlue, indigo, green, amber, lightGreen];
-  console.log("inputNumber", inputNumber);
-  console.log("color", colors[inputNumber % 6]);
+
   return colors[inputNumber % 6];
 };
 
@@ -34,8 +33,7 @@ export const colorMaker: any = (inputNumber: number): any => {
   return () => {
     const color = colorPicker(inputNumber);
     const shade = colorShadePicker(inputNumber);
-    console.log(color);
-    console.log(shade);
+
     return color[shade];
   };
 };

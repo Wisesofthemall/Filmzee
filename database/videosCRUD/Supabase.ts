@@ -44,7 +44,6 @@ export const getAllVideos = async (): Promise<any[] | []> => {
   const { data, error } = await supabase.from("Videos").select();
 
   if (error) {
-    console.log(error);
     return [];
   }
   return data;

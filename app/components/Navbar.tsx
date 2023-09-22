@@ -23,7 +23,7 @@ function Navbar({}: Props) {
   const signupModal = useSignupModal();
   const getUserInfo = async () => {
     const userInfo = await retrieveUser(user.createdAt, user);
-    console.log(userInfo);
+
     setUserInfo(userInfo);
   };
   const navMessage = () => {
@@ -38,7 +38,6 @@ function Navbar({}: Props) {
   };
   useEffect(() => {
     if (user) {
-      console.log(user);
       getUserInfo();
       signupModal.onClose();
       loginModal.onClose();

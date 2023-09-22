@@ -16,7 +16,6 @@ export const getUserByUniq = async (uniq: string) => {
       .single();
 
     if (error) {
-      console.log(error);
       return null;
     }
 
@@ -28,7 +27,7 @@ export const getUserByUniq = async (uniq: string) => {
 
 export const postUser = async (user: UserType) => {
   const parsedName = user.email?.split("@")[0];
-  console.log(parsedName);
+
   try {
     const { data, error } = await supabase
       .from("Users") // Replace 'Users' with the actual name of your table
@@ -52,18 +51,16 @@ export const postUser = async (user: UserType) => {
 };
 
 export const retrieveUser = async (uniq: string, user: UserType) => {
-  console.log("retiremf");
   const result = await getUserByUniq(uniq);
   if (!result) {
-    console.log("boom");
     await postUser(user);
     const newResult = await getUserByUniq(uniq);
     return newResult;
   }
-  console.log(result);
+
   return result;
 };
-export const getUsersByName = async (name: string) => {
+export const getUsersByName = async (name: string, username: string) => {
   try {
     const { data, error } = await supabase
       .from("Users") // Replace 'Users' with the actual name of your table
@@ -71,11 +68,11 @@ export const getUsersByName = async (name: string) => {
       .ilike("name", `%${name}%`);
 
     if (error) {
-      console.log(error);
       return [];
     }
+    console.log(data[0].name, username);
 
-    return data;
+    return data.filter((user) => user.name !== username);
   } catch (error) {
     return [];
   }

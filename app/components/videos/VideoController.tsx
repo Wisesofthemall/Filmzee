@@ -12,7 +12,7 @@ function VideoController({}: Props) {
 
   const shortsss = async () => {
     const response = await getShorts("music");
-    console.log(response);
+
     return response;
   };
   const getQueryParam = (key: string) => {

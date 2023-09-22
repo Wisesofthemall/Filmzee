@@ -28,11 +28,9 @@ type Props = {};
 function UserIcon({}: Props) {
   const [picId, setPicId] = useState(100);
   const user = useAuth();
-  console.log(user);
 
   useEffect(() => {
     if (user) {
-      console.log("change");
       const id = parseInt(user.createdAt.slice(-3));
       setPicId(id);
     }

@@ -4,23 +4,24 @@ import { UserType } from "@/types/Types";
 import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import UserSearchCard from "./UserSearchCard";
+import useAuth from "@/auth/AuthState";
 
 type Props = {
   query: string;
   hide: boolean;
+  name: string | undefined;
 };
 
-function SearchQuery({ query, hide }: Props) {
+function SearchQuery({ query, hide, name }: Props) {
+  const user = useAuth();
   const [results, setResults] = useState<UserType[] | []>([]);
-
   const getResults = async () => {
-    console.log(query);
-    const users: UserType[] = await getUsersByName(query);
+    const users: UserType[] = await getUsersByName(query, name || "");
     setResults(users);
-    console.log(users);
   };
   useEffect(() => {
     getResults();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   return (

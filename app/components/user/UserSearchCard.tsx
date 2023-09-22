@@ -12,11 +12,9 @@ type Props = {
 export default function UserSearchCard({ user }: Props) {
   const [picId, setPicId] = useState(100);
   const userInfo = useAuth();
-  console.log(user);
 
   useEffect(() => {
     if (userInfo) {
-      console.log("change");
       const id = parseInt(userInfo.createdAt.slice(-3));
       setPicId(id);
     }
