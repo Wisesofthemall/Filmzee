@@ -5,7 +5,7 @@ type Props = {};
 import { BiMessageAltDetail } from "react-icons/bi";
 function MessageIcon({}: Props) {
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center cursor-pointer">
       <BiMessageAltDetail size={26} />
     </div>
   );

@@ -8,3 +8,13 @@ export type VideoType = {
   likes: number;
   bookmark: number;
 };
+
+export type UserType = {
+  displayName?: string;
+  id: string;
+  createdAt: string;
+  uniq: string;
+  name: string;
+  email: string;
+  photoUrl: string;
+};

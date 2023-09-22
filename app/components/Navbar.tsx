@@ -4,18 +4,32 @@ import Image from "next/image";
 import Logo from "../../assets/Logo.png";
 import Search from "./Search";
 import MessageIcon from "./message/MessageIcon";
+import { useRouter } from "next/navigation";
 import UserIcon from "./user/UserIcon";
 import useAuth from "@/auth/AuthState";
 import useLoginModal from "../hooks/useLoginModal";
 import useSignupModal from "../hooks/useSignupModal";
+import { retrieveUser } from "@/database/usersCRUD/Supabase";
+import { UserType } from "@/types/Types";
 
 type Props = {};
 
 function Navbar({}: Props) {
-  const user = useAuth();
+  const router = useRouter();
+  const user: UserType = useAuth();
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();
 
+  const navMessage = () => {
+    if (user) {
+      router.push("/message");
+    } else {
+      signupModal.onOpen();
+    }
+  };
+  const navHome = () => {
+    router.push("/");
+  };
   useEffect(() => {
     if (user) {
       signupModal.onClose();
@@ -27,7 +41,7 @@ function Navbar({}: Props) {
   }, [user]);
   return (
     <div className="p-4 flex flex-row justify-around z-50 ">
-      <div className="flex">
+      <div onClick={() => navHome()} className="flex">
         <Image
           className="filter brightness-0 invert"
           src={Logo}
@@ -38,7 +52,9 @@ function Navbar({}: Props) {
         <div className="p-1 hidden md:block">ilmzee</div>
       </div>
       <Search />
-      <MessageIcon />
+      <div onClick={() => navMessage()}>
+        <MessageIcon />
+      </div>
 
       <UserIcon />
     </div>

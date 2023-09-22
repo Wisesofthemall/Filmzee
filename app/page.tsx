@@ -3,7 +3,7 @@ import Image from "next/image";
 import VideoSkeleton from "./components/videos/VideoSkeleton";
 import VideoController from "./components/videos/VideoController";
 import { useEffect, useState } from "react";
-import { getAllVideos } from "@/database/Supabase";
+import { getAllVideos } from "@/database/videosCRUD/Supabase";
 import VideoContainer from "./components/videos/VideoContainer";
 import { VideoType } from "@/types/Types";
 

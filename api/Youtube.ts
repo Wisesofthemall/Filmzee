@@ -1,5 +1,5 @@
 require("dotenv").config();
-import { postVideos } from "@/database/Supabase";
+import { postVideos } from "@/database/videosCRUD/Supabase";
 import axios from "axios";
 
 const ExampleData = {
@@ -1067,11 +1067,10 @@ const ExampleData = {
 export const getShorts = async (tag: string) => {
   const youtubeAPI = process.env.NEXT_PUBLIC_YOUTUBE_API;
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=#${tag}#shorts&type=video&videoDuration=short&key=${youtubeAPI}`;
-  console.log(url);
   try {
     //await postVideos(ExampleData.items, "Music");
     return "response";
   } catch (error) {
-    console.log("ERROR", error);
+    throw error;
   }
 };

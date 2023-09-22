@@ -13,7 +13,7 @@ function UserSearch({}: Props) {
     const timeoutId = setTimeout(() => {
       setApiQuery(query);
       setTyping(false);
-    }, 500);
+    }, 1000);
     return () => clearTimeout(timeoutId);
   }, [query]);
 
@@ -43,7 +43,7 @@ function UserSearch({}: Props) {
             height={50}
           />
         ) : (
-          <SearchQuery />
+          <SearchQuery query={apiQuery} />
         )}
       </div>
     </div>
