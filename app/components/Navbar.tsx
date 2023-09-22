@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Logo from "../../assets/Logo.png";
 import Search from "./Search";
@@ -15,11 +15,17 @@ import { UserType } from "@/types/Types";
 type Props = {};
 
 function Navbar({}: Props) {
+  const [userInfo, setUserInfo] = useState({});
   const router = useRouter();
   const user: UserType = useAuth();
+
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();
-
+  const getUserInfo = async () => {
+    const userInfo = await retrieveUser(user.createdAt, user);
+    console.log(userInfo);
+    setUserInfo(userInfo);
+  };
   const navMessage = () => {
     if (user) {
       router.push("/message");
@@ -32,6 +38,8 @@ function Navbar({}: Props) {
   };
   useEffect(() => {
     if (user) {
+      console.log(user);
+      getUserInfo();
       signupModal.onClose();
       loginModal.onClose();
     } else {

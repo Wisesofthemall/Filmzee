@@ -7,9 +7,10 @@ import UserSearchCard from "./UserSearchCard";
 
 type Props = {
   query: string;
+  hide: boolean;
 };
 
-function SearchQuery({ query }: Props) {
+function SearchQuery({ query, hide }: Props) {
   const [results, setResults] = useState<UserType[] | []>([]);
 
   const getResults = async () => {
@@ -23,7 +24,7 @@ function SearchQuery({ query }: Props) {
   }, [query]);
 
   return (
-    <div className="rounded-lg shadow-xl  bg-gray-50">
+    <div className={`rounded-lg   ${hide ? "hidden" : "block"}`}>
       {results.map((u) => (
         <UserSearchCard user={u} key={u.id} />
       ))}

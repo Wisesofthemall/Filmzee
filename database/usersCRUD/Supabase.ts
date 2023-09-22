@@ -27,13 +27,15 @@ export const getUserByUniq = async (uniq: string) => {
 };
 
 export const postUser = async (user: UserType) => {
+  const parsedName = user.email?.split("@")[0];
+  console.log(parsedName);
   try {
     const { data, error } = await supabase
       .from("Users") // Replace 'Users' with the actual name of your table
       .upsert([
         {
           uniq: user.createdAt,
-          name: user.displayName,
+          name: user.displayName || parsedName,
           email: user.email,
           photoUrl: user.photoUrl,
         },
@@ -50,9 +52,11 @@ export const postUser = async (user: UserType) => {
 };
 
 export const retrieveUser = async (uniq: string, user: UserType) => {
+  console.log("retiremf");
   const result = await getUserByUniq(uniq);
   if (!result) {
-    const Post = await postUser(user);
+    console.log("boom");
+    await postUser(user);
     const newResult = await getUserByUniq(uniq);
     return newResult;
   }

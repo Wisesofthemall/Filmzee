@@ -3,9 +3,11 @@ import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import SearchQuery from "./SearchQuery";
+import { AiOutlineClose } from "react-icons/ai";
 type Props = {};
 
 function UserSearch({}: Props) {
+  const [hide, setHide] = useState(false);
   const [query, setQuery] = useState("");
   const [apiQuery, setApiQuery] = useState("");
   const [typing, setTyping] = useState(false);
@@ -13,6 +15,7 @@ function UserSearch({}: Props) {
     const timeoutId = setTimeout(() => {
       setApiQuery(query);
       setTyping(false);
+      setHide(false);
     }, 1000);
     return () => clearTimeout(timeoutId);
   }, [query]);
@@ -21,6 +24,7 @@ function UserSearch({}: Props) {
     setQuery(event.target.value);
     setTyping(true);
   };
+
   return (
     <div className="">
       <div className="bg-gray-300 rounded-lg grid grid-cols-10 w-full">
@@ -35,6 +39,12 @@ function UserSearch({}: Props) {
         </div>
       </div>
       <div className="px-5">
+        <div
+          onClick={() => setHide(true)}
+          className={`float-right cursor-pointer ${hide ? "hidden" : "block"}`}
+        >
+          <AiOutlineClose />
+        </div>
         {typing ? (
           <Skeleton
             variant="text"
@@ -43,7 +53,7 @@ function UserSearch({}: Props) {
             height={50}
           />
         ) : (
-          <SearchQuery query={apiQuery} />
+          <SearchQuery query={apiQuery} hide={hide} />
         )}
       </div>
     </div>
