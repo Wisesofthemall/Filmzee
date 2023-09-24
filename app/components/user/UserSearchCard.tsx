@@ -4,6 +4,7 @@ import { UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   user: UserType;
@@ -11,14 +12,13 @@ type Props = {
 
 export default function UserSearchCard({ user }: Props) {
   const [picId, setPicId] = useState(100);
-  const userInfo = useAuth();
 
   useEffect(() => {
-    if (userInfo) {
-      const id = parseInt(userInfo.createdAt.slice(-3));
+    if (user) {
+      const id = parseInt(user.uniq.slice(-3));
       setPicId(id);
     }
-  }, [userInfo]);
+  }, [user]);
 
   const color: any = colorMaker(picId);
   return (
@@ -42,8 +42,17 @@ export default function UserSearchCard({ user }: Props) {
           </Avatar>
         )}
       </div>
-      <div className="mx-1">
-        <div className="text-xs ">{user.name}</div>
+      <div className={`mx-1`}>
+        <div className="flex">
+          <div className="text-xs ">{user.name}</div>
+          {user.email === "foxxydieujuste@gmail.com" ? (
+            <div className="text-yellow-300">
+              <AiFillStar />
+            </div>
+          ) : (
+            <div className=""></div>
+          )}
+        </div>
         <div className="text-xs flex">
           {" "}
           <div className="font-bold text-xs mr-1">Email:</div>

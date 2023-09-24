@@ -56,7 +56,9 @@ function UserSearch({}: Props) {
       <div className="px-5">
         <div
           onClick={() => setHide(true)}
-          className={`float-right cursor-pointer ${hide ? "hidden" : "block"}`}
+          className={`float-right cursor-pointer ${
+            hide ? "hidden" : "block"
+          } mt-2`}
         >
           <AiOutlineClose />
         </div>

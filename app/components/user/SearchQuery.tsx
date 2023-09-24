@@ -15,17 +15,26 @@ type Props = {
 function SearchQuery({ query, hide, name }: Props) {
   const user = useAuth();
   const [results, setResults] = useState<UserType[] | []>([]);
+  const [queryResult, setQueryResult] = useState([]);
   const getResults = async () => {
     const users: UserType[] = await getUsersByName(query, name || "");
     setResults(users);
   };
   useEffect(() => {
     getResults();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, []);
+  useEffect(() => {
+    const filteredResults = results.filter((res) => res.name.includes(query));
+  }, [query, results]);
 
   return (
-    <div className={`rounded-lg   ${hide ? "hidden" : "block"}`}>
+    <div
+      className={`rounded-lg   ${
+        hide ? "hidden" : "block"
+      } overflow-y-scroll h-40`}
+    >
       {results.map((u) => (
         <UserSearchCard user={u} key={u.id} />
       ))}
