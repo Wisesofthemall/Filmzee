@@ -1,9 +1,8 @@
-// AuthStatus.js
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "./Firebase";
 
-function useAuth() {
+export function useAuth() {
   const [user, setUser] = useState<any>("");
 
   useEffect(() => {
@@ -18,5 +17,3 @@ function useAuth() {
 
   return user?.reloadUserInfo;
 }
-
-export default useAuth;

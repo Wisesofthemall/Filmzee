@@ -1,20 +1,11 @@
 "use client";
 import useLoginModal from "@/app/hooks/useLoginModal";
 
-import useAuth from "@/auth/AuthState";
+import { useAuth } from "@/auth/AuthState";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
 import { FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
-import {
-  red,
-  blue,
-  lightBlue,
-  indigo,
-  green,
-  amber,
-  lightGreen,
-} from "@mui/material/colors";
 
 import Avatar from "@mui/material/Avatar";
 
@@ -31,47 +22,21 @@ import { signOut } from "firebase/auth";
 import { firebaseAuth } from "@/auth/Firebase";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
+import { colorMaker } from "@/functions/profileGenerator";
 type Props = {};
 
 function UserIcon({}: Props) {
+  const [picId, setPicId] = useState(100);
   const user = useAuth();
-  console.log(user);
 
-  const colorShadePicker = (inputNumber: number) => {
-    const minRange = 100;
-    const maxRange = 900;
-    const increment = 100;
+  useEffect(() => {
+    if (user) {
+      const id = parseInt(user.createdAt.slice(-3));
+      setPicId(id);
+    }
+  }, [user]);
 
-    // Calculate the number of increments required to reach or exceed inputNumber
-    const incrementsRequired = Math.ceil((inputNumber - minRange) / increment);
-
-    // Calculate the resulting number within the range
-    const result = minRange + incrementsRequired * increment;
-
-    // Ensure the result is within the specified range
-    const clampedResult = Math.min(Math.max(result, minRange), maxRange);
-    return clampedResult;
-  };
-
-  const colorPicker = (inputNumber: number) => {
-    const colors: any = [
-      red,
-      blue,
-      lightBlue,
-      indigo,
-      green,
-      amber,
-      lightGreen,
-    ];
-    return colors[inputNumber % 7];
-  };
-
-  const colorMaker = (inputNumber: number) => {
-    const color = colorPicker(inputNumber);
-    const shade = colorShadePicker(inputNumber);
-    return color[shade];
-  };
-
+  const color: any = colorMaker(picId);
   const signup = useSignupModal();
   const OpenModal = () => {
     signup.onOpen();
@@ -94,7 +59,7 @@ function UserIcon({}: Props) {
               ) : (
                 <Avatar
                   sx={{
-                    bgcolor: colorMaker(parseInt(user.createdAt.slice(-3))),
+                    bgcolor: color(picId),
                   }}
                 >
                   {user.email[0].toUpperCase()}

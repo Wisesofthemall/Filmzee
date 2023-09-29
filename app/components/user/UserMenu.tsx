@@ -1,3 +1,4 @@
+"use client";
 import { firebaseAuth } from "@/auth/Firebase";
 import {
   Menu,
@@ -7,6 +8,7 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
 import { FaRegBookmark } from "react-icons/fa";
@@ -15,8 +17,10 @@ import { FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
 type Props = {};
 
 function UserMenu({}: Props) {
+  const router = useRouter();
   const handleLogOut = () => {
     signOut(firebaseAuth);
+    router.push("/");
   };
   return (
     <MenuList
