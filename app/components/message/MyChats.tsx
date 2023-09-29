@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Search from "../Search";
+
 import UserSearch from "../user/UserSearch";
 import ChatsContainer from "../chats/ChatsContainer";
 import { useAuth } from "@/auth/AuthState";
-import { getUserByUniq } from "@/database/usersCRUD/Supabase";
-import { FirebaseUserType, UserType } from "@/types/Types";
-import { getAllChatsbyID, retrieveChat } from "@/database/chatsCRUD/Supabase";
+
+import { FirebaseUserType } from "@/types/Types";
+import { getAllChatsbyID } from "@/database/chatsCRUD/Supabase";
 
 type Props = {
   selected: any;

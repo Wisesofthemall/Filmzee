@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -23,7 +22,7 @@ type Props = {};
 function SignupModal({}: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();
   const [isLoading, setIsLoading] = useState(false);

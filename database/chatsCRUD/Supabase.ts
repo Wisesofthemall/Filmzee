@@ -8,14 +8,14 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl as string, supabaseKey as string);
 
 export const getChatByRoomId = async (
-  roomId: string,
+  userId: string,
   recepientEmail: string,
 ) => {
   try {
     const { data, error } = await supabase
       .from("Chats")
       .select("*")
-      .eq("roomId", roomId)
+      .eq("userId", userId)
       .eq("recepientEmail", recepientEmail);
 
     if (error) {
@@ -73,10 +73,9 @@ export const retrieveChat = async (
   roomId: string,
 ) => {
   try {
-    console.log(roomId);
+    console.log(userId, recepientEmail);
     const chat = await getChatByRoomId(userId, recepientEmail);
-    console.log("chat", chat);
-
+    console.log(chat);
     if (!chat || chat.length === 0) {
       await createChat(
         userId,
@@ -89,11 +88,8 @@ export const retrieveChat = async (
         roomId,
       );
     }
-    console.log(userId);
-    console.log(chat);
-    const newChat = await getAllChatsbyID(userId);
-    console.log("newChat", newChat);
 
+    const newChat = await getAllChatsbyID(userId);
     return newChat;
   } catch (error) {}
 };

@@ -1,32 +1,20 @@
 "use client";
-import Input from "../inputs/Input";
 import MessageInput from "../inputs/MessageInput";
-import SendIcon from "../inputs/SendIcon";
 
 import React, { useEffect, useState } from "react";
 
 import {
   collection,
   addDoc,
-  where,
   serverTimestamp,
-  onSnapshot,
   query,
   orderBy,
-  doc,
-  updateDoc,
-  arrayUnion,
-  Firestore,
 } from "firebase/firestore";
-import {
-  useCollectionData,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
 import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
-import message from "@/pages/message";
 import Messages from "./Messages";
 type Props = {
   selected: any | ChatType;
@@ -46,7 +34,22 @@ function CurrentChats({ selected }: Props) {
 
   const loginUser = useAuth();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: any) => {
+    console.log(e);
+    if (e) {
+      if (e.key === "Enter") {
+        if (newMessage === "") return;
+
+        await addDoc(messagesRef, {
+          text: newMessage,
+          sender: loginUser,
+          createdAt: serverTimestamp(),
+          roomId,
+        });
+
+        setNewMessage("");
+      }
+    }
     if (newMessage === "") return;
 
     await addDoc(messagesRef, {
@@ -68,8 +71,6 @@ function CurrentChats({ selected }: Props) {
       setMessages(filterMessage);
     }
   }, [Message, roomId]);
-
-  console.log(selected);
 
   return (
     <div

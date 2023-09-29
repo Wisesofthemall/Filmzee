@@ -1,7 +1,7 @@
 import Navbar from "@/app/components/Navbar";
 import "../app/globals.css";
 import MessageContainer from "@/app/components/message/MessageContainer";
-import React, { useState } from "react";
+import React from "react";
 
 type Props = {};
 

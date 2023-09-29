@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MyChats from "./MyChats";
 import CurrentChats from "./CurrentChats";
 import { ChatType } from "@/types/Types";
-import { stringify } from "querystring";
 
 type Props = {};
 
@@ -15,7 +14,7 @@ function MessageContainer({}: Props) {
     recepientId: NaN,
     recepientEmail: "",
     recepientLocalID: "",
-    recepientName: "LonleyRoom 🧑‍🚀",
+    recepientName: "Global Room 🧑‍🚀",
     recepientPhoto: "",
     recepientUniq: "",
     userId: "",

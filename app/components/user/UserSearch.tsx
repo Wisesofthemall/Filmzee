@@ -58,7 +58,7 @@ function UserSearch({ getChat }: Props) {
       <div className="px-5">
         <div
           onClick={() => setHide(true)}
-          className={`float-right cursor-pointer text-red-600 ${
+          className={`float-right cursor-pointer text-red-600  ${
             hide ? "hidden" : "block"
           } mt-2`}
         >

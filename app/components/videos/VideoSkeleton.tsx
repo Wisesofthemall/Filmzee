@@ -1,6 +1,4 @@
 import React from "react";
-import Skeleton from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import SkeletonCard from "./SkeletonCard";
 type Props = {};

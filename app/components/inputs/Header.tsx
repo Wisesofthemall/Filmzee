@@ -7,13 +7,11 @@ import React, { useEffect, useState } from "react";
 type Props = { photo: string; name: string; uniq: string };
 
 export default function Header({ photo, name, uniq }: Props) {
-  console.log(photo);
   const [picId, setPicId] = useState(200);
   useEffect(() => {
-    console.log(uniq);
     if (uniq) {
       const id = parseInt(uniq.slice(-3));
-      console.log(id);
+
       setPicId(id);
     }
   }, [uniq]);

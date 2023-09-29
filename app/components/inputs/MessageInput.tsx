@@ -65,7 +65,7 @@ function MessageInput({
       >
         {label}
       </label>
-      <div onClick={() => submit()} className="">
+      <div onClick={() => submit()} onKeyDown={(e) => submit(e)} className="">
         <SendIcon />
       </div>
     </div>

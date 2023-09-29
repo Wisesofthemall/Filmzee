@@ -1,16 +1,9 @@
-"use client";
 import { firebaseAuth } from "@/auth/Firebase";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-} from "@chakra-ui/react";
+import { MenuList, MenuItem, MenuDivider } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { FaRegBookmark } from "react-icons/fa";
 import { FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
 

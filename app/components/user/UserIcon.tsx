@@ -1,25 +1,14 @@
 "use client";
-import useLoginModal from "@/app/hooks/useLoginModal";
 
 import { useAuth } from "@/auth/AuthState";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
-import { FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
+import { AiOutlineUser } from "react-icons/ai";
 
 import Avatar from "@mui/material/Avatar";
 
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-} from "@chakra-ui/react";
+import { Menu, MenuButton } from "@chakra-ui/react";
 
-import { FaRegBookmark, FaUserCircle } from "react-icons/fa";
-import { signOut } from "firebase/auth";
-import { firebaseAuth } from "@/auth/Firebase";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
 import { colorMaker } from "@/functions/profileGenerator";
