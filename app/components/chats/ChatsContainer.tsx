@@ -8,8 +8,8 @@ type Props = {
 function ChatsContainer({ myChats }: Props) {
   return (
     <div>
-      {myChats.map((chat: any) => (
-        <ChatsCard key={chat.id} />
+      {myChats.map((user: any) => (
+        <ChatsCard user={user} key={user.id} />
       ))}
     </div>
   );

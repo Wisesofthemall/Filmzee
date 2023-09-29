@@ -26,9 +26,6 @@ function SearchQuery({ query, hide, name, getChat }: Props) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    const filteredResults = results.filter((res) => res.name.includes(query));
-  }, [query, results]);
 
   return (
     <div

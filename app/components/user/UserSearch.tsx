@@ -43,7 +43,7 @@ function UserSearch({ getChat }: Props) {
   }, [user]);
 
   return (
-    <div className="">
+    <div className="z-50">
       <div className="bg-gray-300 rounded-lg grid grid-cols-10 w-full">
         <input
           onChange={(e) => handleOnChange(e)}

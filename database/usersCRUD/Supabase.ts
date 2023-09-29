@@ -37,6 +37,7 @@ export const postUser = async (user: UserType) => {
           name: user.displayName || parsedName,
           email: user.email,
           photoUrl: user.photoUrl,
+          localId: user.localId,
         },
       ]);
 

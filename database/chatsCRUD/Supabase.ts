@@ -7,81 +7,12 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 
 const supabase = createClient(supabaseUrl as string, supabaseKey as string);
 
-export const getChatByID = async (senderId: number) => {
-  // Return arrays of the chat base on ID
-  //OR Returns null
+export const getChatByRecepientId = async (recepientId: number) => {
   try {
     const { data, error } = await supabase
       .from("Chats") // Replace 'Chats' with the actual name of your table
       .select("*")
-      .filter("chatId", "contains", senderId);
-
-    if (error) {
-      console.log("Error Here", error);
-      return null;
-    }
-
-    console.log(data);
-    return data;
-  } catch (error) {
-    return null;
-  }
-};
-
-export const getChatBySenderId = async (senderId: number) => {
-  try {
-    const { data, error } = await supabase
-      .from("Chats") // Replace 'Chats' with the actual name of your table
-      .select("*")
-      .filter("chatId", "contains", senderId);
-
-    if (error) {
-      console.log("Error Here", error);
-      return null;
-    }
-    console.log(data);
-    return data;
-  } catch (error) {
-    return null;
-  }
-};
-export const createChat = async (
-  chatId: number,
-  senderId: number,
-  receiverId: number,
-) => {
-  const ID = chatId || [senderId, receiverId];
-  try {
-    const { data, error } = await supabase
-      .from("Chats") // Replace 'Users' with the actual name of your table
-      .upsert([
-        {
-          chatId: ID,
-          receiverId: receiverId,
-          senderId: senderId,
-        },
-      ]);
-
-    if (error) {
-      console.log("BOOM");
-      throw error;
-    }
-
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getChatsByUserIds = async (
-  senderId: number,
-  recevierId: number,
-) => {
-  try {
-    const { data, error } = await supabase
-      .from("Chats") // Replace 'Chats' with the actual name of your table
-      .select("*")
-      .eq("senderId", senderId);
+      .eq("recepientId", recepientId);
 
     if (error) {
       console.log("Error Here");
@@ -93,29 +24,79 @@ export const getChatsByUserIds = async (
     return null;
   }
 };
-export const retrieveChat = async (
-  chatId: any,
-  senderId: number,
-  receiverId: number,
+export const createChat = async (
+  userId: string,
+  recepientId: number,
+  recepientUniq: string,
+  recepientName: string,
+  recepientEmail: string,
+  recepientPhoto: string,
+  recepientLocalID: string,
 ) => {
-  const result = await getChatByID(senderId);
-  console.log(result);
-  if (!result) {
-    await createChat(chatId, senderId, receiverId);
+  //const ID = chatId || [senderId, receiverId];
+  try {
+    console.log("here we go ");
+    const { data, error } = await supabase
+      .from("Chats") // Replace 'Users' with the actual name of your table
+      .upsert([
+        {
+          userId,
+          recepientId,
+          recepientUniq,
+          recepientName,
+          recepientEmail,
+          recepientPhoto,
+          recepientLocalID,
+        },
+      ]);
 
-    const newResult = await getChatByID(senderId);
-    return newResult;
+    if (error) {
+      console.log("BOOM");
+      console.log(error);
+      return null;
+    }
+    console.log("SO it works?");
+    return data;
+  } catch (error) {
+    return null;
   }
-
-  return result;
 };
 
-export const getAllChatsbySenderId = async (senderId: number) => {
+export const retrieveChat = async (
+  userId: string,
+  recepientId: number,
+  recepientUniq: string,
+  recepientName: string,
+  recepientEmail: string,
+  recepientPhoto: string,
+  recepientLocalID: string,
+) => {
+  try {
+    const chat = await getChatByRecepientId(recepientId);
+    console.log(chat);
+
+    if (!chat || chat.length === 0) {
+      await createChat(
+        userId,
+        recepientId,
+        recepientUniq,
+        recepientName,
+        recepientEmail,
+        recepientPhoto,
+        recepientLocalID,
+      );
+    }
+    const newChat = await getAllChatsbyID(userId);
+    console.log(newChat);
+    return newChat;
+  } catch (error) {}
+};
+export const getAllChatsbyID = async (userId: string) => {
   try {
     const { data, error } = await supabase
       .from("Chats") // Replace 'Chats' with the actual name of your table
       .select("*")
-      .eq("senderId", senderId);
+      .eq("userId", userId);
 
     if (error) {
       console.log("Error Here");

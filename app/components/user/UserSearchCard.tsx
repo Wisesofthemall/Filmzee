@@ -1,8 +1,8 @@
-import useAuth from "@/auth/AuthState";
+import { useAuth } from "@/auth/AuthState";
 import { retrieveChat } from "@/database/chatsCRUD/Supabase";
 import { getUserByUniq } from "@/database/usersCRUD/Supabase";
 import { colorMaker } from "@/functions/profileGenerator";
-import { UserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -10,11 +10,26 @@ import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   user: UserType;
-  getChat: (userId?: number) => {};
+  getChat: any;
 };
 
 export default function UserSearchCard({ user, getChat }: Props) {
   const [picId, setPicId] = useState(100);
+  const loginUser: FirebaseUserType = useAuth();
+
+  const updateChat = async () => {
+    const newChats = await retrieveChat(
+      loginUser.localId,
+      user.id,
+      user.uniq,
+      user.name,
+      user.email,
+      user.photoUrl,
+      user.localId,
+    );
+    console.log(newChats);
+    getChat(newChats);
+  };
 
   useEffect(() => {
     if (user) {
@@ -27,7 +42,7 @@ export default function UserSearchCard({ user, getChat }: Props) {
   const color: any = colorMaker(picId);
   return (
     <div
-      onClick={() => getChat(user.id)}
+      onClick={() => updateChat()}
       className="w-full m-2 flex cursor-pointer shadow-xl bg-slate-300 p-1 rounded-lg"
     >
       <div className="">

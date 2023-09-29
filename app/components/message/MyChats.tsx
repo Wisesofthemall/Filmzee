@@ -1,16 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Search from "../Search";
 import UserSearch from "../user/UserSearch";
 import ChatsContainer from "../chats/ChatsContainer";
 import { useAuth } from "@/auth/AuthState";
 import { getUserByUniq } from "@/database/usersCRUD/Supabase";
-import { UserType } from "@/types/Types";
-import {
-  getAllChatsbySenderId,
-  getChatBySenderId,
-  retrieveChat,
-} from "@/database/chatsCRUD/Supabase";
+import { FirebaseUserType, UserType } from "@/types/Types";
+import { getAllChatsbyID, retrieveChat } from "@/database/chatsCRUD/Supabase";
 
 type Props = {
   selected: boolean;
@@ -18,28 +14,24 @@ type Props = {
 
 function MyChats({ selected }: Props) {
   const [myChats, setMyChats] = useState<any[] | null>([]);
-  const loginUser = useAuth();
+  const loginUser: FirebaseUserType = useAuth();
 
-  const getChat: any = async (userId: number) => {
-    if (loginUser) {
-      const login: UserType = await getUserByUniq(loginUser.createdAt);
-      console.log(login);
-      // const customId = parseInt(
-      //   [...(login.id.toString() + userId.toString())].sort().join(""),
-      // );
-
-      const theChat = await retrieveChat(null, login.id, userId);
-      console.log(theChat);
-      const allChats = await getAllChatsbySenderId(loginUser.id);
-      console.log(allChats);
-      setMyChats(allChats);
-    }
+  const getChat: any = async (chats: any) => {
+    console.log(chats);
+    setMyChats(chats);
+  };
+  const getAllChat = async () => {
+    const chats = await getAllChatsbyID(loginUser.localId);
+    console.log(chats);
+    setMyChats(chats);
   };
 
-  if (loginUser) {
-    const Chats = getChatBySenderId(loginUser.id);
-    console.log(Chats);
-  }
+  useEffect(() => {
+    if (loginUser) {
+      getAllChat();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   return (
     <div
