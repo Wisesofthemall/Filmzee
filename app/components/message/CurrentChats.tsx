@@ -36,22 +36,6 @@ function CurrentChats({ selected }: Props) {
   const loginUser = useAuth();
 
   const handleSubmit = async (e: any) => {
-    console.log(e);
-    if (e) {
-      if (e.key === "Enter") {
-        if (newMessage === "") return;
-
-        await addDoc(messagesRef, {
-          text: newMessage,
-          sender: loginUser,
-          createdAt: serverTimestamp(),
-          roomId,
-        });
-
-        setNewMessage("");
-        setScroll(true);
-      }
-    }
     if (newMessage === "") return;
 
     await addDoc(messagesRef, {
@@ -62,6 +46,23 @@ function CurrentChats({ selected }: Props) {
     });
 
     setNewMessage("");
+  };
+  const handleEnter = async (e: any) => {
+    if (e === "Enter") {
+      if (newMessage === "") return;
+
+      await addDoc(messagesRef, {
+        text: newMessage,
+        sender: loginUser,
+        createdAt: serverTimestamp(),
+        roomId,
+      });
+
+      setNewMessage("");
+      setScroll(true);
+    } else {
+      return;
+    }
   };
 
   useEffect(() => {
@@ -106,6 +107,7 @@ function CurrentChats({ selected }: Props) {
           label="Type your message here..."
           required
           submit={handleSubmit}
+          enter={handleEnter}
         />
       </div>
     </div>

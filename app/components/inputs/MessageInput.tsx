@@ -9,7 +9,7 @@ type Props = {
   disabled?: boolean;
   stateChange: React.Dispatch<React.SetStateAction<string>>;
   submit: any;
-
+  enter: any;
   required: boolean;
 };
 
@@ -21,6 +21,7 @@ function MessageInput({
   stateChange,
   value,
   submit,
+  enter,
 }: Props) {
   return (
     <div className="w-full relative my-5 flex">
@@ -28,6 +29,9 @@ function MessageInput({
         onChange={(e) => stateChange(e.target.value)}
         value={value}
         id={id}
+        onKeyDown={(e) => {
+          enter(e.key);
+        }}
         disabled={disabled}
         type={type}
         className={`peer
@@ -65,13 +69,7 @@ function MessageInput({
       >
         {label}
       </label>
-      <div
-        onClick={() => submit()}
-        onKeyDown={(e) => {
-          console.log(e.key);
-        }}
-        className=""
-      >
+      <div onClick={() => submit()} className="">
         <SendIcon />
       </div>
     </div>
