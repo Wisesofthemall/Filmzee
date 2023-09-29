@@ -69,7 +69,7 @@ function MessageInput({
       >
         {label}
       </label>
-      <div onClick={() => submit()} className="">
+      <div onClick={() => submit()} className="cursor-pointer">
         <SendIcon />
       </div>
     </div>

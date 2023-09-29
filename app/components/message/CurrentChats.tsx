@@ -18,9 +18,11 @@ import Header from "../inputs/Header";
 import Messages from "./Messages";
 type Props = {
   selected: any | ChatType;
+  showCurrent: any;
+  setShowCurrent: any;
 };
 
-function CurrentChats({ selected }: Props) {
+function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
   const [newMessage, setNewMessage] = useState("");
   const [scroll, setScroll] = useState(false);
   const roomId = [...selected.userId, ...selected.recepientLocalID]
@@ -78,7 +80,11 @@ function CurrentChats({ selected }: Props) {
 
   return (
     <div
-      className={`bg-gray-900 col-span-7  rounded-lg m-2 flex flex-col h-full p-2`}
+      className={`bg-gray-900  ${
+        showCurrent
+          ? " col-span-10 md:col-span-7"
+          : "hidden md:col-span-7 md:block"
+      }  rounded-lg m-2 flex flex-col h-full p-2`}
     >
       <Header
         photo={selected.recepientPhoto}
