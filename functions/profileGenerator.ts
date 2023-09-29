@@ -12,13 +12,13 @@ const colorShadePicker = (inputNumber: number) => {
   const maxRange = 900;
   const increment = 100;
 
-  // Calculate the number of increments required to reach or exceed inputNumber
+  //* Calculate the number of increments required to reach or exceed inputNumber
   const incrementsRequired = Math.ceil((inputNumber - minRange) / increment);
 
-  // Calculate the resulting number within the range
+  //* Calculate the resulting number within the range
   const result = minRange + incrementsRequired * increment;
 
-  // Ensure the result is within the specified range
+  //* Ensure the result is within the specified range
   const clampedResult = Math.min(Math.max(result, minRange), maxRange);
   return clampedResult;
 };

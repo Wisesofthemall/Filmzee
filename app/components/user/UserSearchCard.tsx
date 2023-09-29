@@ -19,6 +19,16 @@ export default function UserSearchCard({ user, getChat }: Props) {
   const loginUser: FirebaseUserType = useAuth();
 
   const updateChat = async () => {
+    console.log(
+      loginUser.localId,
+      user.id,
+      user.uniq,
+      user.name,
+      user.email,
+      user.photoUrl,
+      user.localId,
+      roomID,
+    );
     const newChats = await retrieveChat(
       loginUser.localId,
       user.id,
@@ -39,7 +49,7 @@ export default function UserSearchCard({ user, getChat }: Props) {
       setPicId(id);
     }
   }, [user]);
-  console.log(user);
+
   useEffect(() => {
     if (loginUser) {
       const roomId = [...user.localId, ...loginUser.localId].sort().join("");
@@ -52,7 +62,7 @@ export default function UserSearchCard({ user, getChat }: Props) {
   return (
     <div
       onClick={() => updateChat()}
-      className="w-full m-2 flex cursor-pointer shadow-xl bg-slate-300 p-1 rounded-lg"
+      className="w-6/7 m-2 flex cursor-pointer bg-slate-300 p-1 rounded-lg"
     >
       <div className="">
         {user.photoUrl ? (

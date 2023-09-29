@@ -18,7 +18,6 @@ function Navbar({}: Props) {
   const [userInfo, setUserInfo] = useState({});
   const router = useRouter();
   const user: UserType = useAuth();
-  console.log(user);
 
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();

@@ -17,7 +17,7 @@ export default function Home() {
     setIsLoaded(true);
   };
   useEffect(() => {
-    RetrieveVideos();
+    //! LAGGING THE PAGE RetrieveVideos();
   }, []);
 
   return (

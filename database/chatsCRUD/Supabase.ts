@@ -7,15 +7,19 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 
 const supabase = createClient(supabaseUrl as string, supabaseKey as string);
 
-export const getChatByRoomId = async (roomId: string) => {
+export const getChatByRoomId = async (
+  roomId: string,
+  recepientEmail: string,
+) => {
   try {
     const { data, error } = await supabase
-      .from("Chats") // Replace 'Chats' with the actual name of your table
+      .from("Chats")
       .select("*")
-      .eq("roomId", roomId);
+      .eq("roomId", roomId)
+      .eq("recepientEmail", recepientEmail);
 
     if (error) {
-      console.log("Error Here");
+      console.log(error);
       return null;
     }
 
@@ -32,30 +36,26 @@ export const createChat = async (
   recepientEmail: string,
   recepientPhoto: string,
   recepientLocalID: string,
+  roomId: string,
 ) => {
-  //const ID = chatId || [senderId, receiverId];
   try {
-    console.log("here we go ");
-    const { data, error } = await supabase
-      .from("Chats") // Replace 'Users' with the actual name of your table
-      .upsert([
-        {
-          userId,
-          recepientId,
-          recepientUniq,
-          recepientName,
-          recepientEmail,
-          recepientPhoto,
-          recepientLocalID,
-        },
-      ]);
+    const { data, error } = await supabase.from("Chats").upsert([
+      {
+        userId,
+        recepientId,
+        recepientUniq,
+        recepientName,
+        recepientEmail,
+        recepientPhoto,
+        recepientLocalID,
+        roomId,
+      },
+    ]);
 
     if (error) {
-      console.log("BOOM");
-      console.log(error);
       return null;
     }
-    console.log("SO it works?");
+
     return data;
   } catch (error) {
     return null;
@@ -73,8 +73,9 @@ export const retrieveChat = async (
   roomId: string,
 ) => {
   try {
-    const chat = await getChatByRoomId(roomId);
-    console.log(chat);
+    console.log(roomId);
+    const chat = await getChatByRoomId(userId, recepientEmail);
+    console.log("chat", chat);
 
     if (!chat || chat.length === 0) {
       await createChat(
@@ -85,9 +86,13 @@ export const retrieveChat = async (
         recepientEmail,
         recepientPhoto,
         recepientLocalID,
+        roomId,
       );
     }
+    console.log(userId);
+    console.log(chat);
     const newChat = await getAllChatsbyID(userId);
+    console.log("newChat", newChat);
 
     return newChat;
   } catch (error) {}
@@ -100,7 +105,6 @@ export const getAllChatsbyID = async (userId: string) => {
       .eq("userId", userId);
 
     if (error) {
-      console.log("Error Here");
       return null;
     }
 

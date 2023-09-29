@@ -16,19 +16,19 @@ function VideoController({}: Props) {
     return response;
   };
   const getQueryParam = (key: string) => {
-    // Get the current URL
+    //* Get the current URL
     const url = new URL(window.location.href);
 
-    // Retrieve the query parameter value
+    //* Retrieve the query parameter value
     return url.searchParams.get(key);
   };
   const pushSelected = (value: string) => {
     const url = new URL(window.location.href);
 
-    // Add or update the query parameter
+    //* Add or update the query parameter
     url.searchParams.set("select", value);
 
-    // Replace the current URL with the updated URL
+    //* Replace the current URL with the updated URL
     window.history.replaceState({}, "", url.toString());
     const select = getQueryParam("select");
     setSelected(select as string);

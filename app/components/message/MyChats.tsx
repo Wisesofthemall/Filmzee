@@ -18,12 +18,11 @@ function MyChats({ selected, setSelected }: Props) {
   const loginUser: FirebaseUserType = useAuth();
 
   const getChat: any = async (chats: any) => {
-    console.log(chats);
     setMyChats(chats);
   };
   const getAllChat = async () => {
     const chats = await getAllChatsbyID(loginUser.localId);
-    console.log(chats);
+
     setMyChats(chats);
   };
 
@@ -36,12 +35,16 @@ function MyChats({ selected, setSelected }: Props) {
 
   return (
     <div
-      className={`bg-white text-black  col-span-3 md:block rounded-lg m-2 p-3 ${
+      className={`bg-gray-900 text-black  col-span-3 md:block rounded-lg m-2 p-3 ${
         selected ? "" : ""
       } `}
     >
       <UserSearch getChat={getChat} />
-      <ChatsContainer myChats={myChats} setSelected={setSelected} />
+      <ChatsContainer
+        myChats={myChats}
+        setSelected={setSelected}
+        selected={selected}
+      />
     </div>
   );
 }

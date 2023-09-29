@@ -46,7 +46,7 @@ function SignupModal({}: Props) {
       toast.error(error.message);
     }
   };
-  //* This function handles email and password logins
+  //* This function handles email and password signups
   const handleEmailAndPassword = async () => {
     try {
       await createUserWithEmailAndPassword(firebaseAuth, email, password);

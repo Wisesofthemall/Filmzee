@@ -44,7 +44,7 @@ function UserSearch({ getChat }: Props) {
 
   return (
     <div className="z-50">
-      <div className="bg-gray-300 rounded-lg grid grid-cols-10 w-full">
+      <div className="bg-gray-300 rounded-lg grid grid-cols-10 w-full mb-4">
         <input
           onChange={(e) => handleOnChange(e)}
           className="rounded-lg bg-gray-300 col-span-8 outline-none p-1"
@@ -58,19 +58,21 @@ function UserSearch({ getChat }: Props) {
       <div className="px-5">
         <div
           onClick={() => setHide(true)}
-          className={`float-right cursor-pointer ${
+          className={`float-right cursor-pointer text-red-600 ${
             hide ? "hidden" : "block"
           } mt-2`}
         >
           <AiOutlineClose />
         </div>
         {typing ? (
-          <Skeleton
-            variant="text"
-            sx={{ fontSize: "1rem", bgcolor: "grey.400" }}
-            width={300}
-            height={50}
-          />
+          <div className="absolute">
+            <Skeleton
+              variant="text"
+              sx={{ fontSize: "1rem", bgcolor: "grey.400" }}
+              width={300}
+              height={50}
+            />
+          </div>
         ) : (
           <SearchQuery
             query={apiQuery}

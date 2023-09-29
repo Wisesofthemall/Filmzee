@@ -1,4 +1,5 @@
 import React from "react";
+import SendIcon from "./SendIcon";
 
 type Props = {
   id: string;
@@ -6,9 +7,10 @@ type Props = {
   label: string;
   type?: string;
   disabled?: boolean;
-  stateChange?: React.Dispatch<React.SetStateAction<string>>;
+  stateChange: React.Dispatch<React.SetStateAction<string>>;
+  submit: any;
 
-  required?: boolean;
+  required: boolean;
 };
 
 function MessageInput({
@@ -18,11 +20,12 @@ function MessageInput({
   disabled,
   stateChange,
   value,
+  submit,
 }: Props) {
   return (
-    <div className="w-full relative my-5">
+    <div className="w-full relative my-5 flex">
       <input
-        // onChange={(e) => stateChange(e.target.value)}
+        onChange={(e) => stateChange(e.target.value)}
         value={value}
         id={id}
         disabled={disabled}
@@ -62,6 +65,9 @@ function MessageInput({
       >
         {label}
       </label>
+      <div onClick={() => submit()} className="">
+        <SendIcon />
+      </div>
     </div>
   );
 }

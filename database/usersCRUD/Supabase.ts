@@ -10,7 +10,7 @@ const supabase = createClient(supabaseUrl as string, supabaseKey as string);
 export const getUserByUniq = async (uniq: string) => {
   try {
     const { data, error } = await supabase
-      .from("Users") // Replace 'Users' with the actual name of your table
+      .from("Users")
       .select("*")
       .eq("uniq", uniq)
       .single();
@@ -57,17 +57,16 @@ export const retrieveUser = async (uniq: string, user: UserType) => {
   if (!result) {
     await postUser(user);
     const newResult = await getUserByUniq(uniq);
-    console.log(newResult);
+
     return newResult;
   }
-  console.log(result);
 
   return result;
 };
 export const getUsersByName = async (name: string, username: string) => {
   try {
     const { data, error } = await supabase
-      .from("Users") // Replace 'Users' with the actual name of your table
+      .from("Users")
       .select("*")
       .ilike("name", `%${name}%`);
 

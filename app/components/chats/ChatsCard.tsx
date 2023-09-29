@@ -8,26 +8,29 @@ import { AiFillStar } from "react-icons/ai";
 type Props = {
   user: any;
   setSelected: any;
+  selected: any;
 };
 
-function ChatsCard({ user, setSelected }: Props) {
+function ChatsCard({ user, setSelected, selected }: Props) {
   const [picId, setPicId] = useState(100);
-  console.log(user);
 
   useEffect(() => {
     if (user) {
       const id = parseInt(user.recepientUniq.slice(-3));
-      console.log(id);
+
       setPicId(id);
     }
   }, [user]);
-  console.log(user);
 
   const color: any = colorMaker(picId);
   return (
     <div
-      onClick={setSelected(user)}
-      className="w-full m-2 flex cursor-pointer shadow-xl bg-slate-300 p-1 rounded-lg"
+      onClick={() => setSelected(user)}
+      className={`w-full m-2 flex cursor-pointer shadow-xl ${
+        user.recepientEmail === selected.recepientEmail
+          ? "bg-blue-500"
+          : "bg-slate-300"
+      } p-1 rounded-lg`}
     >
       <div className="">
         {user.recepientPhoto ? (

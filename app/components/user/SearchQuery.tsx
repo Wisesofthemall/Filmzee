@@ -29,7 +29,7 @@ function SearchQuery({ query, hide, name, getChat }: Props) {
 
   return (
     <div
-      className={`rounded-lg   ${
+      className={`rounded-lg absolute bg-gray-950   ${
         hide ? "hidden" : "block"
       } overflow-y-scroll h-40`}
     >

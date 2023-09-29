@@ -15,7 +15,7 @@ function MessageContainer({}: Props) {
     recepientId: NaN,
     recepientEmail: "",
     recepientLocalID: "",
-    recepientName: "",
+    recepientName: "LonleyRoom 🧑‍🚀",
     recepientPhoto: "",
     recepientUniq: "",
     userId: "",
