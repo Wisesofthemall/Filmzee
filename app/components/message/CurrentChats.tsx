@@ -2,7 +2,7 @@
 import Input from "../inputs/Input";
 import MessageInput from "../inputs/MessageInput";
 import SendIcon from "../inputs/SendIcon";
-import Messages from "./Messages";
+
 import React, { useEffect, useState } from "react";
 
 import {
@@ -27,6 +27,7 @@ import { useAuth } from "@/auth/AuthState";
 import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
 import message from "@/pages/message";
+import Messages from "./Messages";
 type Props = {
   selected: any | ChatType;
 };
@@ -34,17 +35,17 @@ type Props = {
 function CurrentChats({ selected }: Props) {
   console.log(selected);
   const [newMessage, setNewMessage] = useState("");
-  const roomId = [...selected.userId, selected.recepientLocalID]
+  const roomId = [...selected.userId, ...selected.recepientLocalID]
     .sort()
     .join("");
 
   //! const messagesRef = collection(db, "messages");
   const messagesRef = collection(db, "messages");
   const queryRef = query(messagesRef, orderBy("createdAt", "asc"));
-  const filteredQuery = where("roomId", "==", roomId);
-  const finalQueryRef = query(queryRef, filteredQuery);
-  const [messages] = useCollectionData(queryRef);
-  console.log(messages);
+  const [messages, setMessages] = useState<any[]>([]);
+  // const filteredQuery = where("roomId", "==", roomId);
+  // const finalQueryRef = query(queryRef, filteredQuery);
+  const [Message] = useCollectionData(queryRef);
 
   const loginUser = useAuth();
 
@@ -62,6 +63,16 @@ function CurrentChats({ selected }: Props) {
 
     setNewMessage("");
   };
+
+  useEffect(() => {
+    if (Message) {
+      const filterMessage = Message.filter(
+        (message) => message.roomId === roomId,
+      );
+      console.log(filterMessage);
+      setMessages(filterMessage);
+    }
+  }, [Message, roomId]);
 
   return (
     <div

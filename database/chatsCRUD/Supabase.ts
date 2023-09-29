@@ -7,12 +7,12 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 
 const supabase = createClient(supabaseUrl as string, supabaseKey as string);
 
-export const getChatByRecepientId = async (recepientId: number) => {
+export const getChatByRoomId = async (roomId: string) => {
   try {
     const { data, error } = await supabase
       .from("Chats") // Replace 'Chats' with the actual name of your table
       .select("*")
-      .eq("recepientId", recepientId);
+      .eq("roomId", roomId);
 
     if (error) {
       console.log("Error Here");
@@ -70,9 +70,10 @@ export const retrieveChat = async (
   recepientEmail: string,
   recepientPhoto: string,
   recepientLocalID: string,
+  roomId: string,
 ) => {
   try {
-    const chat = await getChatByRecepientId(recepientId);
+    const chat = await getChatByRoomId(roomId);
     console.log(chat);
 
     if (!chat || chat.length === 0) {

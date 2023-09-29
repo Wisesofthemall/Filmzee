@@ -15,6 +15,7 @@ type Props = {
 
 export default function UserSearchCard({ user, getChat }: Props) {
   const [picId, setPicId] = useState(100);
+  const [roomID, setRoomID] = useState("");
   const loginUser: FirebaseUserType = useAuth();
 
   const updateChat = async () => {
@@ -26,6 +27,7 @@ export default function UserSearchCard({ user, getChat }: Props) {
       user.email,
       user.photoUrl,
       user.localId,
+      roomID,
     );
     console.log(newChats);
     getChat(newChats);
@@ -38,6 +40,13 @@ export default function UserSearchCard({ user, getChat }: Props) {
     }
   }, [user]);
   console.log(user);
+  useEffect(() => {
+    if (loginUser) {
+      const roomId = [...user.localId, ...loginUser.localId].sort().join("");
+      setRoomID(roomId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   const color: any = colorMaker(picId);
   return (
