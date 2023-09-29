@@ -11,7 +11,7 @@ export type VideoType = {
 
 export type UserType = {
   displayName?: string;
-  id: string;
+  id: number;
   createdAt: string;
   uniq: string;
   name: string;

@@ -1,7 +1,7 @@
 "use client";
 import useLoginModal from "@/app/hooks/useLoginModal";
 
-import useAuth from "@/auth/AuthState";
+import { useAuth } from "@/auth/AuthState";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { AiOutlineHeart, AiOutlineUser } from "react-icons/ai";

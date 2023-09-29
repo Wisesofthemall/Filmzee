@@ -4,13 +4,15 @@ import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import SearchQuery from "./SearchQuery";
 import { AiOutlineClose } from "react-icons/ai";
-import useAuth from "@/auth/AuthState";
+import { useAuth } from "@/auth/AuthState";
 import { UserType } from "@/types/Types";
-type Props = {};
+type Props = {
+  getChat: (userId?: number) => {};
+};
 
-function UserSearch({}: Props) {
+function UserSearch({ getChat }: Props) {
   const [username, setUsername] = useState<string>("");
-  const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(true);
   const [query, setQuery] = useState("");
   const [apiQuery, setApiQuery] = useState("");
   const [typing, setTyping] = useState(false);
@@ -70,7 +72,12 @@ function UserSearch({}: Props) {
             height={50}
           />
         ) : (
-          <SearchQuery query={apiQuery} hide={hide} name={username} />
+          <SearchQuery
+            query={apiQuery}
+            hide={hide}
+            name={username}
+            getChat={getChat}
+          />
         )}
       </div>
     </div>

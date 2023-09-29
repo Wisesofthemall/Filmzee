@@ -6,7 +6,7 @@ import Search from "./Search";
 import MessageIcon from "./message/MessageIcon";
 import { useRouter } from "next/navigation";
 import UserIcon from "./user/UserIcon";
-import useAuth from "@/auth/AuthState";
+import { useAuth } from "@/auth/AuthState";
 import useLoginModal from "../hooks/useLoginModal";
 import useSignupModal from "../hooks/useSignupModal";
 import { retrieveUser } from "@/database/usersCRUD/Supabase";
@@ -18,6 +18,7 @@ function Navbar({}: Props) {
   const [userInfo, setUserInfo] = useState({});
   const router = useRouter();
   const user: UserType = useAuth();
+  console.log(user);
 
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();

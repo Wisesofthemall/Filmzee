@@ -1,4 +1,6 @@
 import useAuth from "@/auth/AuthState";
+import { retrieveChat } from "@/database/chatsCRUD/Supabase";
+import { getUserByUniq } from "@/database/usersCRUD/Supabase";
 import { colorMaker } from "@/functions/profileGenerator";
 import { UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
@@ -8,9 +10,10 @@ import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   user: UserType;
+  getChat: (userId?: number) => {};
 };
 
-export default function UserSearchCard({ user }: Props) {
+export default function UserSearchCard({ user, getChat }: Props) {
   const [picId, setPicId] = useState(100);
 
   useEffect(() => {
@@ -19,10 +22,14 @@ export default function UserSearchCard({ user }: Props) {
       setPicId(id);
     }
   }, [user]);
+  console.log(user);
 
   const color: any = colorMaker(picId);
   return (
-    <div className="w-full m-2 flex cursor-pointer shadow-xl bg-slate-300 p-1 rounded-lg">
+    <div
+      onClick={() => getChat(user.id)}
+      className="w-full m-2 flex cursor-pointer shadow-xl bg-slate-300 p-1 rounded-lg"
+    >
       <div className="">
         {user.photoUrl ? (
           <Image

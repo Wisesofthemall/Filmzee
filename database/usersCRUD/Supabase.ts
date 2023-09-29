@@ -52,11 +52,14 @@ export const postUser = async (user: UserType) => {
 
 export const retrieveUser = async (uniq: string, user: UserType) => {
   const result = await getUserByUniq(uniq);
+
   if (!result) {
     await postUser(user);
     const newResult = await getUserByUniq(uniq);
+    console.log(newResult);
     return newResult;
   }
+  console.log(result);
 
   return result;
 };
@@ -70,7 +73,6 @@ export const getUsersByName = async (name: string, username: string) => {
     if (error) {
       return [];
     }
-    console.log(data[0].name, username);
 
     return data.filter((user) => user.name !== username);
   } catch (error) {
