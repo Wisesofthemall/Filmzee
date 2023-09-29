@@ -69,7 +69,11 @@ function CurrentChats({ selected }: Props) {
     >
       <Header photo={selected.recepientPhoto} name={selected.recepientName} />
       <div className="flex-grow">
-        {messages ? <Messages messages={messages} /> : "npting"}
+        {messages ? (
+          <Messages messages={messages} loginUser={loginUser} />
+        ) : (
+          "npting"
+        )}
       </div>
       <div className="bottom-0 px-4 flex">
         {/* <MessageInput id={"message"} value={""} label="Send Message" /> */}

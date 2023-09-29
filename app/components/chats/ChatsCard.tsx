@@ -30,10 +30,10 @@ function ChatsCard({ user, setSelected }: Props) {
       className="w-full m-2 flex cursor-pointer shadow-xl bg-slate-300 p-1 rounded-lg"
     >
       <div className="">
-        {user.photoUrl ? (
+        {user.recepientPhoto ? (
           <Image
             className="rounded-full "
-            src={user.photoUrl}
+            src={user.recepientPhoto}
             alt="profile image"
             width={40}
             height={40}
