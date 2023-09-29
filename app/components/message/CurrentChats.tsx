@@ -16,6 +16,7 @@ import {
   doc,
   updateDoc,
   arrayUnion,
+  Firestore,
 } from "firebase/firestore";
 import {
   useCollectionData,
@@ -30,7 +31,13 @@ type Props = {
 
 function CurrentChats({ selected, roomId = 32093 }: Props) {
   const [newMessage, setNewMessage] = useState("");
+  //! const messagesRef = collection(db, "messages");
   const messagesRef = collection(db, "messages");
+  const queryRef = query(messagesRef, orderBy("createdAt", "desc"));
+  const filteredQuery = where("roomId", "==", roomId);
+  const finalQueryRef = query(queryRef, filteredQuery);
+  const [messages] = useCollectionData(finalQueryRef);
+  console.log(messages);
 
   const loginUser = useAuth();
 
@@ -39,7 +46,12 @@ function CurrentChats({ selected, roomId = 32093 }: Props) {
 
     if (newMessage === "") return;
 
-    //serverTimestamp
+    await addDoc(messagesRef, {
+      text: newMessage,
+      sender: loginUser,
+      createdAt: serverTimestamp(),
+      roomId,
+    });
 
     setNewMessage("");
   };
