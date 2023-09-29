@@ -1,7 +1,7 @@
 "use client";
 import MessageInput from "../inputs/MessageInput";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   collection,
@@ -22,6 +22,7 @@ type Props = {
 
 function CurrentChats({ selected }: Props) {
   const [newMessage, setNewMessage] = useState("");
+  const [scroll, setScroll] = useState(false);
   const roomId = [...selected.userId, ...selected.recepientLocalID]
     .sort()
     .join("");
@@ -48,6 +49,7 @@ function CurrentChats({ selected }: Props) {
         });
 
         setNewMessage("");
+        setScroll(true);
       }
     }
     if (newMessage === "") return;
@@ -60,6 +62,7 @@ function CurrentChats({ selected }: Props) {
     });
 
     setNewMessage("");
+    setScroll(true);
   };
 
   useEffect(() => {
@@ -81,9 +84,16 @@ function CurrentChats({ selected }: Props) {
         name={selected.recepientName}
         uniq={selected.recepientUniq}
       />
-      <div className="flex-grow">
+      <div className="flex-grow h-[23rem]">
         {messages ? (
-          <Messages messages={messages} loginUser={loginUser} />
+          <div className="h-full">
+            <Messages
+              messages={messages}
+              loginUser={loginUser}
+              scroll={scroll}
+              setScroll={setScroll}
+            />
+          </div>
         ) : (
           "Introduce yourself !!! Dont be shy"
         )}

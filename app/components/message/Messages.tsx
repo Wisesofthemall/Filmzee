@@ -4,13 +4,30 @@ import { FirebaseUserType } from "@/types/Types";
 import Image from "next/image";
 import { Avatar } from "@mui/material";
 import { colorMaker } from "@/functions/profileGenerator";
-type Props = { messages: any; loginUser: FirebaseUserType };
+import { useEffect, useRef } from "react";
+type Props = {
+  messages: any;
+  loginUser: FirebaseUserType;
+  scroll: any;
+  setScroll: any;
+};
 
-function Messages({ messages, loginUser }: Props) {
+function Messages({ messages, loginUser, scroll, setScroll }: Props) {
   const color: any = colorMaker(100);
+  const dummy: any = useRef();
+  const shouldScroll = () => {
+    dummy.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (scroll) {
+      shouldScroll();
+      setScroll(false);
+    }
+  }, [scroll, setScroll]);
 
   return (
-    <div className="h-full">
+    <div className="h-full overflow-y-scroll">
       {" "}
       {messages.map((message: any) => (
         <div key={message.id} className="">
@@ -70,6 +87,7 @@ function Messages({ messages, loginUser }: Props) {
           )}
         </div>
       ))}
+      <span ref={dummy}></span>
     </div>
   );
 }
