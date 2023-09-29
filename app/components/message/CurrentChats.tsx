@@ -62,7 +62,6 @@ function CurrentChats({ selected }: Props) {
     });
 
     setNewMessage("");
-    setScroll(true);
   };
 
   useEffect(() => {
@@ -72,6 +71,7 @@ function CurrentChats({ selected }: Props) {
       );
 
       setMessages(filterMessage);
+      setScroll(true);
     }
   }, [Message, roomId]);
 
