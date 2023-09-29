@@ -24,19 +24,26 @@ import {
 } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
+import { ChatType } from "@/types/Types";
+import Header from "../inputs/Header";
+import message from "@/pages/message";
 type Props = {
-  selected: boolean;
-  roomId?: number;
+  selected: any | ChatType;
 };
 
-function CurrentChats({ selected, roomId = 32093 }: Props) {
+function CurrentChats({ selected }: Props) {
+  console.log(selected);
   const [newMessage, setNewMessage] = useState("");
+  const roomId = [...selected.userId, selected.recepientLocalID]
+    .sort()
+    .join("");
+
   //! const messagesRef = collection(db, "messages");
   const messagesRef = collection(db, "messages");
-  const queryRef = query(messagesRef, orderBy("createdAt", "desc"));
+  const queryRef = query(messagesRef, orderBy("createdAt", "asc"));
   const filteredQuery = where("roomId", "==", roomId);
   const finalQueryRef = query(queryRef, filteredQuery);
-  const [messages] = useCollectionData(finalQueryRef);
+  const [messages] = useCollectionData(queryRef);
   console.log(messages);
 
   const loginUser = useAuth();
@@ -60,8 +67,9 @@ function CurrentChats({ selected, roomId = 32093 }: Props) {
     <div
       className={`bg-gray-900 col-span-7  rounded-lg m-2 flex flex-col h-full p-2`}
     >
+      <Header photo={selected.recepientPhoto} name={selected.recepientName} />
       <div className="flex-grow">
-        {/* <Messages roomId={2233} messages={messages} /> */}
+        {messages ? <Messages messages={messages} /> : "npting"}
       </div>
       <div className="bottom-0 px-4 flex">
         {/* <MessageInput id={"message"} value={""} label="Send Message" /> */}

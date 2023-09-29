@@ -3,13 +3,14 @@ import ChatsCard from "./ChatsCard";
 
 type Props = {
   myChats: any;
+  setSelected: any;
 };
 
-function ChatsContainer({ myChats }: Props) {
+function ChatsContainer({ myChats, setSelected }: Props) {
   return (
     <div>
       {myChats.map((user: any) => (
-        <ChatsCard user={user} key={user.id} />
+        <ChatsCard user={user} key={user.id} setSelected={setSelected} />
       ))}
     </div>
   );

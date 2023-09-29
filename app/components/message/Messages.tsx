@@ -12,14 +12,14 @@ import {
 } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
-type Props = { roomId?: number; messages: any[] };
+type Props = { messages: any };
 
-function Messages({ messages, roomId = 1232 }: Props) {
+function Messages({ messages }: Props) {
   console.log(messages);
   return (
     <div>
       {" "}
-      {messages.map((message) => (
+      {messages.map((message: any) => (
         <div key={message.id} className="message">
           <span className="user">{message.user}:</span> {message.text}
         </div>

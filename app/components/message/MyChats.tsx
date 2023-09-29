@@ -9,10 +9,11 @@ import { FirebaseUserType, UserType } from "@/types/Types";
 import { getAllChatsbyID, retrieveChat } from "@/database/chatsCRUD/Supabase";
 
 type Props = {
-  selected: boolean;
+  selected: any;
+  setSelected: any;
 };
 
-function MyChats({ selected }: Props) {
+function MyChats({ selected, setSelected }: Props) {
   const [myChats, setMyChats] = useState<any[] | null>([]);
   const loginUser: FirebaseUserType = useAuth();
 
@@ -40,7 +41,7 @@ function MyChats({ selected }: Props) {
       } `}
     >
       <UserSearch getChat={getChat} />
-      <ChatsContainer myChats={myChats} />
+      <ChatsContainer myChats={myChats} setSelected={setSelected} />
     </div>
   );
 }

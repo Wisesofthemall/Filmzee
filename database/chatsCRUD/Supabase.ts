@@ -87,7 +87,7 @@ export const retrieveChat = async (
       );
     }
     const newChat = await getAllChatsbyID(userId);
-    console.log(newChat);
+
     return newChat;
   } catch (error) {}
 };
