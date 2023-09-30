@@ -1,6 +1,6 @@
 import React from "react";
 import ChatsCard from "./ChatsCard";
-
+import { memo } from "react";
 type Props = {
   myChats: any;
   setSelected: any;
@@ -9,7 +9,7 @@ type Props = {
   setShowCurrent: any;
 };
 
-function ChatsContainer({
+const ChatsContainer = memo(function ChatsContainer({
   myChats,
   setSelected,
   selected,
@@ -30,6 +30,6 @@ function ChatsContainer({
       ))}
     </div>
   );
-}
+});
 
 export default ChatsContainer;
