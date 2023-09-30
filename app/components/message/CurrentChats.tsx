@@ -9,6 +9,7 @@ import {
   serverTimestamp,
   query,
   orderBy,
+  where,
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
@@ -30,10 +31,11 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
     .join("");
 
   const messagesRef = collection(db, "messages");
-  const queryRef = query(messagesRef, orderBy("createdAt", "asc"));
+  const queryRef = query(messagesRef, where("roomId", "==", roomId));
   const [messages, setMessages] = useState<any[]>([]);
 
   const [Message] = useCollectionData(queryRef);
+  console.log(Message);
 
   const loginUser = useAuth();
 
@@ -56,7 +58,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       await addDoc(messagesRef, {
         text: newMessage,
         sender: loginUser,
-        createdAt: serverTimestamp(),
+        createdAt: new Date(),
         roomId,
       });
 
@@ -69,9 +71,15 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
 
   useEffect(() => {
     if (Message) {
-      const filterMessage = Message.filter(
-        (message) => message.roomId === roomId,
-      );
+      const filterMessage = Message.sort(function (a, b) {
+        // Convert Firestore Timestamps to JavaScript Date objects
+
+        const dateA = a.createdAt.toDate();
+        const dateB = b.createdAt.toDate();
+
+        // Compare the Date objects to sort in ascending order
+        return dateA - dateB;
+      });
 
       setMessages(filterMessage);
       setScroll(true);
