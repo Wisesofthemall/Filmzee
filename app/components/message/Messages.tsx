@@ -13,7 +13,6 @@ type Props = {
 };
 
 function Messages({ messages, loginUser, scroll, setScroll }: Props) {
-  const color: any = colorMaker(100);
   const dummy: any = useRef();
   const shouldScroll = () => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -47,7 +46,7 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
               ) : (
                 <Avatar
                   sx={{
-                    bgcolor: color(
+                    bgcolor: colorMaker(
                       parseInt(message.sender.createdAt.slice(-3)),
                     ),
                   }}
@@ -72,7 +71,7 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
               ) : (
                 <Avatar
                   sx={{
-                    bgcolor: color(
+                    bgcolor: colorMaker(
                       parseInt(message.sender.createdAt.slice(-3)),
                     ),
                   }}
