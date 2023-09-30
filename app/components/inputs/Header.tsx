@@ -22,14 +22,14 @@ export default function Header({ photo, name, uniq }: Props) {
       <div className="flex w-1/2 mx-auto">
         {photo ? (
           <Image
-            className="rounded-full hidden md:block"
+            className="rounded-full "
             src={photo}
             alt="profile image"
             width={40}
             height={40}
           />
         ) : (
-          <div className="hidden md:block">
+          <div className="">
             <Avatar
               sx={{
                 bgcolor: color(picId),

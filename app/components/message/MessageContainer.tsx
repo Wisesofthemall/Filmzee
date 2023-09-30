@@ -20,7 +20,7 @@ function MessageContainer({}: Props) {
     userId: "",
   };
   const [selectedChat, setSelectedChat] = useState(test);
-  const [showCurrent, setShowCurrent] = useState(false);
+  const [showCurrent, setShowCurrent] = useState(true);
   return (
     <div className="grid  grid-cols-10 w-full h-full p-1 md:p-9">
       <MyChats

@@ -83,7 +83,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       className={`bg-gray-900  ${
         showCurrent
           ? " col-span-10 md:col-span-7"
-          : "hidden md:col-span-7 md:block"
+          : "hidden md:col-span-7 md:flex"
       }  rounded-lg m-2 flex flex-col h-full p-2`}
     >
       <Header
@@ -91,7 +91,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
         name={selected.recepientName}
         uniq={selected.recepientUniq}
       />
-      <div className="flex-grow h-[23rem]">
+      <div className="flex-grow h-[25rem]">
         {messages ? (
           <div className="h-full">
             <Messages

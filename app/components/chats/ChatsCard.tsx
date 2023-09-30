@@ -52,7 +52,7 @@ function ChatsCard({ user, setSelected, selected }: Props) {
         )}
       </div>
       <div className={`mx-1`}>
-        <div className="md:flex hidden ">
+        <div className="flex  ">
           <div className="text-xs ">{user.recepientName}</div>
           {user.recepientEmail === "foxxydieujuste@gmail.com" ? (
             <div className="text-yellow-300">
@@ -62,7 +62,7 @@ function ChatsCard({ user, setSelected, selected }: Props) {
             <div className=""></div>
           )}
         </div>
-        <div className="text-xs lg:flex hidden ">
+        <div className="text-xs flex  ">
           {" "}
           <div className="font-bold text-xs mr-1 ">Email:</div>
           {user.recepientEmail}
