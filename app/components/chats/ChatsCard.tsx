@@ -9,10 +9,23 @@ type Props = {
   user: any;
   setSelected: any;
   selected: any;
+  showCurrent: any;
+  setShowCurrent: any;
 };
 
-function ChatsCard({ user, setSelected, selected }: Props) {
+function ChatsCard({
+  user,
+  setSelected,
+  selected,
+  showCurrent,
+  setShowCurrent,
+}: Props) {
   const [picId, setPicId] = useState(100);
+
+  const setSelectedAndCurrent = () => {
+    setSelected(user);
+    setShowCurrent(true);
+  };
 
   useEffect(() => {
     if (user) {
@@ -25,7 +38,7 @@ function ChatsCard({ user, setSelected, selected }: Props) {
   const color: any = colorMaker(picId);
   return (
     <div
-      onClick={() => setSelected(user)}
+      onClick={() => setSelectedAndCurrent()}
       className={`w-full m-2 flex cursor-pointer shadow-xl ${
         user.recepientEmail === selected.recepientEmail
           ? "bg-blue-500"

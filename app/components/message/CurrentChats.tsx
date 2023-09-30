@@ -87,6 +87,8 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       }  rounded-lg m-2 flex flex-col h-full p-2`}
     >
       <Header
+        showCurrent={showCurrent}
+        setShowCurrent={setShowCurrent}
         photo={selected.recepientPhoto}
         name={selected.recepientName}
         uniq={selected.recepientUniq}
