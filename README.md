@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -12,23 +10,61 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then set up your enviroment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+#.env.local
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+NEXT_PUBLIC_YOUTUBE_API=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_KEY=
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
+```
+#Firebase.ts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  apiKey:
+  authDomain:
+  projectId:
+  storageBucket:
+  messagingSenderId:
+  appId:
+  measurementId:
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Roadmap
 
-## Deploy on Vercel
+## Version 1.0
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Implemented the foundational structure
+- Implemented Authenication using Firebase
+- Added realtime messaging via Firebase Firestore
+- Setup Supabase database.
+- Added short videos via Youtube Shorts.
+- Bug fixes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Version 1.3
+
+- Added a 'Global' chat so every user can interact.
+- Implemented a Mobile First Approach CSS Design using Tailwindcss
+- Implemeted Auto Scroll on Sent Messages
+- Disable videos till later
+
+# Goals
+
+- Enhance page performance by Caching.
+- Enable videos correctly
+- Make the 'Navbar' Search bar optimal
+- can see requested messages
+- can see unread messages
+- a popup appears on recent messages
+
+# Blockers
+
+- PRIVATIZE FIREBASE KEYS
+- Implementing videos is a challenge because you can only play the video once.
+- At a bigger scale, messaging time WILL be slower.
+- Auto Scroll is Scrolling on EVERY message and not the message base on the selected chat.
+- Editing videos css to match my desire Designs.
+- 'Profile Generator' function is causing misrenders
