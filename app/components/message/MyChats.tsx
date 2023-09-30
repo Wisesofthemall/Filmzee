@@ -1,19 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Search from "../Search";
+
 import UserSearch from "../user/UserSearch";
 import ChatsContainer from "../chats/ChatsContainer";
 import { useAuth } from "@/auth/AuthState";
-import { getUserByUniq } from "@/database/usersCRUD/Supabase";
-import { FirebaseUserType, UserType } from "@/types/Types";
-import { getAllChatsbyID, retrieveChat } from "@/database/chatsCRUD/Supabase";
+
+import { FirebaseUserType } from "@/types/Types";
+import { getAllChatsbyID } from "@/database/chatsCRUD/Supabase";
 
 type Props = {
   selected: any;
   setSelected: any;
+  showCurrent: any;
+  setShowCurrent: any;
 };
 
-function MyChats({ selected, setSelected }: Props) {
+function MyChats({
+  selected,
+  setSelected,
+  showCurrent,
+  setShowCurrent,
+}: Props) {
   const [myChats, setMyChats] = useState<any[] | null>([]);
   const loginUser: FirebaseUserType = useAuth();
 
@@ -35,12 +42,14 @@ function MyChats({ selected, setSelected }: Props) {
 
   return (
     <div
-      className={`bg-gray-900 text-black  col-span-3 md:block rounded-lg m-2 p-3 ${
-        selected ? "" : ""
-      } `}
+      className={`bg-gray-900 text-black   md:block rounded-lg m-2 p-3 ${
+        showCurrent ? "hidden md:col-span-3" : " col-span-10 md:col-span-3"
+      }  `}
     >
       <UserSearch getChat={getChat} />
       <ChatsContainer
+        showCurrent={showCurrent}
+        setShowCurrent={setShowCurrent}
         myChats={myChats}
         setSelected={setSelected}
         selected={selected}

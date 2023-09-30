@@ -19,16 +19,6 @@ export default function UserSearchCard({ user, getChat }: Props) {
   const loginUser: FirebaseUserType = useAuth();
 
   const updateChat = async () => {
-    console.log(
-      loginUser.localId,
-      user.id,
-      user.uniq,
-      user.name,
-      user.email,
-      user.photoUrl,
-      user.localId,
-      roomID,
-    );
     const newChats = await retrieveChat(
       loginUser.localId,
       user.id,
@@ -39,7 +29,7 @@ export default function UserSearchCard({ user, getChat }: Props) {
       user.localId,
       roomID,
     );
-    console.log(newChats);
+
     getChat(newChats);
   };
 

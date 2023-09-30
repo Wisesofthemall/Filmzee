@@ -4,16 +4,28 @@ import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-type Props = { photo: string; name: string; uniq: string };
+import { AiOutlineLeft } from "react-icons/ai";
 
-export default function Header({ photo, name, uniq }: Props) {
-  console.log(photo);
+type Props = {
+  photo: string;
+  name: string;
+  uniq: string;
+  showCurrent: any;
+  setShowCurrent: any;
+};
+
+export default function Header({
+  photo,
+  name,
+  uniq,
+  showCurrent,
+  setShowCurrent,
+}: Props) {
   const [picId, setPicId] = useState(200);
   useEffect(() => {
-    console.log(uniq);
     if (uniq) {
       const id = parseInt(uniq.slice(-3));
-      console.log(id);
+
       setPicId(id);
     }
   }, [uniq]);
@@ -21,6 +33,14 @@ export default function Header({ photo, name, uniq }: Props) {
   const color: any = colorMaker(picId);
   return (
     <div className="w-full bg-slate-600  flex items-center rounded-lg">
+      <div
+        onClick={() => {
+          setShowCurrent(false);
+        }}
+        className="left-0 cursor-pointer"
+      >
+        <AiOutlineLeft size={26} />
+      </div>
       <div className="flex w-1/2 mx-auto">
         {photo ? (
           <Image
@@ -41,7 +61,7 @@ export default function Header({ photo, name, uniq }: Props) {
             </Avatar>
           </div>
         )}
-        <div className="text-3xl mx-2">{name}</div>
+        <div className="text-3xl mx-2 ">{name}</div>
       </div>
     </div>
   );

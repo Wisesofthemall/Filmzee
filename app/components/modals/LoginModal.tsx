@@ -1,15 +1,12 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 
 import {
   GoogleAuthProvider,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   GithubAuthProvider,
-  FacebookAuthProvider,
 } from "firebase/auth";
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
@@ -27,10 +24,9 @@ type Props = {};
 function LoginModal({}: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();
-  const [isLoading, setIsLoading] = useState(false);
 
   //* This function handles the google provider through firebase
 

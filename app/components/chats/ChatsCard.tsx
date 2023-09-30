@@ -9,10 +9,23 @@ type Props = {
   user: any;
   setSelected: any;
   selected: any;
+  showCurrent: any;
+  setShowCurrent: any;
 };
 
-function ChatsCard({ user, setSelected, selected }: Props) {
+function ChatsCard({
+  user,
+  setSelected,
+  selected,
+  showCurrent,
+  setShowCurrent,
+}: Props) {
   const [picId, setPicId] = useState(100);
+
+  const setSelectedAndCurrent = () => {
+    setSelected(user);
+    setShowCurrent(true);
+  };
 
   useEffect(() => {
     if (user) {
@@ -25,7 +38,7 @@ function ChatsCard({ user, setSelected, selected }: Props) {
   const color: any = colorMaker(picId);
   return (
     <div
-      onClick={() => setSelected(user)}
+      onClick={() => setSelectedAndCurrent()}
       className={`w-full m-2 flex cursor-pointer shadow-xl ${
         user.recepientEmail === selected.recepientEmail
           ? "bg-blue-500"
@@ -52,9 +65,9 @@ function ChatsCard({ user, setSelected, selected }: Props) {
         )}
       </div>
       <div className={`mx-1`}>
-        <div className="flex">
+        <div className="flex  ">
           <div className="text-xs ">{user.recepientName}</div>
-          {user.email === "foxxydieujuste@gmail.com" ? (
+          {user.recepientEmail === "foxxydieujuste@gmail.com" ? (
             <div className="text-yellow-300">
               <AiFillStar />
             </div>
@@ -62,9 +75,9 @@ function ChatsCard({ user, setSelected, selected }: Props) {
             <div className=""></div>
           )}
         </div>
-        <div className="text-xs flex">
+        <div className="text-xs flex  ">
           {" "}
-          <div className="font-bold text-xs mr-1">Email:</div>
+          <div className="font-bold text-xs mr-1 ">Email:</div>
           {user.recepientEmail}
         </div>
       </div>

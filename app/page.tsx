@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import VideoSkeleton from "./components/videos/VideoSkeleton";
 import VideoController from "./components/videos/VideoController";
 import { useEffect, useState } from "react";

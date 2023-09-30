@@ -1,39 +1,30 @@
 "use client";
-import Input from "../inputs/Input";
 import MessageInput from "../inputs/MessageInput";
-import SendIcon from "../inputs/SendIcon";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   collection,
   addDoc,
-  where,
   serverTimestamp,
-  onSnapshot,
   query,
   orderBy,
-  doc,
-  updateDoc,
-  arrayUnion,
-  Firestore,
 } from "firebase/firestore";
-import {
-  useCollectionData,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
 import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
-import message from "@/pages/message";
 import Messages from "./Messages";
 type Props = {
   selected: any | ChatType;
+  showCurrent: any;
+  setShowCurrent: any;
 };
 
-function CurrentChats({ selected }: Props) {
+function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
   const [newMessage, setNewMessage] = useState("");
+  const [scroll, setScroll] = useState(false);
   const roomId = [...selected.userId, ...selected.recepientLocalID]
     .sort()
     .join("");
@@ -46,7 +37,7 @@ function CurrentChats({ selected }: Props) {
 
   const loginUser = useAuth();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: any) => {
     if (newMessage === "") return;
 
     await addDoc(messagesRef, {
@@ -58,6 +49,23 @@ function CurrentChats({ selected }: Props) {
 
     setNewMessage("");
   };
+  const handleEnter = async (e: any) => {
+    if (e === "Enter") {
+      if (newMessage === "") return;
+
+      await addDoc(messagesRef, {
+        text: newMessage,
+        sender: loginUser,
+        createdAt: serverTimestamp(),
+        roomId,
+      });
+
+      setNewMessage("");
+      setScroll(true);
+    } else {
+      return;
+    }
+  };
 
   useEffect(() => {
     if (Message) {
@@ -66,23 +74,35 @@ function CurrentChats({ selected }: Props) {
       );
 
       setMessages(filterMessage);
+      setScroll(true);
     }
   }, [Message, roomId]);
 
-  console.log(selected);
-
   return (
     <div
-      className={`bg-gray-900 col-span-7  rounded-lg m-2 flex flex-col h-full p-2`}
+      className={`bg-gray-900  ${
+        showCurrent
+          ? " col-span-10 md:col-span-7"
+          : "hidden md:col-span-7 md:flex"
+      }  rounded-lg m-2 flex flex-col h-full p-2`}
     >
       <Header
+        showCurrent={showCurrent}
+        setShowCurrent={setShowCurrent}
         photo={selected.recepientPhoto}
         name={selected.recepientName}
         uniq={selected.recepientUniq}
       />
-      <div className="flex-grow">
+      <div className="flex-grow h-[25rem]">
         {messages ? (
-          <Messages messages={messages} loginUser={loginUser} />
+          <div className="h-full">
+            <Messages
+              messages={messages}
+              loginUser={loginUser}
+              scroll={scroll}
+              setScroll={setScroll}
+            />
+          </div>
         ) : (
           "Introduce yourself !!! Dont be shy"
         )}
@@ -95,6 +115,7 @@ function CurrentChats({ selected }: Props) {
           label="Type your message here..."
           required
           submit={handleSubmit}
+          enter={handleEnter}
         />
       </div>
     </div>

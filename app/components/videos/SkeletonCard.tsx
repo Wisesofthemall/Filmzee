@@ -7,7 +7,6 @@ type Props = {
 };
 
 function SkeletonCard({ n }: Props) {
-  const junk = n;
   return (
     <div className=" m-2">
       <Stack spacing={0}>
