@@ -64,7 +64,7 @@ NEXT_PUBLIC_SUPABASE_KEY=
 
 - PRIVATIZE FIREBASE KEYS
 - Implementing videos is a challenge because you can only play the video once.
-- At a bigger scale, messaging time WILL be slower.
-- Auto Scroll is Scrolling on EVERY message and not the message base on the selected chat.
+- [x] Increase Messaging time speed At a bigger scale,
+- [ ] Auto Scroll is Scrolling on EVERY message and not the message base on the selected chat.
 - Editing videos css to match my desire Designs.
-- 'Profile Generator' function is causing misrenders
+- [x] fix 'Profile Generator' misrenders
