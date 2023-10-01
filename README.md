@@ -69,7 +69,7 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [ ] can see unread messages
 - [ ] a popup appears on recent messages
 - [ ] make a profile page
-- [ ] add a profanity preventer function
+- [x] add a profanity preventer function
 
 # Blockers
 
