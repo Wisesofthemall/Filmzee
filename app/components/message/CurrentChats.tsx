@@ -35,7 +35,6 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
   const [messages, setMessages] = useState<any[]>([]);
 
   const [Message] = useCollectionData(queryRef);
-  console.log(Message);
 
   const loginUser = useAuth();
 

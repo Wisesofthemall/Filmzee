@@ -57,6 +57,7 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - Fix profile generator bug
 - Fix User Search popup when reloading
 - Improve MyChats Render by caching using react memo
+- Improved Firebase security by adding Security Rules
 
 # Goals
 
