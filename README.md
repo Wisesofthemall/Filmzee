@@ -49,18 +49,25 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - Added a 'Global' chat so every user can interact.
 - Implemented a Mobile First Approach CSS Design using Tailwindcss
 - Implemeted Auto Scroll on Sent Messages
-- Disable videos till later
+- Disable short videos till later
+
+## Version 1.5
+
+- Improved Messaging sending time by implementing a 'where' query
+- Fix profile generator bug
+- Fix User Search popup when reloading
+- Improve MyChats Render by caching using react memo
 
 # Goals
 
 - [x] Enhance page performance by Caching.
-- [] Enable videos correctly
-- [] Make the 'Navbar' Search bar optimal
-- [] can see requested messages
-- [] can see unread messages
-- [] a popup appears on recent messages
-- [] make a profile page
-- [] add a profanity preventer function
+- [ ] Enable videos correctly
+- [ ] Make the 'Navbar' Search bar optimal
+- [ ] can see requested messages
+- [ ] can see unread messages
+- [ ] a popup appears on recent messages
+- [ ] make a profile page
+- [ ] add a profanity preventer function
 
 # Blockers
 
