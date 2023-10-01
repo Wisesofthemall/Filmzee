@@ -58,6 +58,7 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - Fix User Search popup when reloading
 - Improve MyChats Render by caching using react memo
 - Improved Firebase security by adding Security Rules
+- Added a profanity filter on messages
 
 # Goals
 

@@ -1,5 +1,6 @@
 "use client";
 import MessageInput from "../inputs/MessageInput";
+import { filter } from "@/functions/profanityBlocker";
 
 import React, { useEffect, useRef, useState } from "react";
 
@@ -40,11 +41,11 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
 
   const handleSubmit = async (e: any) => {
     if (newMessage === "") return;
-
+    const message = filter.clean(newMessage);
     await addDoc(messagesRef, {
-      text: newMessage,
+      text: message,
       sender: loginUser,
-      createdAt: serverTimestamp(),
+      createdAt: new Date(),
       roomId,
     });
 
@@ -53,9 +54,9 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
   const handleEnter = async (e: any) => {
     if (e === "Enter") {
       if (newMessage === "") return;
-
+      const message = filter.clean(newMessage);
       await addDoc(messagesRef, {
-        text: newMessage,
+        text: message,
         sender: loginUser,
         createdAt: new Date(),
         roomId,
