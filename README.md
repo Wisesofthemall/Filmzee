@@ -53,12 +53,14 @@ NEXT_PUBLIC_SUPABASE_KEY=
 
 # Goals
 
-- Enhance page performance by Caching.
-- Enable videos correctly
-- Make the 'Navbar' Search bar optimal
-- can see requested messages
-- can see unread messages
-- a popup appears on recent messages
+- [x] Enhance page performance by Caching.
+- [] Enable videos correctly
+- [] Make the 'Navbar' Search bar optimal
+- [] can see requested messages
+- [] can see unread messages
+- [] a popup appears on recent messages
+- [] make a profile page
+- [] add a profanity preventer function
 
 # Blockers
 
