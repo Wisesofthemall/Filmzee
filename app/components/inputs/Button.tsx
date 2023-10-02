@@ -36,7 +36,7 @@ function Button({
         outline ? "border-[1px]" : "border-[2px]"
       } ${outline ? "font-light" : "font-semibold"}
       ${selected ? "text-blue-400" : ""}
-      ${selected ? "text-blue-400" : ""}`}
+      ${selected ? "border-blue-400" : ""}`}
     >
       {Icon && <Icon size={24} className="absolute left-4 top-3 " />}
       <div className={`${mobile ? "hidden md:block" : ""}`}>{label}</div>

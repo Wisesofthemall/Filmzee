@@ -5,6 +5,8 @@ import { FaHouse } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
 import { BiCompass } from "react-icons/bi";
 import { getShorts } from "@/api/Youtube";
+import { CgFeed } from "react-icons/cg";
+
 type Props = {};
 
 function VideoController({}: Props) {
@@ -72,6 +74,17 @@ function VideoController({}: Props) {
           }}
           selected={selected == "Explore"}
           icon={BiCompass}
+          mobile
+        />
+      </div>
+      <div className="my-5">
+        <Button
+          label="Filmz"
+          onClick={() => {
+            pushSelected("Filmz");
+          }}
+          selected={selected == "Filmz"}
+          icon={CgFeed}
           mobile
         />
       </div>
