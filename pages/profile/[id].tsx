@@ -6,11 +6,12 @@ import Image from "next/image";
 import ProfileCard from "@/app/components/profile/ProfileCard";
 import ProfileMessageButton from "@/app/components/profile/ProfileMessageButton";
 import ProfileNavBar from "@/app/components/profile/ProfileNavBar";
+import FilmzContainer from "@/app/components/profile/FilmzContainer";
 type Props = {};
 
 function ProfileContainer({}: Props) {
   return (
-    <div className="h-[100vh] w-[100vw] bg-gray-800">
+    <div className="h-[100vh] w-[100vw] bg-gray-900">
       <Navbar />
       <div className="w-full h-[15rem] relative">
         <Image
@@ -21,6 +22,7 @@ function ProfileContainer({}: Props) {
 
         <ProfileCard />
         <ProfileNavBar />
+        <FilmzContainer />
       </div>
     </div>
   );
