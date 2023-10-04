@@ -19,10 +19,10 @@ function FilmzCard({ main, post }: Props) {
   console.log(post);
 
   return (
-    <div className={`${main ? "w-full" : ""}`}>
+    <div className={`${main ? "w-full" : "m-2"}`}>
       <div
         className={`bg-black rounded-lg    p-2 flex  mx-4 my-2 ${
-          main ? "w-full" : "w-[34rem]"
+          main ? "w-full" : "w-full"
         }`}
       >
         <div
