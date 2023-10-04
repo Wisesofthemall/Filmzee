@@ -26,10 +26,10 @@ export default function ProfileCard({}: Props) {
         )}
       </div>
       <div className="font-semibold text-lg flex justify-center my-1">
-        Wisesofthemall ⭐️
+        {loginUser?.displayName}
       </div>
       <div className="text-gray-800 text-sm flex justify-center my-1">
-        foxxydieujuste@gmail.com
+        {loginUser?.email}
       </div>
       <div className=" text-sm flex justify-center my-1">
         The Developer of this app
@@ -55,7 +55,7 @@ export default function ProfileCard({}: Props) {
           height={2}
           alt="Logo"
         />{" "}
-        1232 Filmz
+        7 Filmz
       </div>
     </div>
   );

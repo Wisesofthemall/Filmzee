@@ -7,11 +7,9 @@ import { BiCompass } from "react-icons/bi";
 import { getShorts } from "@/api/Youtube";
 import { CgFeed } from "react-icons/cg";
 
-type Props = {};
+type Props = { setSelected: any; selected: any };
 
-function VideoController({}: Props) {
-  const [selected, setSelected] = useState("");
-
+function VideoController({ setSelected, selected }: Props) {
   const shortsss = async () => {
     const response = await getShorts("music");
 
@@ -37,7 +35,7 @@ function VideoController({}: Props) {
   };
 
   useEffect(() => {
-    shortsss();
+    //shortsss();
     const select = getQueryParam("select");
     setSelected(select as string);
   }, []);

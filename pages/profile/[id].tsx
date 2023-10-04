@@ -7,9 +7,13 @@ import ProfileCard from "@/app/components/profile/ProfileCard";
 import ProfileMessageButton from "@/app/components/profile/ProfileMessageButton";
 import ProfileNavBar from "@/app/components/profile/ProfileNavBar";
 import FilmzContainer from "@/app/components/profile/FilmzContainer";
+import { useRouter } from "next/router";
 type Props = {};
 
 function ProfileContainer({}: Props) {
+  const router = useRouter();
+  const id: any = router.query.id;
+
   return (
     <div className="h-[100vh] w-[100vw] bg-gray-900">
       <Navbar />
@@ -22,7 +26,7 @@ function ProfileContainer({}: Props) {
 
         <ProfileCard />
         <ProfileNavBar />
-        <FilmzContainer />
+        <FilmzContainer main={false} senderId={id} />
       </div>
     </div>
   );

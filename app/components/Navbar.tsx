@@ -55,7 +55,7 @@ function Navbar({}: Props) {
         <div className="p-1 hidden md:block">ilmzee</div>
       </div>
       <Search />
-      <div onClick={() => navMessage()}>
+      <div onClick={() => navMessage()} className="flex place-items-center">
         <MessageIcon />
       </div>
 
