@@ -78,5 +78,7 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [x] Fix Auto Scroll .
 - [ ] Editing videos css to match my desire Designs.
 - [x] fix 'Profile Generator' misrenders
-- [] dynamic time ago package is not working
-- [] fix the scrolling on the main page of filmz (Also add infinite scrolling later)
+- [x] dynamic time ago package is not working
+- [x] fix the scrolling on the main page of filmz (Also add infinite scrolling later)
+- [] Redo Message CSS
+- [] Message on Profile page functionality

@@ -100,6 +100,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
         photo={selected.recepientPhoto}
         name={selected.recepientName}
         uniq={selected.recepientUniq}
+        email={selected.recepientEmail}
       />
       <div className="flex-grow h-[25rem]">
         {messages ? (

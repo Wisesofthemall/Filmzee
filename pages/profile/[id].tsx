@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/app/components/Navbar";
 import pic from "@/public/ExamplePic.jpg";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import ProfileMessageButton from "@/app/components/profile/ProfileMessageButton"
 import ProfileNavBar from "@/app/components/profile/ProfileNavBar";
 import FilmzContainer from "@/app/components/profile/FilmzContainer";
 import { useRouter } from "next/router";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 type Props = {};
 
 function ProfileContainer({}: Props) {

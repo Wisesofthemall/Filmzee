@@ -25,6 +25,26 @@ export const getUserByUniq = async (uniq: string) => {
   }
 };
 
+export const getUserByLocalId = async (localId: string) => {
+  console.log(localId);
+  try {
+    const { data, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("localId", localId)
+      .single();
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+};
 export const postUser = async (user: UserType) => {
   const parsedName = user.email?.split("@")[0];
 

@@ -10,6 +10,7 @@ import { useAuth } from "@/auth/AuthState";
 import useLoginModal from "../hooks/useLoginModal";
 import useSignupModal from "../hooks/useSignupModal";
 import { UserType } from "@/types/Types";
+import { retrieveUser } from "@/database/usersCRUD/Supabase";
 
 type Props = {};
 
@@ -34,6 +35,7 @@ function Navbar({}: Props) {
     if (user) {
       signupModal.onClose();
       loginModal.onClose();
+      retrieveUser(user.createdAt, user);
     } else {
       signupModal.onOpen();
     }

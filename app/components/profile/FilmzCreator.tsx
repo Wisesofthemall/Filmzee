@@ -57,7 +57,7 @@ function FilmzCreator({}: Props) {
     <div className="w-full">
       <div
         className={`bg-black rounded-lg    p-2 flex  mx-4 my-2 ${
-          main ? "w-full" : "w-[34rem]"
+          main ? "w-full" : "w-full"
         }`}
       >
         <div className="  mt-1">
