@@ -28,6 +28,7 @@ function FilmzCreator({}: Props) {
       sender: loginUser,
       senderId: loginUser.localId,
       createdAt: new Date(),
+      likes: {},
     });
     console.log("DONE");
 
@@ -42,7 +43,7 @@ function FilmzCreator({}: Props) {
         sender: loginUser,
         senderId: loginUser.localId,
         createdAt: new Date(),
-        likes: 0,
+        likes: {},
       });
 
       setNewPost("");

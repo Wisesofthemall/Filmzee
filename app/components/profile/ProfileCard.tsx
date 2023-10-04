@@ -11,7 +11,7 @@ type Props = {};
 export default function ProfileCard({}: Props) {
   const loginUser: FirebaseUserType = useAuth();
   return (
-    <div className="bg-black absolute h-[24rem] w-[15rem] top-[6.5rem] rounded-lg ml-1 ">
+    <div className="bg-black absolute h-[24rem] w-[15rem] top-[6.5rem] rounded-lg ml-1 shadow-2xl ">
       <div className="grid place-items-center w-full h-2/5 mt-1">
         {loginUser ? (
           <Image

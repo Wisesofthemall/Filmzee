@@ -68,7 +68,7 @@ function FilmzCard({ main, post }: Props) {
             {post.text}
           </p>
 
-          <FilmzCardButtons />
+          <FilmzCardButtons likes={post.likes} />
         </div>
       </div>
       {main && <hr className="border border-gray-800" />}
