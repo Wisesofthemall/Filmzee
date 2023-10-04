@@ -21,12 +21,12 @@ function FilmzCard({ main, post }: Props) {
   return (
     <div className={`${main ? "w-full" : "m-2"}`}>
       <div
-        className={`bg-black rounded-lg    p-2 flex  mx-4 my-2 ${
+        className={`bg-black rounded-lg    p-2 flex    ${
           main ? "w-full" : "w-full"
         }`}
       >
         <div
-          className="  mt-1 cursor-pointer"
+          className=" ml-2 mt-1 cursor-pointer"
           onClick={() => router.push(`/profile/${post.senderId}`)}
         >
           {post.sender?.photoUrl ? (
@@ -64,11 +64,11 @@ function FilmzCard({ main, post }: Props) {
               </div>
             </div>
           </div>
-          <p className="text-sm p-2 w-3/5 flex flex-wrap overflow-wrap break-word">
+          <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
             {post.text}
           </p>
 
-          <FilmzCardButtons likes={post.likes} />
+          <FilmzCardButtons likes={post.likes} id={post.createdAt} />
         </div>
       </div>
       {main && <hr className="border border-gray-800" />}
