@@ -7,6 +7,7 @@ import { BsChat } from "react-icons/bs";
 import FilmzCardButtons from "./FilmzCardButtons";
 import { format, render, cancel, register } from "timeago.js";
 import { useRouter } from "next/navigation";
+import { formatDistanceToNow } from "date-fns";
 
 type dataType = {};
 type Props = {
@@ -17,6 +18,12 @@ type Props = {
 function FilmzCard({ main, post }: Props) {
   const router = useRouter();
   console.log(post);
+
+  // S
+
+  const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
+    addSuffix: true,
+  });
 
   return (
     <div className={`${main ? "w-full" : "m-2"}`}>
@@ -57,7 +64,7 @@ function FilmzCard({ main, post }: Props) {
             </div>
             <div className="flex pl-20 justify-end ml-auto">
               <div className="text-gray-800 text-sm hidden md:block">
-                {format(post.createdAt, "yyyy-MM-dd")}
+                {formattedTimeDifference}
               </div>
               <div className="text-gray-800 text-sm items-center">
                 <BiDotsVerticalRounded />
