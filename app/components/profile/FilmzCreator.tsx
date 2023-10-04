@@ -42,6 +42,7 @@ function FilmzCreator({}: Props) {
         sender: loginUser,
         senderId: loginUser.localId,
         createdAt: new Date(),
+        likes: 0,
       });
 
       setNewPost("");

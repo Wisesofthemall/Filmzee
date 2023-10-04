@@ -39,11 +39,12 @@ function FilmzContainer({ main, senderId }: Props) {
   }, [Posts]);
   return (
     <div
-      className={`w-full   flex flex-wrap  mt-3 overflow-y-scroll ${
+      className={`w-full   flex flex-wrap pb-28 mt-3 overflow-y-scroll ${
         main ? "" : "pl-[15rem]"
       } ${main ? "" : "//h-[52vh] h-max"}  ${main ? "" : "justify-center"}`}
     >
       {main && <FilmzCreator />}
+
       {filmz.map((post) => (
         <FilmzCard key={post.createdAt} main={main} post={post} />
       ))}

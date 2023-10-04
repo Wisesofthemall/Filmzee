@@ -43,8 +43,16 @@ function FilmzCard({ main, post }: Props) {
         </div>
         <div className="w-full h-full ">
           <div className="flex pl-2">
-            <div className="font-semibold">{post.sender?.displayName}</div>
-            <div className="text-gray-800 text-sm ml-2">
+            <div
+              onClick={() => router.push(`/profile/${post.senderId}`)}
+              className="font-semibold cursor-pointer"
+            >
+              {post.sender?.displayName}
+            </div>
+            <div
+              onClick={() => router.push(`/profile/${post.senderId}`)}
+              className="text-gray-800 text-sm ml-2 cursor-pointer"
+            >
               {post.sender?.email}
             </div>
             <div className="flex pl-20 justify-end ml-auto">

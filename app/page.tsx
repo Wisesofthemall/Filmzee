@@ -33,11 +33,7 @@ export default function Home() {
         <VideoController setSelected={setSelected} selected={selected} />
       </div>
       <div className=" col-span-9 md:col-span-8 lg:col-span-6  overflow-y-scroll h-[100vh]">
-        {IsLoaded ? (
-          <ContentContainer videos={videos} selected={selected} />
-        ) : (
-          <VideoSkeleton />
-        )}
+        {IsLoaded && <ContentContainer videos={videos} selected={selected} />}
       </div>
       <div className="col-span-3  w-full h-[100vh] lg:block hidden p-2">
         <NewsContainer
