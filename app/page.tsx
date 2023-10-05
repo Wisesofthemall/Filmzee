@@ -38,7 +38,7 @@ export default function Home() {
       </div>
       <div className="col-span-3  w-full h-[100vh] lg:block hidden p-2">
         <NewsContainer
-          header="Whats Coming!"
+          header="Whats New?"
           subtitle="Version 2.0"
           content={content}
         />
