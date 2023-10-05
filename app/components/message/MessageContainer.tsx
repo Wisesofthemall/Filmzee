@@ -22,7 +22,7 @@ function MessageContainer({}: Props) {
   const [selectedChat, setSelectedChat] = useState(test);
   const [showCurrent, setShowCurrent] = useState(true);
   return (
-    <div className="grid  grid-cols-10 w-full h-full p-1 md:p-9">
+    <div className="grid  grid-cols-10 w-full h-full p-1  overflow-y-scroll">
       <MyChats
         selected={selectedChat}
         setSelected={setSelectedChat}

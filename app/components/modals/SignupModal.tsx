@@ -62,7 +62,7 @@ function SignupModal({}: Props) {
 
   const bodyContent = (
     <div className="items-center">
-      <Heading title="Welcome to Filmzee ❤️" subtitle="Create an account! " />
+      <Heading title="Welcome to Filmzee ❤️" subtitle="Create an account ! " />
       <hr />
       <Input
         id="email"

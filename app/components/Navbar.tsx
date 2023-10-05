@@ -10,6 +10,7 @@ import { useAuth } from "@/auth/AuthState";
 import useLoginModal from "../hooks/useLoginModal";
 import useSignupModal from "../hooks/useSignupModal";
 import { UserType } from "@/types/Types";
+import { retrieveUser } from "@/database/usersCRUD/Supabase";
 
 type Props = {};
 
@@ -34,16 +35,20 @@ function Navbar({}: Props) {
     if (user) {
       signupModal.onClose();
       loginModal.onClose();
+      retrieveUser(user.createdAt, user);
     } else {
       signupModal.onOpen();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   return (
-    <div className="p-4 flex flex-row justify-around z-50 ">
-      <div onClick={() => navHome()} className="flex">
+    <div className="p-4 flex flex-row justify-around z-50 bg-black ">
+      <div
+        onClick={() => navHome()}
+        className="flex cursor-pointer hover:text-blue-400 "
+      >
         <Image
-          className="filter brightness-0 invert"
+          className="filter brightness-0 invert hover:text-red-400"
           src={Logo}
           width={20}
           height={20}
@@ -52,7 +57,7 @@ function Navbar({}: Props) {
         <div className="p-1 hidden md:block">ilmzee</div>
       </div>
       <Search />
-      <div onClick={() => navMessage()}>
+      <div onClick={() => navMessage()} className="flex place-items-center">
         <MessageIcon />
       </div>
 

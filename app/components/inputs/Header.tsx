@@ -12,6 +12,7 @@ type Props = {
   uniq: string;
   showCurrent: any;
   setShowCurrent: any;
+  email: any;
 };
 
 export default function Header({
@@ -20,6 +21,7 @@ export default function Header({
   uniq,
   showCurrent,
   setShowCurrent,
+  email,
 }: Props) {
   const [picId, setPicId] = useState(200);
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function Header({
 
   const color: any = colorMaker(picId);
   return (
-    <div className="w-full bg-slate-600  flex items-center rounded-lg">
+    <div className="w-full bg-blue-400  flex items-center rounded-lg">
       <div
         onClick={() => {
           setShowCurrent(false);
@@ -47,7 +49,7 @@ export default function Header({
             className="rounded-full "
             src={photo}
             alt="profile image"
-            width={40}
+            width={50}
             height={40}
           />
         ) : (
@@ -55,13 +57,18 @@ export default function Header({
             <Avatar
               sx={{
                 bgcolor: color(picId),
+                width: 50,
+                height: 50,
               }}
             >
               {name[0].toUpperCase()}
             </Avatar>
           </div>
         )}
-        <div className="text-3xl mx-2 ">{name}</div>
+        <div className="">
+          <div className="text-2xl mx-2 ">{name}</div>
+          <div className=" mx-2 text-gray-800 text-sm ">{email}</div>
+        </div>
       </div>
     </div>
   );

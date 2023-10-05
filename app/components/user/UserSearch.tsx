@@ -19,9 +19,11 @@ function UserSearch({ getChat }: Props) {
   const user = useAuth();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setApiQuery(query);
-      setTyping(false);
-      setHide(false);
+      if (query.length) {
+        setApiQuery(query);
+        setTyping(false);
+        setHide(false);
+      }
     }, 1000);
     return () => clearTimeout(timeoutId);
   }, [query]);

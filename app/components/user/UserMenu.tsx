@@ -22,25 +22,25 @@ function UserMenu({}: Props) {
     >
       {/* MenuItems are not rendered unless Menu is open */}
 
-      <MenuItem as="a" href="#" className="my-1">
+      <MenuItem as="a" href="#" className="my-1 cursor-pointer">
         <div className="mx-2">
           <AiOutlineUser />
         </div>
         View Profile
       </MenuItem>
-      <MenuItem as="a" href="#" className="my-1">
+      <MenuItem as="a" href="#" className="my-1 cursor-pointer">
         <div className="mx-2">
           <FaRegBookmark />
         </div>
         Favorites
       </MenuItem>
-      <MenuItem as="a" href="#" className="my-1">
+      <MenuItem as="a" href="#" className="my-1 cursor-pointer">
         <div className="mx-2">
           <FiHeart />
         </div>
         Likes
       </MenuItem>
-      <MenuItem as="a" href="#" className="my-1 mb-2">
+      <MenuItem as="a" href="#" className="my-1 mb-2 cursor-pointer">
         <div className="mx-2">
           <FiSettings />
         </div>
@@ -52,7 +52,7 @@ function UserMenu({}: Props) {
         onClick={() => {
           handleLogOut();
         }}
-        className="my-3"
+        className="my-3 cursor-pointer"
       >
         <div className="mx-2">
           <FiLogOut />

@@ -42,7 +42,7 @@ function MyChats({
 
   return (
     <div
-      className={`bg-gray-900 text-black   md:block rounded-lg m-2 p-3 ${
+      className={`bg-gray-900 text-black   md:block rounded-lg m-2 p-3 overflow-y-scroll ${
         showCurrent ? "hidden md:col-span-3" : " col-span-10 md:col-span-3"
       }  `}
     >

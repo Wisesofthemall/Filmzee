@@ -49,22 +49,43 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - Added a 'Global' chat so every user can interact.
 - Implemented a Mobile First Approach CSS Design using Tailwindcss
 - Implemeted Auto Scroll on Sent Messages
-- Disable videos till later
+- Disable short videos till later
+
+## Version 1.5
+
+- Improved Messaging sending time by implementing a 'where' query
+- Fix profile generator bug
+- Fix User Search popup when reloading
+- Improve MyChats Render by caching using react memo
+- Improved Firebase security by adding Security Rules
+- Added a profanity filter on messages
+
+## Version 2.0
+
+- New Filmz Feature
+- Improved Messaging CSS
+- Dynamic time renderer
+- New Profile System
 
 # Goals
 
-- Enhance page performance by Caching.
-- Enable videos correctly
-- Make the 'Navbar' Search bar optimal
-- can see requested messages
-- can see unread messages
-- a popup appears on recent messages
+- [x] Enhance page performance by Caching.
+- [ ] Enable videos correctly
+- [ ] Make the 'Navbar' Search bar optimal
+- [ ] can see requested messages
+- [ ] can see unread messages
+- [ ] a popup appears on recent messages
+- [ ] make a profile page
+- [x] add a profanity preventer function
 
 # Blockers
 
-- PRIVATIZE FIREBASE KEYS
-- Implementing videos is a challenge because you can only play the video once.
-- At a bigger scale, messaging time WILL be slower.
-- Auto Scroll is Scrolling on EVERY message and not the message base on the selected chat.
-- Editing videos css to match my desire Designs.
-- 'Profile Generator' function is causing misrenders
+- [ ] Implementing videos is a challenge because you can only play the video once.
+- [x] Increase Messaging time speed At a bigger scale,
+- [x] Fix Auto Scroll .
+- [ ] Editing videos css to match my desire Designs.
+- [x] fix 'Profile Generator' misrenders
+- [x] dynamic time ago package is not working
+- [x] fix the scrolling on the main page of filmz (Also add infinite scrolling later)
+- [] Redo Message CSS
+- [] Message on Profile page functionality

@@ -9,7 +9,7 @@ function message({}: Props) {
   return (
     <div className=" h-[100vh] w-[100vw]">
       <Navbar />
-      <div className=" grid  place-items-center w-full h-[80vh]">
+      <div className=" grid  place-items-center w-full h-[85vh]">
         <MessageContainer />
       </div>
     </div>

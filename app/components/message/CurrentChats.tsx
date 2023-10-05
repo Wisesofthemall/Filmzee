@@ -1,15 +1,10 @@
 "use client";
 import MessageInput from "../inputs/MessageInput";
+import { filter } from "@/functions/profanityBlocker";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import { collection, addDoc, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
@@ -30,7 +25,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
     .join("");
 
   const messagesRef = collection(db, "messages");
-  const queryRef = query(messagesRef, orderBy("createdAt", "asc"));
+  const queryRef = query(messagesRef, where("roomId", "==", roomId));
   const [messages, setMessages] = useState<any[]>([]);
 
   const [Message] = useCollectionData(queryRef);
@@ -39,11 +34,11 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
 
   const handleSubmit = async (e: any) => {
     if (newMessage === "") return;
-
+    const message = filter.clean(newMessage);
     await addDoc(messagesRef, {
-      text: newMessage,
+      text: message,
       sender: loginUser,
-      createdAt: serverTimestamp(),
+      createdAt: new Date(),
       roomId,
     });
 
@@ -52,11 +47,11 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
   const handleEnter = async (e: any) => {
     if (e === "Enter") {
       if (newMessage === "") return;
-
+      const message = filter.clean(newMessage);
       await addDoc(messagesRef, {
-        text: newMessage,
+        text: message,
         sender: loginUser,
-        createdAt: serverTimestamp(),
+        createdAt: new Date(),
         roomId,
       });
 
@@ -69,9 +64,15 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
 
   useEffect(() => {
     if (Message) {
-      const filterMessage = Message.filter(
-        (message) => message.roomId === roomId,
-      );
+      const filterMessage = Message.sort(function (a, b) {
+        // Convert Firestore Timestamps to JavaScript Date objects
+
+        const dateA = a.createdAt.toDate();
+        const dateB = b.createdAt.toDate();
+
+        // Compare the Date objects to sort in ascending order
+        return dateA - dateB;
+      });
 
       setMessages(filterMessage);
       setScroll(true);
@@ -92,6 +93,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
         photo={selected.recepientPhoto}
         name={selected.recepientName}
         uniq={selected.recepientUniq}
+        email={selected.recepientEmail}
       />
       <div className="flex-grow h-[25rem]">
         {messages ? (

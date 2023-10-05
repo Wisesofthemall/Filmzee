@@ -1,6 +1,5 @@
 import { useAuth } from "@/auth/AuthState";
 import { retrieveChat } from "@/database/chatsCRUD/Supabase";
-import { getUserByUniq } from "@/database/usersCRUD/Supabase";
 import { colorMaker } from "@/functions/profileGenerator";
 import { FirebaseUserType, UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
