@@ -8,6 +8,7 @@ import { db } from "@/auth/Firebase";
 
 import { filter } from "@/functions/profanityBlocker";
 import { FirebaseUserType } from "@/types/Types";
+import useSignupModal from "@/app/hooks/useSignupModal";
 
 type Props = {};
 
@@ -15,10 +16,15 @@ function FilmzCreator({}: Props) {
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
   const [newPost, setNewPost] = useState("");
+  const signupModal = useSignupModal();
 
   const filmzRef = collection(db, "filmz");
 
   const handleSubmit = async () => {
+    if (!loginUser) {
+      signupModal.onOpen();
+      return;
+    }
     if (newPost === "") return;
     const post = filter.clean(newPost);
     await addDoc(filmzRef, {
