@@ -1,5 +1,5 @@
 "use client";
-import VideoSkeleton from "./components/videos/VideoSkeleton";
+
 import VideoController from "./components/videos/VideoController";
 import { useEffect, useState } from "react";
 import { getAllVideos } from "@/database/videosCRUD/Supabase";
@@ -25,6 +25,7 @@ export default function Home() {
       <div className="font-bold"> - Profanity filtering system</div>
       <div className="font-bold"> - Profile system</div>
       <div className="font-bold"> - Filmz ADDED </div>
+      <div className="font-bold"> - CSS Improvements </div>
     </div>
   );
   return (

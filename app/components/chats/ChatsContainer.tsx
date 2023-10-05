@@ -17,7 +17,7 @@ const ChatsContainer = memo(function ChatsContainer({
   setShowCurrent,
 }: Props) {
   return (
-    <div>
+    <div className="overflow-y-scroll">
       {myChats.map((user: any) => (
         <ChatsCard
           showCurrent={showCurrent}

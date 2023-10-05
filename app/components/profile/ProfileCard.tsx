@@ -1,5 +1,5 @@
-import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType } from "@/types/Types";
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import Logo from "@/assets/Logo.png";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -8,32 +8,44 @@ import { CiLocationOn } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { format } from "date-fns";
+import { collection, query, where } from "firebase/firestore";
+import { db } from "@/auth/Firebase";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
-type Props = {};
+type Props = { setUsers: any; Users: any; id: any };
 
-export default function ProfileCard({}: Props) {
-  const [User, setUser] = useState<any>(null);
-  const loginUser: FirebaseUserType = useAuth();
-  const router = useRouter();
-  const id: any = router.query.id;
+export default function ProfileCard({ setUsers, Users, id }: Props) {
+  const [queryRef, setQueryRef] = useState<any>(null);
+
+  const filmzRef = collection(db, "filmz");
+  const anyCollection = query(filmzRef);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [Posts] = queryRef
+    ? useCollectionData(queryRef)
+    : useCollectionData(anyCollection);
   const getProfileUser = async () => {
-    const profileUser = await getUserByLocalId(id);
-    console.log(profileUser);
-    setUser(profileUser);
+    if (id) {
+      const Query = query(filmzRef, where("senderId", "==", id));
+      setQueryRef(Query);
+      const profileUser = await getUserByLocalId(id);
+
+      setUsers(profileUser);
+    }
   };
 
   useEffect(() => {
     getProfileUser();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
   return (
     <div className="bg-black absolute h-[24rem] w-[15rem] top-[6.5rem] rounded-lg ml-1 shadow-2xl ">
       <div className="grid place-items-center w-full h-2/5 mt-1">
-        {User ? (
+        {Users ? (
           <Image
             className="rounded-full"
-            src={User.photoUrl}
+            src={Users.photoUrl}
             alt="s0me"
             width={80}
             height={80}
@@ -43,26 +55,26 @@ export default function ProfileCard({}: Props) {
         )}
       </div>
       <div className="font-semibold text-lg flex justify-center my-1">
-        {User?.displayName}
+        {Users?.name}
       </div>
       <div className="text-gray-800 text-sm flex justify-center my-1">
-        {User?.email}
+        {Users?.email}
       </div>
       <div className=" text-sm flex justify-center my-1">
-        The Developer of this app
+        The User of this app
       </div>
       <div className="text-gray-800 flex justify-center">
         <div className="flex items-center mx-1">
           <CiLocationOn />
         </div>{" "}
-        Florida
+        The World
       </div>
 
       <div className="text-gray-800 flex justify-center">
         <div className="flex items-center mx-1">
           <AiOutlineCalendar />
         </div>{" "}
-        {User ? format(User?.created_at.toDate(), "MMMM yyyy") : ""}
+        {Users ? format(new Date(Users?.created_at), "MMM yyyy") : ""}
       </div>
       <div className="text-gray-800 flex justify-center hover:text-blue-400">
         <Image
@@ -72,7 +84,7 @@ export default function ProfileCard({}: Props) {
           height={2}
           alt="Logo"
         />{" "}
-        7 Filmz
+        {Posts?.length} Filmz
       </div>
     </div>
   );

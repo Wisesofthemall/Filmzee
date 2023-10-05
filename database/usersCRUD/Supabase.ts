@@ -26,7 +26,6 @@ export const getUserByUniq = async (uniq: string) => {
 };
 
 export const getUserByLocalId = async (localId: string) => {
-  console.log(localId);
   try {
     const { data, error } = await supabase
       .from("Users")
@@ -35,7 +34,6 @@ export const getUserByLocalId = async (localId: string) => {
       .single();
 
     if (error) {
-      console.log(error);
       return null;
     }
     console.log(data);

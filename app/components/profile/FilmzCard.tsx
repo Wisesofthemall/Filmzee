@@ -1,11 +1,10 @@
-import { useAuth } from "@/auth/AuthState";
 import Image from "next/image";
 import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
+
 import { BiDotsVerticalRounded, BiRepost } from "react-icons/bi";
-import { BsChat } from "react-icons/bs";
+
 import FilmzCardButtons from "./FilmzCardButtons";
-import { format, render, cancel, register } from "timeago.js";
+
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 
@@ -17,7 +16,6 @@ type Props = {
 
 function FilmzCard({ main, post }: Props) {
   const router = useRouter();
-  console.log(post);
 
   // S
 

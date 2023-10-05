@@ -1,12 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { BiDotsVerticalRounded } from "react-icons/bi";
-import FilmzCardButtons from "./FilmzCardButtons";
+import React, { useState } from "react";
+
 import { useAuth } from "@/auth/AuthState";
 import Image from "next/image";
-import { addDoc, collection, query, where } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+
 import { filter } from "@/functions/profanityBlocker";
 import { FirebaseUserType } from "@/types/Types";
 
@@ -16,7 +15,6 @@ function FilmzCreator({}: Props) {
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
   const [newPost, setNewPost] = useState("");
-  const [scroll, setScroll] = useState(false);
 
   const filmzRef = collection(db, "filmz");
 
@@ -30,7 +28,6 @@ function FilmzCreator({}: Props) {
       createdAt: new Date(),
       likes: {},
     });
-    console.log("DONE");
 
     setNewPost("");
   };
@@ -47,7 +44,6 @@ function FilmzCreator({}: Props) {
       });
 
       setNewPost("");
-      setScroll(true);
     } else {
       return;
     }
@@ -79,6 +75,7 @@ function FilmzCreator({}: Props) {
             <div className="text-gray-800 text-sm ml-2">{loginUser?.email}</div>
           </div>
           <textarea
+            onKeyDown={(e) => handleEnter(e.key)}
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
             className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-[29rem] h-16  my-2 mx-1 p-2"

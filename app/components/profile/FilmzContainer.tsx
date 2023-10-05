@@ -12,8 +12,6 @@ type Props = {
 };
 
 function FilmzContainer({ main, senderId }: Props) {
-  const [scroll, setScroll] = useState(false);
-
   const filmzRef = collection(db, "filmz");
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))
@@ -34,7 +32,6 @@ function FilmzContainer({ main, senderId }: Props) {
       });
 
       setFilmz(filterMessage);
-      setScroll(true);
     }
   }, [Posts]);
   return (

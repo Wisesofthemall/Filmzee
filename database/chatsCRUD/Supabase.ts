@@ -53,6 +53,7 @@ export const createChat = async (
     ]);
 
     if (error) {
+      console.log(error);
       return null;
     }
 
@@ -73,9 +74,8 @@ export const retrieveChat = async (
   roomId: string,
 ) => {
   try {
-    console.log(userId, recepientEmail);
     const chat = await getChatByRoomId(userId, recepientEmail);
-    console.log(chat);
+
     if (!chat || chat.length === 0) {
       await createChat(
         userId,
@@ -90,6 +90,7 @@ export const retrieveChat = async (
     }
 
     const newChat = await getAllChatsbyID(userId);
+
     return newChat;
   } catch (error) {}
 };

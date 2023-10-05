@@ -2,16 +2,9 @@
 import MessageInput from "../inputs/MessageInput";
 import { filter } from "@/functions/profanityBlocker";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  orderBy,
-  where,
-} from "firebase/firestore";
+import { collection, addDoc, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
