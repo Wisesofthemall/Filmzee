@@ -60,6 +60,13 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - Improved Firebase security by adding Security Rules
 - Added a profanity filter on messages
 
+## Version 2.0
+
+- New Filmz Feature
+- Improved Messaging CSS
+- Dynamic time renderer
+- New Profile System
+
 # Goals
 
 - [x] Enhance page performance by Caching.
