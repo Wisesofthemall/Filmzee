@@ -12,6 +12,7 @@ import { Menu, MenuButton } from "@chakra-ui/react";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
 import { colorMaker } from "@/functions/profileGenerator";
+import DynamicPhoto from "../DynamicPhoto";
 type Props = {};
 
 function UserIcon({}: Props) {
@@ -37,23 +38,11 @@ function UserIcon({}: Props) {
         <div className="mx-1 ">
           <Menu isLazy>
             <MenuButton>
-              {user.photoUrl ? (
-                <Image
-                  className="rounded-full "
-                  src={user.photoUrl}
-                  alt="profile image"
-                  width={40}
-                  height={40}
-                />
-              ) : (
-                <Avatar
-                  sx={{
-                    bgcolor: color(picId),
-                  }}
-                >
-                  {user.email[0].toUpperCase()}
-                </Avatar>
-              )}
+              <DynamicPhoto
+                photoUrl={user.photoUrl}
+                picId={picId}
+                email={user.email}
+              />
             </MenuButton>
             <UserMenu />
           </Menu>

@@ -6,6 +6,8 @@ import { Avatar } from "@mui/material";
 import { colorMaker } from "@/functions/profileGenerator";
 import { useEffect, useRef } from "react";
 import { formatDistanceToNow } from "date-fns";
+import DynamicPhoto from "../DynamicPhoto";
+import Message from "./Message";
 type Props = {
   messages: any;
   loginUser: FirebaseUserType;
@@ -33,70 +35,26 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
         <div key={message.id} className="">
           {loginUser?.localId === message.sender.localId ? (
             <div key={message.id} className="flex items-end justify-end m-2">
-              <div className="">
-                <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end">
-                  {message.text}
-                </div>
-                <div className="text-xs text-blue-400 px-2 text-end">
-                  {formatDistanceToNow(message.createdAt.toDate(), {
-                    addSuffix: true,
-                  })}
-                </div>
-              </div>
-              {message.sender.photoUrl ? (
-                <Image
-                  className="rounded-full "
-                  src={message.sender.photoUrl}
-                  alt="profile image"
-                  width={40}
-                  height={40}
+              <Message message={message} loginUser={loginUser} />
+              <div className="flex justify-center items-center h-full mb-4">
+                <DynamicPhoto
+                  photoUrl={message.sender.photoUrl}
+                  picId={parseInt(message.sender.createdAt.slice(-3))}
+                  email={message.sender.email}
                 />
-              ) : (
-                <Avatar
-                  sx={{
-                    bgcolor: colorMaker(
-                      parseInt(message.sender.createdAt.slice(-3)),
-                    ),
-                  }}
-                >
-                  {message.sender.email[0].toUpperCase()}
-                </Avatar>
-              )}
+              </div>
             </div>
           ) : (
             <div
               key={message.id}
               className="flex items-start justify-start m-2"
             >
-              {message.sender.photoUrl ? (
-                <Image
-                  className="rounded-full "
-                  src={message.sender.photoUrl}
-                  alt="receiver image"
-                  width={40}
-                  height={40}
-                />
-              ) : (
-                <Avatar
-                  sx={{
-                    bgcolor: colorMaker(
-                      parseInt(message.sender.createdAt.slice(-3)),
-                    ),
-                  }}
-                >
-                  {message.sender.email[0].toUpperCase()}
-                </Avatar>
-              )}
-              <div className="">
-                <div className="rounded-lg p-2 bg-blue-950 ml-1">
-                  {message.text}
-                </div>
-                <div className="ml-auto text-xs text-blue-400 px-2">
-                  {formatDistanceToNow(message.createdAt.toDate(), {
-                    addSuffix: true,
-                  })}
-                </div>
-              </div>
+              <DynamicPhoto
+                photoUrl={message.sender.photoUrl}
+                picId={parseInt(message.sender.createdAt.slice(-3))}
+                email={message.sender.email}
+              />
+              <Message message={message} loginUser={loginUser} />
             </div>
           )}
         </div>

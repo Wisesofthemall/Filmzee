@@ -4,6 +4,7 @@ import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
+import DynamicPhoto from "../DynamicPhoto";
 
 type Props = {
   user: any;
@@ -35,7 +36,6 @@ function ChatsCard({
     }
   }, [user]);
 
-  const color: any = colorMaker(picId);
   return (
     <div
       onClick={() => setSelectedAndCurrent()}
@@ -46,23 +46,11 @@ function ChatsCard({
       } p-1 rounded-lg`}
     >
       <div className="">
-        {user.recepientPhoto ? (
-          <Image
-            className="rounded-full "
-            src={user.recepientPhoto}
-            alt="profile image"
-            width={40}
-            height={40}
-          />
-        ) : (
-          <Avatar
-            sx={{
-              bgcolor: color(picId),
-            }}
-          >
-            {user.recepientEmail[0].toUpperCase()}
-          </Avatar>
-        )}
+        <DynamicPhoto
+          photoUrl={user.recepientPhoto}
+          email={user.recepientEmail}
+          picId={picId}
+        />
       </div>
       <div className={`mx-1`}>
         <div className="flex  ">
