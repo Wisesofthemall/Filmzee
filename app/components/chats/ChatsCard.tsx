@@ -5,13 +5,17 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
+import { useRouter } from "next/router";
+import { ChatType } from "@/types/Types";
 
 type Props = {
-  user: any;
+  user: ChatType;
   setSelected: any;
   selected: any;
   showCurrent: any;
   setShowCurrent: any;
+  hide: any;
+  setHide: any;
 };
 
 function ChatsCard({
@@ -20,12 +24,16 @@ function ChatsCard({
   selected,
   showCurrent,
   setShowCurrent,
+  hide,
+  setHide,
 }: Props) {
   const [picId, setPicId] = useState(100);
+  const router = useRouter();
 
   const setSelectedAndCurrent = () => {
     setSelected(user);
     setShowCurrent(true);
+    setHide(false);
   };
 
   useEffect(() => {
@@ -45,7 +53,10 @@ function ChatsCard({
           : "bg-slate-300"
       } p-1 rounded-lg`}
     >
-      <div className="">
+      <div
+        onClick={() => router.push(`/profile/${user.recepientId}`)}
+        className=""
+      >
         <DynamicPhoto
           photoUrl={user.recepientPhoto}
           email={user.recepientEmail}

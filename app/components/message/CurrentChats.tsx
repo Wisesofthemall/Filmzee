@@ -12,12 +12,20 @@ import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
 import Messages from "./Messages";
 type Props = {
-  selected: any | ChatType;
+  selected: ChatType;
   showCurrent: any;
   setShowCurrent: any;
+  setHide: any;
+  hide: any;
 };
 
-function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
+function CurrentChats({
+  selected,
+  showCurrent,
+  setShowCurrent,
+  setHide,
+  hide,
+}: Props) {
   const [newMessage, setNewMessage] = useState("");
   const [scroll, setScroll] = useState(false);
   const roomId = [...selected.userId, ...selected.recepientLocalID]
@@ -78,6 +86,17 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       setScroll(true);
     }
   }, [Message, roomId]);
+  if (selected.show === false) {
+    return (
+      <div
+        className={`bg-gray-900  ${
+          hide ? "hidden" : "col-span-10 md:col-span-7"
+        }  rounded-lg m-2 flex flex-col h-full p-2`}
+      >
+        <div className="flex-grow h-[25rem]">Please Select a Chat</div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -88,6 +107,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       }  rounded-lg m-2 flex flex-col h-full p-2`}
     >
       <Header
+        localId={selected.recepientLocalID}
         showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
         photo={selected.recepientPhoto}

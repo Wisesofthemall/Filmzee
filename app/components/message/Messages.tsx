@@ -8,18 +8,27 @@ import { useEffect, useRef } from "react";
 import { formatDistanceToNow } from "date-fns";
 import DynamicPhoto from "../DynamicPhoto";
 import Message from "./Message";
+import { useRouter } from "next/router";
+type MessageType = {
+  roomId: string;
+  sender: FirebaseUserType;
+  createdAt: string;
+  text: string;
+};
 type Props = {
-  messages: any;
+  messages: MessageType[];
   loginUser: FirebaseUserType;
   scroll: any;
   setScroll: any;
 };
 
 function Messages({ messages, loginUser, scroll, setScroll }: Props) {
+  const router = useRouter();
   const dummy: any = useRef();
   const shouldScroll = () => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   };
+  console.log(messages);
 
   useEffect(() => {
     if (scroll) {
@@ -31,12 +40,20 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
   return (
     <div className="h-full overflow-y-scroll">
       {" "}
-      {messages.map((message: any) => (
-        <div key={message.id} className="">
+      {messages.map((message) => (
+        <div key={message.createdAt} className="">
           {loginUser?.localId === message.sender.localId ? (
-            <div key={message.id} className="flex items-end justify-end m-2">
+            <div
+              key={message.createdAt}
+              className="flex items-end justify-end m-2"
+            >
               <Message message={message} loginUser={loginUser} />
-              <div className="flex justify-center items-center h-full mb-4">
+              <div
+                onClick={() =>
+                  router.push(`/profile/${message.sender.localId}`)
+                }
+                className="flex justify-center items-center h-full mb-4 cursor-pointer"
+              >
                 <DynamicPhoto
                   photoUrl={message.sender.photoUrl}
                   picId={parseInt(message.sender.createdAt.slice(-3))}
@@ -46,14 +63,21 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
             </div>
           ) : (
             <div
-              key={message.id}
+              key={message.createdAt}
               className="flex items-start justify-start m-2"
             >
-              <DynamicPhoto
-                photoUrl={message.sender.photoUrl}
-                picId={parseInt(message.sender.createdAt.slice(-3))}
-                email={message.sender.email}
-              />
+              <div
+                className="cursor-pointer"
+                onClick={() =>
+                  router.push(`/profile/${message.sender.localId}`)
+                }
+              >
+                <DynamicPhoto
+                  photoUrl={message.sender.photoUrl}
+                  picId={parseInt(message.sender.createdAt.slice(-3))}
+                  email={message.sender.email}
+                />
+              </div>
               <Message message={message} loginUser={loginUser} />
             </div>
           )}

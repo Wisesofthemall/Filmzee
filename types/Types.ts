@@ -28,6 +28,7 @@ export type FirebaseUserType = {
   photoUrl: string;
 };
 export type ChatType = {
+  show?: boolean;
   created_at: string;
   id: number;
   recepientEmail: string;
@@ -37,4 +38,5 @@ export type ChatType = {
   recepientPhoto: string;
   recepientUniq: string;
   userId: string;
+  roomId: string;
 };

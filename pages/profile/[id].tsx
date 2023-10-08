@@ -8,7 +8,7 @@ import ProfileCard from "@/app/components/profile/ProfileCard";
 import ProfileNavBar from "@/app/components/profile/ProfileNavBar";
 import FilmzContainer from "@/app/components/profile/FilmzContainer";
 import { useRouter } from "next/router";
-import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+
 type Props = {};
 
 function ProfileContainer({}: Props) {

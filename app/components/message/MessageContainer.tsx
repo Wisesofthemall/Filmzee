@@ -9,6 +9,7 @@ type Props = {};
 
 function MessageContainer({}: Props) {
   const test: ChatType = {
+    show: false,
     created_at: "",
     id: NaN,
     recepientId: NaN,
@@ -18,18 +19,24 @@ function MessageContainer({}: Props) {
     recepientPhoto: "",
     recepientUniq: "",
     userId: "",
+    roomId: "q",
   };
   const [selectedChat, setSelectedChat] = useState(test);
   const [showCurrent, setShowCurrent] = useState(true);
+  const [hide, setHide] = useState(true);
   return (
     <div className="grid  grid-cols-10 w-full h-full p-1  overflow-y-scroll">
       <MyChats
+        hide={hide}
+        setHide={setHide}
         selected={selectedChat}
         setSelected={setSelectedChat}
         showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
       />
       <CurrentChats
+        hide={hide}
+        setHide={setHide}
         selected={selectedChat}
         showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
