@@ -9,6 +9,7 @@ import { db } from "@/auth/Firebase";
 import { filter } from "@/functions/profanityBlocker";
 import { FirebaseUserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
+import DynamicPhoto from "../DynamicPhoto";
 
 type Props = {};
 
@@ -63,17 +64,13 @@ function FilmzCreator({}: Props) {
         }`}
       >
         <div className="  mt-1">
-          {loginUser ? (
-            <Image
-              className="rounded-full hidden md:block"
-              src={loginUser.photoUrl}
-              alt="filmz photo"
-              width={50}
-              height={50}
-            />
-          ) : (
-            <div className=""></div>
-          )}
+          <DynamicPhoto
+            photoUrl={loginUser ? loginUser.photoUrl : undefined}
+            picId={
+              loginUser ? parseInt(loginUser?.createdAt.slice(-3)) : undefined
+            }
+            email={loginUser ? loginUser.email : undefined}
+          />
         </div>
         <div className=" ">
           <div className="flex pl-2">

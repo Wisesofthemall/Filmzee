@@ -7,15 +7,24 @@ import FilmzCardButtons from "./FilmzCardButtons";
 
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
+import DynamicPhoto from "../DynamicPhoto";
+import { FirebaseUserType } from "@/types/Types";
 
 type dataType = {};
 type Props = {
   main?: boolean;
-  post: any;
+  post: {
+    text: string;
+    createdAt: any;
+    likes: any;
+    senderId: string;
+    sender: FirebaseUserType;
+  };
 };
 
 function FilmzCard({ main, post }: Props) {
   const router = useRouter();
+  console.log(post);
 
   // S
 
@@ -34,17 +43,11 @@ function FilmzCard({ main, post }: Props) {
           className=" ml-2 mt-1 cursor-pointer"
           onClick={() => router.push(`/profile/${post.senderId}`)}
         >
-          {post.sender?.photoUrl ? (
-            <Image
-              className="rounded-full hidden md:block"
-              src={post.sender.photoUrl}
-              alt="post photo"
-              width={50}
-              height={50}
-            />
-          ) : (
-            <div className=""></div>
-          )}
+          <DynamicPhoto
+            photoUrl={post.sender?.photoUrl}
+            email={post.sender.email}
+            picId={parseInt(post.sender.createdAt.slice(-3))}
+          />
         </div>
         <div className="w-full h-full ">
           <div className="flex pl-2">
@@ -52,7 +55,9 @@ function FilmzCard({ main, post }: Props) {
               onClick={() => router.push(`/profile/${post.senderId}`)}
               className="font-semibold cursor-pointer"
             >
-              {post.sender?.displayName}
+              {post.sender?.displayName
+                ? post.sender?.displayName
+                : post.sender.email.split("@")[0]}
             </div>
             <div
               onClick={() => router.push(`/profile/${post.senderId}`)}

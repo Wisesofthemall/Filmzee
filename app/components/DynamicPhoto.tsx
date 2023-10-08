@@ -5,12 +5,12 @@ import Image from "next/image";
 import React from "react";
 
 type Props = {
-  photoUrl: string;
-  picId: number;
-  email: string;
+  photoUrl?: string;
+  picId?: number;
+  email?: string;
 };
 
-function DynamicPhoto({ photoUrl, picId, email }: Props) {
+function DynamicPhoto({ photoUrl, picId = 200, email = "?" }: Props) {
   return (
     <>
       {photoUrl ? (
@@ -18,18 +18,18 @@ function DynamicPhoto({ photoUrl, picId, email }: Props) {
           className="rounded-full "
           src={photoUrl}
           alt="profile image"
-          width={40}
-          height={40}
+          width={43}
+          height={43}
         />
       ) : (
         <Avatar
           sx={{
             bgcolor: colorMaker(picId),
-            width: 40,
-            height: 40,
+            width: 43,
+            height: 43,
           }}
         >
-          {email[0].toUpperCase()}
+          {email ? email[0].toUpperCase() : "?"}
         </Avatar>
       )}
     </>
