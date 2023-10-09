@@ -1,3 +1,4 @@
+import useEditProfileModal from "@/app/hooks/useEditProfileModal";
 import { firebaseAuth } from "@/auth/Firebase";
 import { MenuList, MenuItem, MenuDivider } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
@@ -11,10 +12,12 @@ type Props = {};
 
 function UserMenu({}: Props) {
   const router = useRouter();
+  const editProfile = useEditProfileModal();
   const handleLogOut = () => {
     signOut(firebaseAuth);
     router.push("/");
   };
+
   return (
     <MenuList
       className="grid justify-center bg-gray-800  text-white rounded-lg"
@@ -22,25 +25,41 @@ function UserMenu({}: Props) {
     >
       {/* MenuItems are not rendered unless Menu is open */}
 
-      <MenuItem as="a" href="#" className="my-1 cursor-pointer">
+      <MenuItem
+        as="a"
+        className="my-1 cursor-pointer hover:text-blue-400"
+        onClick={() => editProfile.onOpen()}
+      >
         <div className="mx-2">
           <AiOutlineUser />
         </div>
-        View Profile
+        Edit Profile
       </MenuItem>
-      <MenuItem as="a" href="#" className="my-1 cursor-pointer">
+      <MenuItem
+        as="a"
+        href="#"
+        className="my-1 cursor-pointer hover:text-blue-400"
+      >
         <div className="mx-2">
           <FaRegBookmark />
         </div>
         Favorites
       </MenuItem>
-      <MenuItem as="a" href="#" className="my-1 cursor-pointer">
+      <MenuItem
+        as="a"
+        href="#"
+        className="my-1 cursor-pointer hover:text-blue-400"
+      >
         <div className="mx-2">
           <FiHeart />
         </div>
         Likes
       </MenuItem>
-      <MenuItem as="a" href="#" className="my-1 mb-2 cursor-pointer">
+      <MenuItem
+        as="a"
+        href="#"
+        className="my-1 cursor-pointer hover:text-blue-400"
+      >
         <div className="mx-2">
           <FiSettings />
         </div>
@@ -52,7 +71,7 @@ function UserMenu({}: Props) {
         onClick={() => {
           handleLogOut();
         }}
-        className="my-3 cursor-pointer"
+        className="my-1 cursor-pointer hover:text-blue-400"
       >
         <div className="mx-2">
           <FiLogOut />

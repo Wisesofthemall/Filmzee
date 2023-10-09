@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import DynamicPhoto from "../DynamicPhoto";
 
 type Props = { setUsers: any; Users: any; id: any };
 
@@ -29,6 +30,7 @@ export default function ProfileCard({ setUsers, Users, id }: Props) {
       const Query = query(filmzRef, where("senderId", "==", id));
       setQueryRef(Query);
       const profileUser = await getUserByLocalId(id);
+      console.log(profileUser);
 
       setUsers(profileUser);
     }
@@ -42,17 +44,12 @@ export default function ProfileCard({ setUsers, Users, id }: Props) {
   return (
     <div className="bg-black absolute h-[24rem] w-[15rem] top-[6.5rem] rounded-lg ml-1 shadow-2xl ">
       <div className="grid place-items-center w-full h-2/5 mt-1">
-        {Users ? (
-          <Image
-            className="rounded-full"
-            src={Users.photoUrl}
-            alt="s0me"
-            width={80}
-            height={80}
-          />
-        ) : (
-          <div className=""></div>
-        )}
+        <DynamicPhoto
+          photoUrl={Users?.photoUrl}
+          picId={parseInt(Users ? Users.uniq.slice(-3) : "100")}
+          email={Users?.email}
+          size={80}
+        />
       </div>
       <div className="font-semibold text-lg flex justify-center my-1">
         {Users?.name}

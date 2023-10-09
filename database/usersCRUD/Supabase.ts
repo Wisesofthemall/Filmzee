@@ -97,3 +97,20 @@ export const getUsersByName = async (name: string, username: string) => {
     return [];
   }
 };
+
+export const editUserById = async (id: number, update: any) => {
+  try {
+    const { data, error } = await supabase
+      .from("Users")
+      .update(update)
+      .eq("localId", id);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

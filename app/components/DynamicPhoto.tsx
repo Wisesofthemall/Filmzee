@@ -8,9 +8,15 @@ type Props = {
   photoUrl?: string;
   picId?: number;
   email?: string;
+  size?: number;
 };
 
-function DynamicPhoto({ photoUrl, picId = 200, email = "?" }: Props) {
+function DynamicPhoto({
+  photoUrl,
+  picId = 200,
+  email = "?",
+  size = 43,
+}: Props) {
   return (
     <>
       {photoUrl ? (
@@ -18,15 +24,15 @@ function DynamicPhoto({ photoUrl, picId = 200, email = "?" }: Props) {
           className="rounded-full "
           src={photoUrl}
           alt="profile image"
-          width={43}
-          height={43}
+          width={size}
+          height={size}
         />
       ) : (
         <Avatar
           sx={{
             bgcolor: colorMaker(picId),
-            width: 43,
-            height: 43,
+            width: size,
+            height: size,
           }}
         >
           {email ? email[0].toUpperCase() : "?"}

@@ -8,6 +8,7 @@ import ProfileCard from "@/app/components/profile/ProfileCard";
 import ProfileNavBar from "@/app/components/profile/ProfileNavBar";
 import FilmzContainer from "@/app/components/profile/FilmzContainer";
 import { useRouter } from "next/router";
+import EditProfileModal from "@/app/components/modals/EditProfileModal";
 
 type Props = {};
 
@@ -19,6 +20,7 @@ function ProfileContainer({}: Props) {
   return (
     <div className="h-[100vh] w-[100vw] bg-gray-900">
       <Navbar />
+      <EditProfileModal />
       <div className="w-full h-[15rem] relative">
         <Image
           className="w-full h-full object-cover"

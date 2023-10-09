@@ -147,11 +147,7 @@ function Modal({
                       onClick={handleSecondaryAction}
                     />
                   )}
-                  <Button
-                    outline
-                    label={actionLabel}
-                    onClick={handleSecondaryAction}
-                  />
+                  <Button outline label={actionLabel} onClick={handleSubmit} />
                 </div>
                 {footer}
               </div>
