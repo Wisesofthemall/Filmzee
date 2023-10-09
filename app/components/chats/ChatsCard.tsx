@@ -47,7 +47,7 @@ function ChatsCard({
   return (
     <div
       onClick={() => setSelectedAndCurrent()}
-      className={`w-full m-2 flex cursor-pointer shadow-xl ${
+      className={`w-10/10 m-2 flex cursor-pointer shadow-xl ${
         user.recepientEmail === selected.recepientEmail
           ? "bg-blue-500"
           : "bg-slate-300"
@@ -74,7 +74,7 @@ function ChatsCard({
             <div className=""></div>
           )}
         </div>
-        <div className="text-xs flex  ">
+        <div className="text-xs flex flex-wrap  ">
           {" "}
           <div className="font-bold text-xs mr-1 ">Email:</div>
           {user.recepientEmail}

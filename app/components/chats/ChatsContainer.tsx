@@ -21,7 +21,7 @@ const ChatsContainer = memo(function ChatsContainer({
   setHide,
 }: Props) {
   return (
-    <div className="overflow-y-scroll">
+    <div className="overflow-y-scroll overflow-x-hidden">
       {myChats.map((user: any) => (
         <ChatsCard
           hide={hide}

@@ -18,6 +18,9 @@ export type UserType = {
   email: string;
   photoUrl: string;
   localId: string;
+  Bio: string;
+  location: string;
+  backgroundImg: string;
 };
 
 export type FirebaseUserType = {

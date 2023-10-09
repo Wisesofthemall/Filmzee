@@ -22,7 +22,7 @@ function MessageContainer({}: Props) {
     roomId: "q",
   };
   const [selectedChat, setSelectedChat] = useState(test);
-  const [showCurrent, setShowCurrent] = useState(true);
+  const [showCurrent, setShowCurrent] = useState(false);
   const [hide, setHide] = useState(true);
   return (
     <div className="grid  grid-cols-10 w-full h-full p-1  overflow-y-scroll">

@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { editUserById, getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import useEditProfileModal from "@/app/hooks/useEditProfileModal";
 import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 
 type Props = {};
 enum STEPS {
@@ -27,10 +27,17 @@ function EditProfileModal({}: Props) {
   const loginUser: FirebaseUserType = useAuth();
   const [userInfo, setUserInfo] = useState<any>({});
 
+  const [name, setName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
+  const [backgroundImg, setBackgroundImg] = useState("");
+
   const [step, setStep] = useState(STEPS.NAME);
   const [isLoading, setIsLoading] = useState(false);
   const getUserInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
+    console.log(result);
 
     setUserInfo(result);
   };
@@ -40,55 +47,29 @@ function EditProfileModal({}: Props) {
     }
   }, [loginUser]);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-    reset,
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: userInfo?.name,
-      profileImg: userInfo?.photoUrl,
-      bio: userInfo?.Bio,
-      location: userInfo?.location,
-      backgoundImg: userInfo?.backgroundImg,
-    },
-  });
-
-  const name = watch("name");
-  const profileImg = watch("profileImg");
-  const bio = watch("bio");
-  const location = watch("location");
-  const backgoundImg = watch("backgoundImg");
-
-  const setCustomValue = (id: string, value: any) => {
-    setValue(id, value, {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    });
-  };
-
   const onBack = () => {
     setStep((value) => value - 1);
   };
   const onNext = () => {
     setStep((value) => value + 1);
   };
-  const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
+  const onSubmit = (data: any) => {
     if (step !== STEPS.BACKGROUNDIMG) {
       return onNext();
     }
 
     setIsLoading(true);
 
-    editUserById(12, {})
+    editUserById(userInfo.localId, {
+      name,
+      photoUrl,
+      bio,
+      location,
+      backgroundImg,
+    })
       .then(() => {
-        toast.success("Your listing has been created!");
+        toast.success("Your profile has changed!");
         router.refresh();
-        reset();
         setStep(STEPS.NAME);
         profileModal.onClose();
       })
@@ -124,9 +105,9 @@ function EditProfileModal({}: Props) {
 
       <Input
         id={"name change "}
-        value={userInfo?.name}
+        value={name}
         label="name"
-        stateChange={(value) => setCustomValue("name", value)}
+        stateChange={setName}
       />
     </div>
   );
@@ -140,10 +121,7 @@ function EditProfileModal({}: Props) {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
           <div className="col-span-full">
-            <ImageUploader
-              value={profileImg}
-              onChange={(value) => setCustomValue("profileImg", value)}
-            />
+            <ImageUploader value={photoUrl} onChange={setPhotoUrl} />
           </div>
         </div>
       </div>
@@ -156,12 +134,11 @@ function EditProfileModal({}: Props) {
           title="What are some basic things about you?"
           subtitle="Press next to continue"
         />
-        name: userInfo?.name, profileImg: userInfo?.photoUrl, bio:
         <Input
           id={"Bio change "}
-          value={userInfo?.Bio}
+          value={bio}
           label="Bio"
-          stateChange={(value) => setCustomValue("bio", value)}
+          stateChange={setBio}
         />
       </div>
     );
@@ -173,9 +150,9 @@ function EditProfileModal({}: Props) {
         <Heading title="Where do you live?" subtitle="Press next to continue" />
         <Input
           id={"Location Change "}
-          value={userInfo?.location}
+          value={location}
           label="Location"
-          stateChange={(value) => setCustomValue("location", value)}
+          stateChange={setLocation}
         />
       </div>
     );
@@ -189,10 +166,7 @@ function EditProfileModal({}: Props) {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
           <div className="col-span-full">
-            <ImageUploader
-              value={backgoundImg}
-              onChange={(value) => setCustomValue("backgoundImg", value)}
-            />
+            <ImageUploader value={backgroundImg} onChange={setBackgroundImg} />
           </div>
         </div>
       </div>
@@ -204,7 +178,7 @@ function EditProfileModal({}: Props) {
       title="Edit your Profile!"
       isOpen={profileModal.isOpen}
       onClose={profileModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={() => onSubmit}
       actionLabel={actionLabel}
       secondaryLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.NAME ? undefined : onBack}
