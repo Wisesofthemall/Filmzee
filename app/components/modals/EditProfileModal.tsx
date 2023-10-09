@@ -25,26 +25,31 @@ function EditProfileModal({}: Props) {
   const profileModal = useEditProfileModal();
   const router = useRouter();
   const loginUser: FirebaseUserType = useAuth();
-  const [userInfo, setUserInfo] = useState<any>({});
 
   const [name, setName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [backgroundImg, setBackgroundImg] = useState("");
+  const [localId, setLocalId] = useState(0);
 
   const [step, setStep] = useState(STEPS.NAME);
-  const [isLoading, setIsLoading] = useState(false);
+
   const getUserInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
     console.log(result);
-
-    setUserInfo(result);
+    setName(result.name);
+    setPhotoUrl(result.photoUrl);
+    setBio(result.bio);
+    setLocation(result.location);
+    setBackgroundImg(result.backgroundImg);
+    setLocalId(result.localId);
   };
   useEffect(() => {
     if (loginUser) {
       getUserInfo();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
   const onBack = () => {
@@ -53,14 +58,13 @@ function EditProfileModal({}: Props) {
   const onNext = () => {
     setStep((value) => value + 1);
   };
-  const onSubmit = (data: any) => {
+  const onSubmit = () => {
     if (step !== STEPS.BACKGROUNDIMG) {
       return onNext();
     }
 
-    setIsLoading(true);
-
-    editUserById(userInfo.localId, {
+    console.log("Submiting");
+    editUserById(localId, {
       name,
       photoUrl,
       bio,
@@ -74,12 +78,8 @@ function EditProfileModal({}: Props) {
         profileModal.onClose();
       })
       .catch((error) => {
-        setIsLoading(false);
         console.log(error);
         toast.error(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
   const actionLabel = useMemo(() => {
@@ -178,7 +178,7 @@ function EditProfileModal({}: Props) {
       title="Edit your Profile!"
       isOpen={profileModal.isOpen}
       onClose={profileModal.onClose}
-      onSubmit={() => onSubmit}
+      onSubmit={() => onSubmit()}
       actionLabel={actionLabel}
       secondaryLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.NAME ? undefined : onBack}

@@ -85,3 +85,4 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [ ] add infinite scrolling later
 - [ ] add Edit Profile to the app
 - [ ] implement cloudinary for pictures
+- [ ] fix change name glitch on Filmz

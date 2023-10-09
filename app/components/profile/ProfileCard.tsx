@@ -57,14 +57,12 @@ export default function ProfileCard({ setUsers, Users, id }: Props) {
       <div className="text-gray-800 text-sm flex justify-center my-1">
         {Users?.email}
       </div>
-      <div className=" text-sm flex justify-center my-1">
-        The User of this app
-      </div>
+      <div className=" text-sm flex justify-center my-1">{Users?.bio}</div>
       <div className="text-gray-800 flex justify-center">
         <div className="flex items-center mx-1">
           <CiLocationOn />
         </div>{" "}
-        The World
+        {Users?.location}
       </div>
 
       <div className="text-gray-800 flex justify-center">
