@@ -83,6 +83,9 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [ ] Implementing videos is a challenge because you can only play the video once.
 - [ ] Editing videos css to match my desire Designs.
 - [ ] add infinite scrolling later
-- [ ] add Edit Profile to the app
-- [ ] implement cloudinary for pictures
-- [ ] fix change name glitch on Filmz
+- [ ] add Pictures on Filmz using Cloudinary
+- [x] add Edit Profile to the app
+- [x] implement cloudinary for pictures
+- [x] fix change name glitch on Filmz
+- [ ] make the whole site support the mobile-first approach
+- [ ] make a 'view profile' on User Menu
