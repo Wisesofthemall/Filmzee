@@ -13,6 +13,8 @@ import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { useRouter } from "next/navigation";
 
+import { IoImageOutline } from "react-icons/io5";
+
 type Props = {};
 
 function FilmzCreator({}: Props) {
@@ -110,10 +112,17 @@ function FilmzCreator({}: Props) {
             className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-[29rem] h-16  my-2 mx-1 p-2"
             placeholder="What's happening?"
           />
-          <div onClick={() => handleSubmit()} className="flex ">
-            <button className=" ml-auto bg-blue-400 flex justify-center rounded-full p-2 font-semibold w-[5.5rem] ">
-              POST
-            </button>
+          <div className="px-3">
+            <div className="flex justify-between">
+              <div className="flex items-center justify-items-center cursor-pointer">
+                <IoImageOutline size={30} />
+              </div>
+              <div onClick={() => handleSubmit()} className="flex ">
+                <button className=" ml-auto bg-blue-400 flex justify-center rounded-full p-2 font-semibold w-[5.5rem] ">
+                  POST
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
