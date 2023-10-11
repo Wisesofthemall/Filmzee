@@ -1,4 +1,5 @@
 "use client";
+require("dotenv").config();
 import React from "react";
 
 import { CldUploadWidget } from "next-cloudinary";

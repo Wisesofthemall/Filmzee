@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useAuth } from "@/auth/AuthState";
 import Image from "next/image";
@@ -7,15 +7,20 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 
 import { filter } from "@/functions/profanityBlocker";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import DynamicPhoto from "../DynamicPhoto";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 function FilmzCreator({}: Props) {
+  const [userInfo, setUserInfo] = useState<any>({});
+  const router = useRouter();
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
+
   const [newPost, setNewPost] = useState("");
   const signupModal = useSignupModal();
 
@@ -28,9 +33,14 @@ function FilmzCreator({}: Props) {
     }
     if (newPost === "") return;
     const post = filter.clean(newPost);
+    console.log(userInfo.photoUrl);
     await addDoc(filmzRef, {
       text: post,
-      sender: loginUser,
+      sender: {
+        ...loginUser,
+        displayName: userInfo.name,
+        photoUrl: userInfo.photoUrl,
+      },
       senderId: loginUser.localId,
       createdAt: new Date(),
       likes: {},
@@ -38,6 +48,19 @@ function FilmzCreator({}: Props) {
 
     setNewPost("");
   };
+  const getInfo = async () => {
+    const result = await getUserByLocalId(loginUser.localId);
+    console.log(result);
+    setUserInfo(result);
+  };
+
+  useEffect(() => {
+    if (loginUser) {
+      getInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
+
   const handleEnter = async (e: any) => {
     if (e === "Enter") {
       if (newPost === "") return;
@@ -63,9 +86,12 @@ function FilmzCreator({}: Props) {
           main ? "w-full" : "w-full"
         }`}
       >
-        <div className="  mt-1">
+        <div
+          className="  mt-1 cursor-pointer"
+          onClick={() => router.push(`/profile/${userInfo.localId}`)}
+        >
           <DynamicPhoto
-            photoUrl={loginUser ? loginUser.photoUrl : undefined}
+            photoUrl={userInfo ? userInfo.photoUrl : undefined}
             picId={
               loginUser ? parseInt(loginUser?.createdAt.slice(-3)) : undefined
             }

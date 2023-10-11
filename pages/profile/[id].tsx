@@ -13,9 +13,10 @@ import EditProfileModal from "@/app/components/modals/EditProfileModal";
 type Props = {};
 
 function ProfileContainer({}: Props) {
-  const [Users, setUsers] = useState(null);
+  const [Users, setUsers] = useState<any>(null);
   const router = useRouter();
   const id: any = router.query.id;
+  console.log(Users);
 
   return (
     <div className="h-[100vh] w-[100vw] bg-gray-900">
@@ -23,8 +24,10 @@ function ProfileContainer({}: Props) {
       <EditProfileModal />
       <div className="w-full h-[15rem] relative">
         <Image
+          width={180}
+          height={180}
           className="w-full h-full object-cover"
-          src={pic}
+          src={Users?.backgroundImg ? Users.backgroundImg : pic}
           alt="profile pic"
         />
 

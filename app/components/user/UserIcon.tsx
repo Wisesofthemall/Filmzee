@@ -13,10 +13,12 @@ import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
 import { colorMaker } from "@/functions/profileGenerator";
 import DynamicPhoto from "../DynamicPhoto";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 type Props = {};
 
 function UserIcon({}: Props) {
   const [picId, setPicId] = useState(100);
+  const [userInfo, setUserInfo] = useState<any>({});
   const user = useAuth();
 
   useEffect(() => {
@@ -31,6 +33,18 @@ function UserIcon({}: Props) {
   const OpenModal = () => {
     signup.onOpen();
   };
+  const getInfo = async () => {
+    const result = await getUserByLocalId(user.localId);
+    console.log(result);
+    setUserInfo(result);
+  };
+
+  useEffect(() => {
+    if (user) {
+      getInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <div className="flex justify-center items-center z-40">
@@ -39,7 +53,7 @@ function UserIcon({}: Props) {
           <Menu isLazy>
             <MenuButton>
               <DynamicPhoto
-                photoUrl={user.photoUrl}
+                photoUrl={userInfo ? userInfo.photoUrl : undefined}
                 picId={picId}
                 email={user.email}
               />
