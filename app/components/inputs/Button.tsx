@@ -22,7 +22,6 @@ function Button({
   small,
   icon: Icon,
   selected,
-  mobile,
 }: Props) {
   return (
     <button
@@ -39,7 +38,7 @@ function Button({
       ${selected ? "border-blue-400" : ""}`}
     >
       {Icon && <Icon size={24} className="absolute left-4 top-3 " />}
-      <div className={`${mobile ? "hidden md:block" : ""}`}>{label}</div>
+      <div className={``}>{label}</div>
       <div className="block md:hidden">ㅤ</div>
     </button>
   );

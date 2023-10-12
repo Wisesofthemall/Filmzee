@@ -88,4 +88,4 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [x] implement cloudinary for pictures
 - [x] fix change name glitch on Filmz
 - [ ] make the whole site support the mobile-first approach
-- [ ] make a 'view profile' on User Menu
+- [x] make a 'view profile' on User Menu

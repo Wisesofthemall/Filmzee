@@ -100,7 +100,7 @@ function FilmzCreator({}: Props) {
             email={loginUser ? loginUser.email : undefined}
           />
         </div>
-        <div className=" ">
+        <div className="w-full">
           <div className="flex pl-2">
             <div className="font-semibold">{loginUser?.displayName}</div>
             <div className="text-gray-800 text-sm ml-2">{loginUser?.email}</div>
@@ -109,7 +109,7 @@ function FilmzCreator({}: Props) {
             onKeyDown={(e) => handleEnter(e.key)}
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
-            className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-[29rem] h-16  my-2 mx-1 p-2"
+            className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-4/5 h-16  my-2 mx-1 p-2"
             placeholder="What's happening?"
           />
           <div className="px-3">

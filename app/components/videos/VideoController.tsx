@@ -42,7 +42,7 @@ function VideoController({ setSelected, selected }: Props) {
   }, []);
 
   return (
-    <div className="p-5">
+    <div className="p-5 w-full">
       <div className=" my-5">
         <Button
           label="For You"
