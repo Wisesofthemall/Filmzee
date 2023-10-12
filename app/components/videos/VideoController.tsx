@@ -35,6 +35,7 @@ function VideoController({ setSelected, selected }: Props) {
   };
 
   useEffect(() => {
+    pushSelected("Filmz");
     //shortsss();
     const select = getQueryParam("select");
     setSelected(select as string);

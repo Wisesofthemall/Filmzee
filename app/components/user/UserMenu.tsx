@@ -1,17 +1,19 @@
 import useEditProfileModal from "@/app/hooks/useEditProfileModal";
+import { useAuth } from "@/auth/AuthState";
 import { firebaseAuth } from "@/auth/Firebase";
+import { FirebaseUserType } from "@/types/Types";
 import { MenuList, MenuItem, MenuDivider } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { FaRegBookmark } from "react-icons/fa";
-import { FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
+import { FiEye, FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
 
 type Props = {};
 
 function UserMenu({}: Props) {
   const router = useRouter();
+  const loginUser: FirebaseUserType = useAuth();
   const editProfile = useEditProfileModal();
   const handleLogOut = () => {
     signOut(firebaseAuth);
@@ -36,14 +38,14 @@ function UserMenu({}: Props) {
         Edit Profile
       </MenuItem>
       <MenuItem
+        onClick={() => router.push(`/profile/${loginUser.localId}`)}
         as="a"
-        href="#"
         className="my-1 cursor-pointer hover:text-blue-400"
       >
         <div className="mx-2">
-          <FaRegBookmark />
+          <FiEye />
         </div>
-        Favorites
+        View Profile
       </MenuItem>
       <MenuItem
         as="a"
