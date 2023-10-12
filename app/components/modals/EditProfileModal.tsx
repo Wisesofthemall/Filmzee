@@ -84,7 +84,7 @@ function EditProfileModal({}: Props) {
   };
   const actionLabel = useMemo(() => {
     if (step === STEPS.BACKGROUNDIMG) {
-      return "Create";
+      return "Edit";
     }
     return "Next";
   }, [step]);

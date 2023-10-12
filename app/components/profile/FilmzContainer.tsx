@@ -40,7 +40,7 @@ function FilmzContainer({ main, senderId }: Props) {
   return (
     <div
       className={`w-full   flex flex-wrap pb-28 mt-3 overflow-y-scroll overflow-x-hidden ${
-        main ? "" : "pl-[15rem]"
+        main ? "" : " pl-0 md:pl-[15rem]"
       } ${main ? "" : " h-[52vh] overflow-y-scroll"}  `}
     >
       {main && <FilmzCreator />}
