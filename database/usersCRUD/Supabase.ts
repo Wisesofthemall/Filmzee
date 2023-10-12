@@ -86,7 +86,7 @@ export const getUsersByName = async (name: string, username: string) => {
     const { data, error } = await supabase
       .from("Users")
       .select("*")
-      .ilike("name", `%${name}%`);
+      .ilike("email", `%${name}%`);
 
     if (error) {
       return [];

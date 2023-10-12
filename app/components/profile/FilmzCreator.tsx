@@ -69,7 +69,11 @@ function FilmzCreator({}: Props) {
       const post = filter.clean(newPost);
       await addDoc(filmzRef, {
         text: post,
-        sender: loginUser,
+        sender: {
+          ...loginUser,
+          displayName: userInfo.name,
+          photoUrl: userInfo.photoUrl,
+        },
         senderId: loginUser.localId,
         createdAt: new Date(),
         likes: {},

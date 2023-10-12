@@ -11,6 +11,7 @@ import { useAuth } from "@/auth/AuthState";
 import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
 import Messages from "./Messages";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 type Props = {
   selected: ChatType;
   showCurrent: any;
@@ -26,6 +27,7 @@ function CurrentChats({
   setHide,
   hide,
 }: Props) {
+  const [userInfo, setUserInfo] = useState<any>({});
   const [newMessage, setNewMessage] = useState("");
   const [scroll, setScroll] = useState(false);
   const roomId = [...selected.userId, ...selected.recepientLocalID]
@@ -45,7 +47,11 @@ function CurrentChats({
     const message = filter.clean(newMessage);
     await addDoc(messagesRef, {
       text: message,
-      sender: loginUser,
+      sender: {
+        ...loginUser,
+        displayName: userInfo.name,
+        photoUrl: userInfo.photoUrl,
+      },
       createdAt: new Date(),
       roomId,
     });
@@ -58,7 +64,11 @@ function CurrentChats({
       const message = filter.clean(newMessage);
       await addDoc(messagesRef, {
         text: message,
-        sender: loginUser,
+        sender: {
+          ...loginUser,
+          displayName: userInfo.name,
+          photoUrl: userInfo.photoUrl,
+        },
         createdAt: new Date(),
         roomId,
       });
@@ -69,6 +79,18 @@ function CurrentChats({
       return;
     }
   };
+  const getInfo = async () => {
+    const result = await getUserByLocalId(loginUser.localId);
+    console.log(result);
+    setUserInfo(result);
+  };
+
+  useEffect(() => {
+    if (loginUser) {
+      getInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   useEffect(() => {
     if (Message) {
