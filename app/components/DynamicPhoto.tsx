@@ -33,6 +33,7 @@ function DynamicPhoto({
             bgcolor: colorMaker(picId),
             width: size,
             height: size,
+            zIndex: 0,
           }}
         >
           {email ? email[0].toUpperCase() : "?"}

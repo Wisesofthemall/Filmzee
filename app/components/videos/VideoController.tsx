@@ -42,7 +42,7 @@ function VideoController({ setSelected, selected }: Props) {
   }, []);
 
   return (
-    <div className="p-5 w-full">
+    <div className="z-50 p-5 w-full h-[8rem] overflow-y-scroll bg-black  md:h-full md:bg-transparent">
       <div className=" my-5">
         <Button
           label="For You"

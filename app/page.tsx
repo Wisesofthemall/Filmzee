@@ -33,7 +33,7 @@ export default function Home() {
       <div className="w-full absolute bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3 overflow-y-scroll h-[100vh]">
         <VideoController setSelected={setSelected} selected={selected} />
       </div>
-      <div className=" col-span-12 md:col-span-8 lg:col-span-6 md:h-[100vh] overflow-y-scroll h-[60vh]">
+      <div className=" col-span-12 md:col-span-8 lg:col-span-6 md:h-[100vh] overflow-y-scroll h-[100vh]">
         {IsLoaded && <ContentContainer videos={videos} selected={selected} />}
       </div>
       <div className="col-span-3  w-full h-[100vh] lg:block hidden p-2">
