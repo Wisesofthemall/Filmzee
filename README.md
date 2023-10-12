@@ -87,5 +87,5 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [x] add Edit Profile to the app
 - [x] implement cloudinary for pictures
 - [x] fix change name glitch on Filmz
-- [ ] make the whole site support the mobile-first approach
+- [x] make the whole site support the mobile-first approach
 - [x] make a 'view profile' on User Menu
