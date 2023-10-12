@@ -8,7 +8,11 @@ import ImageUploader from "../inputs/ImageUploader";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { editUserById, getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import {
+  editUserById,
+  getUserByLocalId,
+  updateUserByEmail,
+} from "@/database/usersCRUD/Supabase";
 import useEditProfileModal from "@/app/hooks/useEditProfileModal";
 import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType, UserType } from "@/types/Types";
@@ -58,12 +62,15 @@ function EditProfileModal({}: Props) {
   const onNext = () => {
     setStep((value) => value + 1);
   };
+  const updateUser = async () => {
+    console.log("invoking....");
+    await updateUserByEmail(loginUser.email, photoUrl, name);
+  };
   const onSubmit = () => {
     if (step !== STEPS.BACKGROUNDIMG) {
       return onNext();
     }
 
-    console.log("Submiting");
     editUserById(localId, {
       name,
       photoUrl,
@@ -73,6 +80,7 @@ function EditProfileModal({}: Props) {
     })
       .then(() => {
         toast.success("Your profile has changed!");
+        updateUser();
         router.refresh();
         setStep(STEPS.NAME);
         profileModal.onClose();

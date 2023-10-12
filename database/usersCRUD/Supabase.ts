@@ -116,3 +116,32 @@ export const editUserById = async (id: number, update: any) => {
     throw error;
   }
 };
+
+export const updateUserByEmail = async (
+  email: string,
+  photo: string,
+  name: string,
+) => {
+  try {
+    console.log("work?");
+    const { data, error } = await supabase
+      .from("Chats")
+      .update({
+        recepientPhoto: photo,
+        recepientName: name,
+      })
+      .eq("recepientEmail", email);
+
+    if (error) {
+      console.error("Error updating user data:", error);
+      return null;
+    }
+
+    console.log("User data updated successfully:", data);
+
+    return data;
+  } catch (error) {
+    console.error("Error in updateUserByEmail function:", error);
+    return null;
+  }
+};

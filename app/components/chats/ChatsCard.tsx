@@ -6,8 +6,7 @@ import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
 import { useRouter } from "next/router";
-import { ChatType, UserType } from "@/types/Types";
-import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { ChatType } from "@/types/Types";
 
 type Props = {
   user: ChatType;
@@ -29,7 +28,6 @@ function ChatsCard({
   setHide,
 }: Props) {
   const [picId, setPicId] = useState(100);
-  const [currentInfo, setCurrentInfo] = useState<UserType | any>({});
   const router = useRouter();
 
   const setSelectedAndCurrent = () => {
@@ -38,21 +36,12 @@ function ChatsCard({
     setHide(false);
   };
 
-  const getCurrent = async () => {
-    const current = await getUserByLocalId(user.recepientLocalID);
-    console.log(current);
-    setCurrentInfo(current);
-  };
-
   useEffect(() => {
     if (user) {
-      getCurrent();
-
       const id = parseInt(user.recepientUniq.slice(-3));
 
       setPicId(id);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -69,14 +58,14 @@ function ChatsCard({
         className=""
       >
         <DynamicPhoto
-          photoUrl={currentInfo ? currentInfo.photoUrl : undefined}
+          photoUrl={user.recepientPhoto}
           email={user.recepientEmail}
           picId={picId}
         />
       </div>
       <div className={`mx-1`}>
         <div className="flex  ">
-          <div className="text-xs ">{currentInfo ? currentInfo.name : ""}</div>
+          <div className="text-xs ">{user.recepientName}</div>
           {user.recepientEmail === "foxxydieujuste@gmail.com" ? (
             <div className="text-yellow-300">
               <AiFillStar />
