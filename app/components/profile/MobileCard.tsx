@@ -46,7 +46,7 @@ function MobileCard({ Users, setUsers, id }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   return (
-    <div className="bg-black  w-full px-4">
+    <div className="bg-gradient-to-b from-transparent to-black  w-full px-4">
       <div className="flex justify-between">
         <div className="font-semibold text-lg flex justify-center my-1">
           {Users?.name}

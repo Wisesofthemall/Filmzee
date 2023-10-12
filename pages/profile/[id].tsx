@@ -25,13 +25,15 @@ function ProfileContainer({}: Props) {
       <div className="w-full h-[15rem] relative">
         <div className="">
           <div className="hidden md:block">
-            <Image
-              width={180}
-              height={180}
-              className="w-full h-full object-cover"
-              src={Users?.backgroundImg ? Users.backgroundImg : pic}
-              alt="profile pic"
-            />
+            <div className="h-[18rem] w-full">
+              <Image
+                width={180}
+                height={100}
+                className="w-full h-full object-fill"
+                src={Users?.backgroundImg ? Users.backgroundImg : pic}
+                alt="profile pic"
+              />
+            </div>
             <ProfileCard Users={Users} setUsers={setUsers} id={id} />
           </div>
           <div className="block md:hidden">

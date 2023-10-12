@@ -14,14 +14,16 @@ function MobileProfileCard({ Users, pic, setUsers, id }: Props) {
   return (
     <div>
       <div className="">
-        <Image
-          width={180}
-          height={180}
-          className="w-full h-full object-cover"
-          src={Users?.backgroundImg ? Users.backgroundImg : pic}
-          alt="profile pic"
-        />
-        <div className="absolute top-2 flex place-items-center w-3/5 h-2/5">
+        <div className="h-[10rem] w-full">
+          <Image
+            width={180}
+            height={100}
+            className="w-full h-full object-fill"
+            src={Users?.backgroundImg ? Users.backgroundImg : pic}
+            alt="profile pic"
+          />
+        </div>
+        <div className="absolute top-[3.5rem] flex place-items-center w-3/5 h-2/5 mx-3">
           <DynamicPhoto
             photoUrl={Users?.photoUrl}
             picId={parseInt(Users ? Users.uniq.slice(-3) : "100")}
