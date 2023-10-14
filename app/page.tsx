@@ -32,7 +32,7 @@ export default function Home() {
     </div>
   );
   return (
-    <div className="grid grid-cols-12 w-full h-full">
+    <div className="grid grid-cols-12 w-full h-full overflow-x-hidden overflow-y-hidden">
       <div className="w-full absolute bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3 overflow-y-scroll h-[100vh]">
         <VideoController setSelected={setSelected} selected={selected} />
       </div>
