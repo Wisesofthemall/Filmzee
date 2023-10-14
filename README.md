@@ -84,6 +84,7 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [ ] Editing videos css to match my desire Designs.
 - [ ] add infinite scrolling later
 - [ ] add Pictures on Filmz using Cloudinary
+- [ ] fix User Search Modal
 - [x] add Edit Profile to the app
 - [x] implement cloudinary for pictures
 - [x] fix change name glitch on Filmz
