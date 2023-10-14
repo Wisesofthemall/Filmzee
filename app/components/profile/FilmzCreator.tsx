@@ -14,11 +14,15 @@ import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { useRouter } from "next/navigation";
 
 import { IoImageOutline } from "react-icons/io5";
+import ImageUploader from "../inputs/ImageUploader";
+import FilmzImageUploader from "./FilmzImageUploader";
+import FilmzImageRender from "./FilmzImageRender";
 
 type Props = {};
 
 function FilmzCreator({}: Props) {
   const [userInfo, setUserInfo] = useState<any>({});
+  const [filmzPhoto, setFilmzPhoto] = useState<any>(null);
   const router = useRouter();
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
@@ -35,7 +39,7 @@ function FilmzCreator({}: Props) {
     }
     if (newPost === "") return;
     const post = filter.clean(newPost);
-    console.log(userInfo.photoUrl);
+
     await addDoc(filmzRef, {
       text: post,
       sender: {
@@ -46,14 +50,15 @@ function FilmzCreator({}: Props) {
       senderId: loginUser.localId,
       createdAt: new Date(),
       likes: {},
-      images: ["som", "some"],
+      image: filmzPhoto,
     });
 
     setNewPost("");
+    setFilmzPhoto(null);
   };
   const getInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
-    console.log(result);
+
     setUserInfo(result);
   };
 
@@ -78,9 +83,11 @@ function FilmzCreator({}: Props) {
         senderId: loginUser.localId,
         createdAt: new Date(),
         likes: {},
+        image: filmzPhoto,
       });
 
       setNewPost("");
+      setFilmzPhoto(null);
     } else {
       return;
     }
@@ -94,7 +101,7 @@ function FilmzCreator({}: Props) {
         }`}
       >
         <div
-          className="  mt-1 cursor-pointer"
+          className="  mt-1 cursor-pointer hover:opacity-60"
           onClick={() => router.push(`/profile/${userInfo.localId}`)}
         >
           <DynamicPhoto
@@ -117,13 +124,22 @@ function FilmzCreator({}: Props) {
             className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-4/5 h-16  my-2 mx-1 p-2"
             placeholder="What's happening?"
           />
+          {filmzPhoto && (
+            <FilmzImageRender
+              photo={filmzPhoto}
+              deletePhoto={() => setFilmzPhoto(null)}
+            />
+          )}
           <div className="px-3">
             <div className="flex justify-between">
-              <div className="flex items-center justify-items-center cursor-pointer">
-                <IoImageOutline size={30} />
+              <div className="flex items-center justify-items-center cursor-pointer ">
+                <FilmzImageUploader
+                  value={filmzPhoto}
+                  onChange={setFilmzPhoto}
+                />
               </div>
               <div onClick={() => handleSubmit()} className="flex ">
-                <button className=" ml-auto bg-blue-400 flex justify-center rounded-full p-2 font-semibold w-[5.5rem] ">
+                <button className=" ml-auto bg-blue-400 flex justify-center rounded-full p-2 font-semibold w-[5.5rem] hover:opacity-60">
                   POST
                 </button>
               </div>

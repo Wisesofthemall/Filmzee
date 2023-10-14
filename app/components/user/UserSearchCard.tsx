@@ -51,7 +51,7 @@ export default function UserSearchCard({ user, getChat }: Props) {
   return (
     <div
       onClick={() => updateChat()}
-      className="w-6/7 m-2 flex cursor-pointer bg-slate-300 p-1 rounded-lg"
+      className="w-6/7 m-2 flex cursor-pointer bg-slate-300 p-1 rounded-lg hover:opacity-60"
     >
       <div className="">
         {user.photoUrl ? (

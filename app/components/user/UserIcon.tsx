@@ -35,7 +35,7 @@ function UserIcon({}: Props) {
   };
   const getInfo = async () => {
     const result = await getUserByLocalId(user.localId);
-    console.log(result);
+
     setUserInfo(result);
   };
 

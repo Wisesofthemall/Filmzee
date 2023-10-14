@@ -27,6 +27,7 @@ export default function Home() {
       <div className="font-bold"> - Fix Messaging CSS </div>
       <div className="font-bold"> - Added Edit Profile Modal </div>
       <div className="font-bold"> - Added Mobile-First Approach CSS </div>
+      <div className="font-bold"> - Add Images on Filmz </div>
       <div className="font-bold"> - Bug Fixes and Optimizations </div>
     </div>
   );

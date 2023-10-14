@@ -33,7 +33,6 @@ function FilmzContainer({ main, senderId }: Props) {
 
       setFilmz(filterMessage);
     } else if (Posts) {
-      console.log(Posts);
       setFilmz(Posts);
     }
   }, [Posts, senderId]);

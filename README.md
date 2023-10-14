@@ -67,6 +67,16 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - Dynamic time renderer
 - New Profile System
 
+## Version 2.5
+
+- Prevent user to post without logging in
+- Remove Global Chat Feature
+- Fix Messaging CSS
+- Added Edit Profile Modal
+- Added Mobile-First Approach CSS
+- Add Images on Filmz
+- Bug Fixes and Optimizations
+
 # Goals
 
 - [x] Enhance page performance by Caching.
@@ -83,7 +93,7 @@ NEXT_PUBLIC_SUPABASE_KEY=
 - [ ] Implementing videos is a challenge because you can only play the video once.
 - [ ] Editing videos css to match my desire Designs.
 - [ ] add infinite scrolling later
-- [ ] add Pictures on Filmz using Cloudinary
+- [x] add Pictures on Filmz using Cloudinary
 - [ ] fix User Search Modal
 - [x] add Edit Profile to the app
 - [x] implement cloudinary for pictures

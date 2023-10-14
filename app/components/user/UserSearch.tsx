@@ -23,6 +23,9 @@ function UserSearch({ getChat }: Props) {
         setApiQuery(query);
         setTyping(false);
         setHide(false);
+      } else {
+        setHide(true);
+        setTyping(false);
       }
     }, 1000);
     return () => clearTimeout(timeoutId);
@@ -53,19 +56,11 @@ function UserSearch({ getChat }: Props) {
           placeholder="Search for Users"
         />
 
-        <div className="  col-span-2 border-l border-white flex justify-center items-center cursor-pointer">
+        <div className="  col-span-2 border-l border-white flex justify-center items-center cursor-pointer hover:opacity-60">
           <FaSearch />
         </div>
       </div>
       <div className="px-5">
-        <div
-          onClick={() => setHide(true)}
-          className={`float-right cursor-pointer text-red-600  ${
-            hide ? "hidden" : "block"
-          } mt-2`}
-        >
-          <AiOutlineClose />
-        </div>
         {typing ? (
           <div className="absolute">
             <Skeleton
@@ -76,12 +71,16 @@ function UserSearch({ getChat }: Props) {
             />
           </div>
         ) : (
-          <SearchQuery
-            query={apiQuery}
-            hide={hide}
-            name={username}
-            getChat={getChat}
-          />
+          <div className="w-45">
+            {" "}
+            <SearchQuery
+              query={apiQuery}
+              hide={hide}
+              name={username}
+              getChat={getChat}
+              setHide={setHide}
+            />
+          </div>
         )}
       </div>
     </div>

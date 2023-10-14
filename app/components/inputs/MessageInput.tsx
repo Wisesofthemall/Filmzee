@@ -69,7 +69,7 @@ function MessageInput({
       >
         {label}
       </label>
-      <div onClick={() => submit()} className="cursor-pointer">
+      <div onClick={() => submit()} className="cursor-pointer hover:opacity-60">
         <SendIcon />
       </div>
     </div>

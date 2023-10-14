@@ -81,7 +81,7 @@ function CurrentChats({
   };
   const getInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
-    console.log(result);
+
     setUserInfo(result);
   };
 

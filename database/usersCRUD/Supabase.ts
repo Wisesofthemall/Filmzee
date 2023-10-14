@@ -99,13 +99,12 @@ export const getUsersByName = async (name: string, username: string) => {
 };
 
 export const editUserById = async (id: number, update: any) => {
-  console.log(id, update);
   try {
     const { data, error } = await supabase
       .from("Users")
       .update(update)
       .eq("localId", id);
-    console.log(error);
+
     if (error) {
       throw error;
     }
@@ -123,7 +122,6 @@ export const updateUserByEmail = async (
   name: string,
 ) => {
   try {
-    console.log("work?");
     const { data, error } = await supabase
       .from("Chats")
       .update({
@@ -136,8 +134,6 @@ export const updateUserByEmail = async (
       console.error("Error updating user data:", error);
       return null;
     }
-
-    console.log("User data updated successfully:", data);
 
     return data;
   } catch (error) {

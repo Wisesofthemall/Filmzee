@@ -78,7 +78,10 @@ function FilmzCardButtons({ likes, id }: Props) {
             <AiFillHeart size={20} />
           </div>
         ) : (
-          <div onClick={() => updateLike(1)} className="mx-1">
+          <div
+            onClick={() => updateLike(1)}
+            className="mx-1 cursor-pointer hover:opacity-60"
+          >
             <AiOutlineHeart size={20} />
           </div>
         )}

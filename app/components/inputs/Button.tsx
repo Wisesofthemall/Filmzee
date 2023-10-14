@@ -42,7 +42,6 @@ function Button({
       {Icon && <Icon size={24} className=" md:absolute md:left-4 md:top-3 " />}
 
       <div className={`${mobile ? "hidden md:block" : ""}`}>{label}</div>
-      {/* <div className="block md:hidden">ㅤ</div> */}
     </button>
   );
 }

@@ -28,7 +28,6 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
   const shouldScroll = () => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   };
-  console.log(messages);
 
   useEffect(() => {
     if (scroll) {
@@ -52,7 +51,7 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
                 onClick={() =>
                   router.push(`/profile/${message.sender.localId}`)
                 }
-                className="flex justify-center items-center h-full mb-4 cursor-pointer"
+                className="flex justify-center items-center h-full mb-4 cursor-pointer hover:opacity-60"
               >
                 <DynamicPhoto
                   photoUrl={message.sender.photoUrl}
@@ -67,7 +66,7 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
               className="flex items-start justify-start m-2"
             >
               <div
-                className="cursor-pointer"
+                className="cursor-pointer hover:opacity-60"
                 onClick={() =>
                   router.push(`/profile/${message.sender.localId}`)
                 }

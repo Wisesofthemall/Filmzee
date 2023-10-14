@@ -34,7 +34,6 @@ function MobileCard({ Users, setUsers, id }: Props) {
       const Query = query(filmzRef, where("senderId", "==", id));
       setQueryRef(Query);
       const profileUser = await getUserByLocalId(id);
-      console.log(profileUser);
 
       setUsers(profileUser);
     }

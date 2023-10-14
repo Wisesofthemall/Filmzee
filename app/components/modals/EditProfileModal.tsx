@@ -41,7 +41,7 @@ function EditProfileModal({}: Props) {
 
   const getUserInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
-    console.log(result);
+
     setName(result.name);
     setPhotoUrl(result.photoUrl);
     setBio(result.bio);
@@ -63,7 +63,6 @@ function EditProfileModal({}: Props) {
     setStep((value) => value + 1);
   };
   const updateUser = async () => {
-    console.log("invoking....");
     await updateUserByEmail(loginUser.email, photoUrl, name);
   };
   const onSubmit = () => {

@@ -19,12 +19,12 @@ type Props = {
     likes: any;
     senderId: string;
     sender: FirebaseUserType;
+    image: string;
   };
 };
 
 function FilmzCard({ main, post }: Props) {
   const router = useRouter();
-  console.log(post);
 
   // S
 
@@ -40,7 +40,7 @@ function FilmzCard({ main, post }: Props) {
         }`}
       >
         <div
-          className=" ml-2 mt-1 cursor-pointer"
+          className=" ml-2 mt-1 cursor-pointer hover:opacity-60"
           onClick={() => router.push(`/profile/${post.senderId}`)}
         >
           <DynamicPhoto
@@ -53,7 +53,7 @@ function FilmzCard({ main, post }: Props) {
           <div className="flex pl-2">
             <div
               onClick={() => router.push(`/profile/${post.senderId}`)}
-              className="font-semibold cursor-pointer"
+              className="font-semibold cursor-pointer hover:opacity-60"
             >
               {post.sender?.displayName
                 ? post.sender?.displayName
@@ -61,7 +61,7 @@ function FilmzCard({ main, post }: Props) {
             </div>
             <div
               onClick={() => router.push(`/profile/${post.senderId}`)}
-              className="text-gray-800 text-sm ml-2 cursor-pointer"
+              className="text-gray-800 text-sm ml-2 cursor-pointer hover:opacity-60"
             >
               {post.sender?.email}
             </div>
@@ -77,6 +77,17 @@ function FilmzCard({ main, post }: Props) {
           <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
             {post.text}
           </p>
+          {post.image && (
+            <div className="my-2 flex justify-center">
+              <Image
+                alt="filmz image"
+                className="w-3/5 h-3/5 rounded-lg"
+                src={post.image}
+                width={60}
+                height={60}
+              />
+            </div>
+          )}
 
           <FilmzCardButtons likes={post.likes} id={post.createdAt} />
         </div>

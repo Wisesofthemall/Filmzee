@@ -43,13 +43,13 @@ export default function Header({
         onClick={() => {
           setShowCurrent(false);
         }}
-        className="left-0 cursor-pointer"
+        className="left-0 cursor-pointer hover:opacity-60"
       >
         <AiOutlineLeft size={26} />
       </div>
       <div className="flex w-1/2 mx-auto">
         <div
-          className="cursor-pointer"
+          className="cursor-pointer hover:opacity-60"
           onClick={() => router.push(`/profile/${localId}`)}
         >
           <DynamicPhoto photoUrl={photo} picId={picId} email={name} />

@@ -20,7 +20,6 @@ const ChatsContainer = memo(function ChatsContainer({
   hide,
   setHide,
 }: Props) {
-  console.log(myChats);
   return (
     <div className="overflow-y-scroll overflow-x-hidden">
       {myChats.map((user: any) => (

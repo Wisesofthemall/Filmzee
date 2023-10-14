@@ -47,7 +47,7 @@ function ChatsCard({
   return (
     <div
       onClick={() => setSelectedAndCurrent()}
-      className={`w-10/10 m-2 flex cursor-pointer shadow-xl ${
+      className={`w-10/10 m-2 flex cursor-pointer hover:opacity-60 shadow-xl ${
         user.recepientEmail === selected.recepientEmail
           ? "bg-blue-500"
           : "bg-slate-300"
