@@ -2,11 +2,9 @@ import React from "react";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 
-type Props = {
-  n: number;
-};
+type Props = {};
 
-function SkeletonCard({ n }: Props) {
+function SkeletonCard({}: Props) {
   return (
     <div className=" m-2">
       <Stack spacing={0}>
@@ -14,8 +12,8 @@ function SkeletonCard({ n }: Props) {
 
         <Skeleton
           variant="rectangular"
-          width={210}
-          height={200}
+          width={400}
+          height={500}
           className="rounded-lg"
           sx={{ bgcolor: "grey.800" }}
         />
@@ -23,7 +21,7 @@ function SkeletonCard({ n }: Props) {
         <Skeleton
           variant="text"
           sx={{ fontSize: "1rem", bgcolor: "grey.800" }}
-          width={200}
+          width={250}
         />
 
         {/* For other variants, adjust the size with `width` and `height` */}
@@ -32,7 +30,7 @@ function SkeletonCard({ n }: Props) {
           <Skeleton
             variant="text"
             sx={{ fontSize: "1rem", bgcolor: "grey.800" }}
-            width={150}
+            width={200}
           />
         </div>
       </Stack>

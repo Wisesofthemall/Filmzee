@@ -13,6 +13,8 @@ type Props = {
   setSelected: any;
   showCurrent: any;
   setShowCurrent: any;
+  hide: any;
+  setHide: any;
 };
 
 function MyChats({
@@ -20,6 +22,8 @@ function MyChats({
   setSelected,
   showCurrent,
   setShowCurrent,
+  hide,
+  setHide,
 }: Props) {
   const [myChats, setMyChats] = useState<any[] | null>([]);
   const loginUser: FirebaseUserType = useAuth();
@@ -43,11 +47,14 @@ function MyChats({
   return (
     <div
       className={`bg-gray-900 text-black   md:block rounded-lg m-2 p-3 overflow-y-scroll ${
-        showCurrent ? "hidden md:col-span-3" : " col-span-10 md:col-span-3"
-      }  `}
+        showCurrent ? " hidden md:col-span-3 " : " col-span-10 "
+      } ${hide ? " col-span-10  " : ""}
+       ${!showCurrent && !hide ? "md:col-span-3" : "md:col-span-10 "} `}
     >
       <UserSearch getChat={getChat} />
       <ChatsContainer
+        hide={hide}
+        setHide={setHide}
         showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
         myChats={myChats}

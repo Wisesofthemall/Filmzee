@@ -6,14 +6,24 @@ import { Avatar } from "@mui/material";
 import { colorMaker } from "@/functions/profileGenerator";
 import { useEffect, useRef } from "react";
 import { formatDistanceToNow } from "date-fns";
+import DynamicPhoto from "../DynamicPhoto";
+import Message from "./Message";
+import { useRouter } from "next/router";
+type MessageType = {
+  roomId: string;
+  sender: FirebaseUserType;
+  createdAt: string;
+  text: string;
+};
 type Props = {
-  messages: any;
+  messages: MessageType[];
   loginUser: FirebaseUserType;
   scroll: any;
   setScroll: any;
 };
 
 function Messages({ messages, loginUser, scroll, setScroll }: Props) {
+  const router = useRouter();
   const dummy: any = useRef();
   const shouldScroll = () => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -29,74 +39,45 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
   return (
     <div className="h-full overflow-y-scroll">
       {" "}
-      {messages.map((message: any) => (
-        <div key={message.id} className="">
+      {messages.map((message) => (
+        <div key={message.createdAt} className="">
           {loginUser?.localId === message.sender.localId ? (
-            <div key={message.id} className="flex items-end justify-end m-2">
-              <div className="">
-                <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end">
-                  {message.text}
-                </div>
-                <div className="text-xs text-blue-400 px-2 text-end">
-                  {formatDistanceToNow(message.createdAt.toDate(), {
-                    addSuffix: true,
-                  })}
-                </div>
-              </div>
-              {message.sender.photoUrl ? (
-                <Image
-                  className="rounded-full "
-                  src={message.sender.photoUrl}
-                  alt="profile image"
-                  width={40}
-                  height={40}
+            <div
+              key={message.createdAt}
+              className="flex items-end justify-end m-2"
+            >
+              <Message message={message} loginUser={loginUser} />
+              <div
+                onClick={() =>
+                  router.push(`/profile/${message.sender.localId}`)
+                }
+                className="flex justify-center items-center h-full mb-4 cursor-pointer hover:opacity-60"
+              >
+                <DynamicPhoto
+                  photoUrl={message.sender.photoUrl}
+                  picId={parseInt(message.sender.createdAt.slice(-3))}
+                  email={message.sender.email}
                 />
-              ) : (
-                <Avatar
-                  sx={{
-                    bgcolor: colorMaker(
-                      parseInt(message.sender.createdAt.slice(-3)),
-                    ),
-                  }}
-                >
-                  {message.sender.email[0].toUpperCase()}
-                </Avatar>
-              )}
+              </div>
             </div>
           ) : (
             <div
-              key={message.id}
+              key={message.createdAt}
               className="flex items-start justify-start m-2"
             >
-              {message.sender.photoUrl ? (
-                <Image
-                  className="rounded-full "
-                  src={message.sender.photoUrl}
-                  alt="receiver image"
-                  width={40}
-                  height={40}
+              <div
+                className="cursor-pointer hover:opacity-60"
+                onClick={() =>
+                  router.push(`/profile/${message.sender.localId}`)
+                }
+              >
+                <DynamicPhoto
+                  photoUrl={message.sender.photoUrl}
+                  picId={parseInt(message.sender.createdAt.slice(-3))}
+                  email={message.sender.email}
                 />
-              ) : (
-                <Avatar
-                  sx={{
-                    bgcolor: colorMaker(
-                      parseInt(message.sender.createdAt.slice(-3)),
-                    ),
-                  }}
-                >
-                  {message.sender.email[0].toUpperCase()}
-                </Avatar>
-              )}
-              <div className="">
-                <div className="rounded-lg p-2 bg-blue-950 ml-1">
-                  {message.text}
-                </div>
-                <div className="ml-auto text-xs text-blue-400 px-2">
-                  {formatDistanceToNow(message.createdAt.toDate(), {
-                    addSuffix: true,
-                  })}
-                </div>
               </div>
+              <Message message={message} loginUser={loginUser} />
             </div>
           )}
         </div>

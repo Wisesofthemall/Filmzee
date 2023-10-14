@@ -5,6 +5,8 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import { AiOutlineLeft } from "react-icons/ai";
+import DynamicPhoto from "../DynamicPhoto";
+import { useRouter } from "next/navigation";
 
 type Props = {
   photo: string;
@@ -12,6 +14,7 @@ type Props = {
   uniq: string;
   showCurrent: any;
   setShowCurrent: any;
+  localId: any;
   email: any;
 };
 
@@ -22,7 +25,9 @@ export default function Header({
   showCurrent,
   setShowCurrent,
   email,
+  localId,
 }: Props) {
+  const router = useRouter();
   const [picId, setPicId] = useState(200);
   useEffect(() => {
     if (uniq) {
@@ -32,39 +37,23 @@ export default function Header({
     }
   }, [uniq]);
 
-  const color: any = colorMaker(picId);
   return (
     <div className="w-full bg-blue-400  flex items-center rounded-lg">
       <div
         onClick={() => {
           setShowCurrent(false);
         }}
-        className="left-0 cursor-pointer"
+        className="left-0 cursor-pointer hover:opacity-60"
       >
         <AiOutlineLeft size={26} />
       </div>
       <div className="flex w-1/2 mx-auto">
-        {photo ? (
-          <Image
-            className="rounded-full "
-            src={photo}
-            alt="profile image"
-            width={50}
-            height={40}
-          />
-        ) : (
-          <div className="">
-            <Avatar
-              sx={{
-                bgcolor: color(picId),
-                width: 50,
-                height: 50,
-              }}
-            >
-              {name[0].toUpperCase()}
-            </Avatar>
-          </div>
-        )}
+        <div
+          className="cursor-pointer hover:opacity-60"
+          onClick={() => router.push(`/profile/${localId}`)}
+        >
+          <DynamicPhoto photoUrl={photo} picId={picId} email={name} />
+        </div>
         <div className="">
           <div className="text-2xl mx-2 ">{name}</div>
           <div className=" mx-2 text-gray-800 text-sm ">{email}</div>

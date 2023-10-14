@@ -22,24 +22,27 @@ export default function Home() {
   }, []);
   const content = (
     <div className="my-2">
-      <div className="font-bold"> - Profanity filtering system</div>
-      <div className="font-bold"> - Profile system</div>
-      <div className="font-bold"> - Filmz ADDED </div>
-      <div className="font-bold"> - CSS Improvements </div>
+      <div className="font-bold">- Prevent user to post without logging in</div>
+      <div className="font-bold"> - Remove Global Chat Feature</div>
+      <div className="font-bold"> - Fix Messaging CSS </div>
+      <div className="font-bold"> - Added Edit Profile Modal </div>
+      <div className="font-bold"> - Added Mobile-First Approach CSS </div>
+      <div className="font-bold"> - Add Images on Filmz </div>
+      <div className="font-bold"> - Bug Fixes and Optimizations </div>
     </div>
   );
   return (
     <div className="grid grid-cols-12 w-full h-full">
-      <div className="col-span-3 md:col-span-4 lg:col-span-3 overflow-y-scroll h-[100vh]">
+      <div className="w-full absolute bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3 overflow-y-scroll h-[100vh]">
         <VideoController setSelected={setSelected} selected={selected} />
       </div>
-      <div className=" col-span-9 md:col-span-8 lg:col-span-6  overflow-y-scroll h-[100vh]">
+      <div className=" col-span-12 md:col-span-8 lg:col-span-6 md:h-[100vh] overflow-y-scroll h-[100vh]">
         {IsLoaded && <ContentContainer videos={videos} selected={selected} />}
       </div>
       <div className="col-span-3  w-full h-[100vh] lg:block hidden p-2">
         <NewsContainer
           header="Whats New?"
-          subtitle="Version 2.0"
+          subtitle="Version 2.5"
           content={content}
         />
       </div>

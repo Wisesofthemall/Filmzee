@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import FilmzCard from "./FilmzCard";
 import FilmzCreator from "./FilmzCreator";
-import { collection, query, where } from "firebase/firestore";
+import { collection, orderBy, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 
@@ -15,12 +15,12 @@ function FilmzContainer({ main, senderId }: Props) {
   const filmzRef = collection(db, "filmz");
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))
-    : query(filmzRef);
-  const [filmz, setFilmz] = useState<any[]>([]);
+    : query(filmzRef, orderBy("createdAt", "desc"));
+  const [filmz, setFilmz] = useState<any>([]);
 
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
-    if (Posts) {
+    if (Posts && senderId) {
       const filterMessage = Posts.sort(function (a, b) {
         // Convert Firestore Timestamps to JavaScript Date objects
 
@@ -32,17 +32,19 @@ function FilmzContainer({ main, senderId }: Props) {
       });
 
       setFilmz(filterMessage);
+    } else if (Posts) {
+      setFilmz(Posts);
     }
-  }, [Posts]);
+  }, [Posts, senderId]);
   return (
     <div
       className={`w-full   flex flex-wrap pb-28 mt-3 overflow-y-scroll overflow-x-hidden ${
-        main ? "" : "pl-[15rem]"
+        main ? "" : " pl-0 md:pl-[15rem]"
       } ${main ? "" : " h-[52vh] overflow-y-scroll"}  `}
     >
       {main && <FilmzCreator />}
 
-      {filmz.map((post) => (
+      {filmz.map((post: any) => (
         <FilmzCard key={post.createdAt} main={main} post={post} />
       ))}
     </div>

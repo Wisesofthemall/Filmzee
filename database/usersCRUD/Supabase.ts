@@ -86,7 +86,7 @@ export const getUsersByName = async (name: string, username: string) => {
     const { data, error } = await supabase
       .from("Users")
       .select("*")
-      .ilike("name", `%${name}%`);
+      .ilike("email", `%${name}%`);
 
     if (error) {
       return [];
@@ -95,5 +95,49 @@ export const getUsersByName = async (name: string, username: string) => {
     return data.filter((user) => user.name !== username);
   } catch (error) {
     return [];
+  }
+};
+
+export const editUserById = async (id: number, update: any) => {
+  try {
+    const { data, error } = await supabase
+      .from("Users")
+      .update(update)
+      .eq("localId", id);
+
+    if (error) {
+      throw error;
+    }
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserByEmail = async (
+  email: string,
+  photo: string,
+  name: string,
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("Chats")
+      .update({
+        recepientPhoto: photo,
+        recepientName: name,
+      })
+      .eq("recepientEmail", email);
+
+    if (error) {
+      console.error("Error updating user data:", error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error in updateUserByEmail function:", error);
+    return null;
   }
 };

@@ -41,6 +41,7 @@ function Navbar({}: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+  
   return (
     <div className="p-4 flex flex-row justify-around z-50 bg-black ">
       <div

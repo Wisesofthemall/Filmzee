@@ -7,11 +7,20 @@ import FilmzCardButtons from "./FilmzCardButtons";
 
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
+import DynamicPhoto from "../DynamicPhoto";
+import { FirebaseUserType } from "@/types/Types";
 
 type dataType = {};
 type Props = {
   main?: boolean;
-  post: any;
+  post: {
+    text: string;
+    createdAt: any;
+    likes: any;
+    senderId: string;
+    sender: FirebaseUserType;
+    image: string;
+  };
 };
 
 function FilmzCard({ main, post }: Props) {
@@ -24,39 +33,35 @@ function FilmzCard({ main, post }: Props) {
   });
 
   return (
-    <div className={`${main ? "w-full" : "m-2"}`}>
+    <div className={`${main ? "w-full" : "w-full m-2"}`}>
       <div
         className={`bg-black rounded-lg    p-2 flex    ${
           main ? "w-full" : "w-full"
         }`}
       >
         <div
-          className=" ml-2 mt-1 cursor-pointer"
+          className=" ml-2 mt-1 cursor-pointer hover:opacity-60"
           onClick={() => router.push(`/profile/${post.senderId}`)}
         >
-          {post.sender?.photoUrl ? (
-            <Image
-              className="rounded-full hidden md:block"
-              src={post.sender.photoUrl}
-              alt="post photo"
-              width={50}
-              height={50}
-            />
-          ) : (
-            <div className=""></div>
-          )}
+          <DynamicPhoto
+            photoUrl={post.sender?.photoUrl}
+            email={post.sender.email}
+            picId={parseInt(post.sender.createdAt.slice(-3))}
+          />
         </div>
         <div className="w-full h-full ">
           <div className="flex pl-2">
             <div
               onClick={() => router.push(`/profile/${post.senderId}`)}
-              className="font-semibold cursor-pointer"
+              className="font-semibold cursor-pointer hover:opacity-60"
             >
-              {post.sender?.displayName}
+              {post.sender?.displayName
+                ? post.sender?.displayName
+                : post.sender.email.split("@")[0]}
             </div>
             <div
               onClick={() => router.push(`/profile/${post.senderId}`)}
-              className="text-gray-800 text-sm ml-2 cursor-pointer"
+              className="text-gray-800 text-sm ml-2 cursor-pointer hover:opacity-60"
             >
               {post.sender?.email}
             </div>
@@ -72,6 +77,17 @@ function FilmzCard({ main, post }: Props) {
           <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
             {post.text}
           </p>
+          {post.image && (
+            <div className="my-2 flex justify-center">
+              <Image
+                alt="filmz image"
+                className="w-3/5 h-3/5 rounded-lg"
+                src={post.image}
+                width={60}
+                height={60}
+              />
+            </div>
+          )}
 
           <FilmzCardButtons likes={post.likes} id={post.createdAt} />
         </div>

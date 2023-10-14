@@ -11,13 +11,23 @@ import { useAuth } from "@/auth/AuthState";
 import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
 import Messages from "./Messages";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 type Props = {
-  selected: any | ChatType;
+  selected: ChatType;
   showCurrent: any;
   setShowCurrent: any;
+  setHide: any;
+  hide: any;
 };
 
-function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
+function CurrentChats({
+  selected,
+  showCurrent,
+  setShowCurrent,
+  setHide,
+  hide,
+}: Props) {
+  const [userInfo, setUserInfo] = useState<any>({});
   const [newMessage, setNewMessage] = useState("");
   const [scroll, setScroll] = useState(false);
   const roomId = [...selected.userId, ...selected.recepientLocalID]
@@ -37,7 +47,11 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
     const message = filter.clean(newMessage);
     await addDoc(messagesRef, {
       text: message,
-      sender: loginUser,
+      sender: {
+        ...loginUser,
+        displayName: userInfo.name,
+        photoUrl: userInfo.photoUrl,
+      },
       createdAt: new Date(),
       roomId,
     });
@@ -50,7 +64,11 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       const message = filter.clean(newMessage);
       await addDoc(messagesRef, {
         text: message,
-        sender: loginUser,
+        sender: {
+          ...loginUser,
+          displayName: userInfo.name,
+          photoUrl: userInfo.photoUrl,
+        },
         createdAt: new Date(),
         roomId,
       });
@@ -61,6 +79,18 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       return;
     }
   };
+  const getInfo = async () => {
+    const result = await getUserByLocalId(loginUser.localId);
+
+    setUserInfo(result);
+  };
+
+  useEffect(() => {
+    if (loginUser) {
+      getInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   useEffect(() => {
     if (Message) {
@@ -78,6 +108,17 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       setScroll(true);
     }
   }, [Message, roomId]);
+  if (selected.show === false) {
+    return (
+      <div
+        className={`bg-gray-900  ${
+          hide ? "hidden" : "col-span-10 md:col-span-7"
+        }  rounded-lg m-2 flex flex-col h-full p-2`}
+      >
+        <div className="flex-grow h-[25rem]">Please Select a Chat</div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -88,6 +129,7 @@ function CurrentChats({ selected, showCurrent, setShowCurrent }: Props) {
       }  rounded-lg m-2 flex flex-col h-full p-2`}
     >
       <Header
+        localId={selected.recepientLocalID}
         showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
         photo={selected.recepientPhoto}

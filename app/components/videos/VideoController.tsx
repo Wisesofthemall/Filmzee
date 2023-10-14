@@ -35,14 +35,15 @@ function VideoController({ setSelected, selected }: Props) {
   };
 
   useEffect(() => {
+    pushSelected("Filmz");
     //shortsss();
     const select = getQueryParam("select");
     setSelected(select as string);
   }, []);
 
   return (
-    <div className="p-5">
-      <div className=" my-5">
+    <div className="z-50 p-5 flex justify-around w-full h-[8rem]  bg-black  md:h-full md:bg-transparent md:block">
+      <div className=" w-1/5 md:w-full my-5">
         <Button
           label="For You"
           onClick={() => {
@@ -53,7 +54,7 @@ function VideoController({ setSelected, selected }: Props) {
           mobile
         />
       </div>
-      <div className="my-5">
+      <div className=" w-1/5 md:w-full my-5">
         <Button
           label="Following"
           onClick={() => {
@@ -64,7 +65,7 @@ function VideoController({ setSelected, selected }: Props) {
           mobile
         />
       </div>
-      <div className="my-5">
+      <div className=" w-1/5 md:w-full my-5">
         <Button
           label="Explore"
           onClick={() => {
@@ -75,7 +76,7 @@ function VideoController({ setSelected, selected }: Props) {
           mobile
         />
       </div>
-      <div className="my-5">
+      <div className=" w-1/5 md:w-full my-5">
         <Button
           label="Filmz"
           onClick={() => {

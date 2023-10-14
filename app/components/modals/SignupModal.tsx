@@ -119,10 +119,9 @@ function SignupModal({}: Props) {
       title="Signup"
       actionLabel="Continue"
       onClose={signupModal.onClose}
-      onSubmit={handleGoogle}
+      onSubmit={handleEmailAndPassword}
       body={bodyContent}
       footer={footerContent}
-      secondaryAction={handleEmailAndPassword}
     />
   );
 }

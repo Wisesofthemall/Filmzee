@@ -12,10 +12,13 @@ import { Menu, MenuButton } from "@chakra-ui/react";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
 import { colorMaker } from "@/functions/profileGenerator";
+import DynamicPhoto from "../DynamicPhoto";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 type Props = {};
 
 function UserIcon({}: Props) {
   const [picId, setPicId] = useState(100);
+  const [userInfo, setUserInfo] = useState<any>({});
   const user = useAuth();
 
   useEffect(() => {
@@ -30,6 +33,18 @@ function UserIcon({}: Props) {
   const OpenModal = () => {
     signup.onOpen();
   };
+  const getInfo = async () => {
+    const result = await getUserByLocalId(user.localId);
+
+    setUserInfo(result);
+  };
+
+  useEffect(() => {
+    if (user) {
+      getInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <div className="flex justify-center items-center z-40">
@@ -37,23 +52,11 @@ function UserIcon({}: Props) {
         <div className="mx-1 ">
           <Menu isLazy>
             <MenuButton>
-              {user.photoUrl ? (
-                <Image
-                  className="rounded-full "
-                  src={user.photoUrl}
-                  alt="profile image"
-                  width={40}
-                  height={40}
-                />
-              ) : (
-                <Avatar
-                  sx={{
-                    bgcolor: color(picId),
-                  }}
-                >
-                  {user.email[0].toUpperCase()}
-                </Avatar>
-              )}
+              <DynamicPhoto
+                photoUrl={userInfo ? userInfo.photoUrl : undefined}
+                picId={picId}
+                email={user.email}
+              />
             </MenuButton>
             <UserMenu />
           </Menu>

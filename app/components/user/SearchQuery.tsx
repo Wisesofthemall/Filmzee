@@ -5,15 +5,17 @@ import { UserType } from "@/types/Types";
 import React, { useEffect, useState } from "react";
 import UserSearchCard from "./UserSearchCard";
 import { useAuth } from "@/auth/AuthState";
+import { AiOutlineClose } from "react-icons/ai";
 
 type Props = {
   getChat: (userId?: number) => {};
   query: string;
   hide: boolean;
   name: string | undefined;
+  setHide: any;
 };
 
-function SearchQuery({ query, hide, name, getChat }: Props) {
+function SearchQuery({ query, hide, name, getChat, setHide }: Props) {
   const user = useAuth();
   const [results, setResults] = useState<UserType[] | []>([]);
   const [queryResult, setQueryResult] = useState([]);
@@ -28,14 +30,24 @@ function SearchQuery({ query, hide, name, getChat }: Props) {
   }, []);
 
   return (
-    <div
-      className={`rounded-lg absolute bg-gray-950   ${
-        hide ? "hidden" : "block"
-      } overflow-y-scroll h-40`}
-    >
-      {results.map((u) => (
-        <UserSearchCard user={u} key={u.id} getChat={getChat} />
-      ))}
+    <div className="">
+      <div
+        onClick={() => setHide(true)}
+        className={`float-right cursor-pointer hover:opacity-60 text-red-600 absolute left-[0.7rem]  ${
+          hide ? "hidden" : "block"
+        } mt-2`}
+      >
+        <AiOutlineClose size={20} />
+      </div>
+      <div
+        className={`rounded-lg absolute bg-gray-950   ${
+          hide ? "hidden" : "block"
+        } overflow-y-scroll h-40`}
+      >
+        {results.map((u) => (
+          <UserSearchCard user={u} key={u.id} getChat={getChat} />
+        ))}
+      </div>
     </div>
   );
 }
