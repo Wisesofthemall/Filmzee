@@ -114,7 +114,9 @@ function FilmzCreator({}: Props) {
         </div>
         <div className="w-full">
           <div className="flex pl-2">
-            <div className="font-semibold">{loginUser?.displayName}</div>
+            <div className="font-semibold">
+              {userInfo ? userInfo.name : undefined}
+            </div>
             <div className="text-gray-800 text-sm ml-2">{loginUser?.email}</div>
           </div>
           <textarea
