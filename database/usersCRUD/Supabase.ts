@@ -36,7 +36,6 @@ export const getUserByLocalId = async (localId: string) => {
     if (error) {
       return null;
     }
-    console.log(data);
 
     return data;
   } catch (error) {
@@ -108,7 +107,6 @@ export const editUserById = async (id: number, update: any) => {
     if (error) {
       throw error;
     }
-    console.log(data);
 
     return data;
   } catch (error) {
