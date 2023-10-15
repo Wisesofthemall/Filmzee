@@ -28,16 +28,6 @@ function UserMenu({}: Props) {
       {/* MenuItems are not rendered unless Menu is open */}
 
       <MenuItem
-        as="a"
-        className="my-1 cursor-pointer hover:text-blue-400"
-        onClick={() => editProfile.onOpen()}
-      >
-        <div className="mx-2">
-          <AiOutlineUser />
-        </div>
-        Edit Profile
-      </MenuItem>
-      <MenuItem
         onClick={() => router.push(`/profile/${loginUser.localId}`)}
         as="a"
         className="my-1 cursor-pointer hover:text-blue-400"
@@ -46,6 +36,16 @@ function UserMenu({}: Props) {
           <FiEye />
         </div>
         View Profile
+      </MenuItem>
+      <MenuItem
+        as="a"
+        className="my-1 cursor-pointer hover:text-blue-400"
+        onClick={() => editProfile.onOpen()}
+      >
+        <div className="mx-2">
+          <AiOutlineUser />
+        </div>
+        Edit Profile
       </MenuItem>
       <MenuItem
         as="a"
