@@ -21,19 +21,26 @@ NEXT_PUBLIC_SUPABASE_KEY=
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME =
 NEXT_PUBLIC_CLOUDINARY_API_KEY =
 NEXT_PUBLIC_CLOUDINARY_API_SECRET=
+NEXT_PUBLIC_apiKey=
+NEXT_PUBLIC_authDomain=
+NEXT_PUBLIC_projectId=
+NEXT_PUBLIC_storageBucket=
+NEXT_PUBLIC_messagingSenderId=
+NEXT_PUBLIC_appId=
+NEXT_PUBLIC_measurementId=
 
 ```
 
 ```
 #Firebase.ts
 
-  apiKey:
-  authDomain:
-  projectId:
-  storageBucket:
-  messagingSenderId:
-  appId:
-  measurementId:
+  apiKey: process.env.NEXT_PUBLIC_apiKey,
+  authDomain: process.env.NEXT_PUBLIC_authDomain,
+  projectId: process.env.NEXT_PUBLIC_projectId,
+  storageBucket: process.env.NEXT_PUBLIC_storageBucket,
+  messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
+  appId: process.env.NEXT_PUBLIC_appId,
+  measurementId: process.env.NEXT_PUBLIC_measurementId,
 ```
 
 # Snippets
