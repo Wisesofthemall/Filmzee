@@ -92,7 +92,7 @@ function FilmzCard({ main, post }: Props) {
           <FilmzCardButtons likes={post.likes} id={post.createdAt} />
         </div>
       </div>
-      {main && <hr className="border border-gray-800" />}
+      <hr className="border border-gray-800" />
     </div>
   );
 }
