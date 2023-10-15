@@ -49,6 +49,7 @@ NEXT_PUBLIC_CLOUDINARY_API_SECRET=
 ## Profile Page
 
 <img src='/public/ProfilePage.png' title='Profile Page' width='' alt='Profile Page' />
+
 # Goals
 
 - [ ] Enable videos correctly
