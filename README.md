@@ -36,70 +36,32 @@ NEXT_PUBLIC_CLOUDINARY_API_SECRET=
   measurementId:
 ```
 
-# Roadmap
+# Snippets
 
-## Version 1.0
+## Filmz Page
 
-- Implemented the foundational structure
-- Implemented Authenication using Firebase
-- Added realtime messaging via Firebase Firestore
-- Setup Supabase database.
-- Added short videos via Youtube Shorts.
-- Bug fixes.
+<img src='/public/FilmzPage.png' title='Filmz Page' width='' alt='Filmz Page' />
 
-## Version 1.3
+## Message Page
 
-- Added a 'Global' chat so every user can interact.
-- Implemented a Mobile First Approach CSS Design using Tailwindcss
-- Implemeted Auto Scroll on Sent Messages
-- Disable short videos till later
+<img src='/public/MessagePage.png' title='Message Page' width='' alt='Message Page' />
 
-## Version 1.5
+## Profile Page
 
-- Improved Messaging sending time by implementing a 'where' query
-- Fix profile generator bug
-- Fix User Search popup when reloading
-- Improve MyChats Render by caching using react memo
-- Improved Firebase security by adding Security Rules
-- Added a profanity filter on messages
-
-## Version 2.0
-
-- New Filmz Feature
-- Improved Messaging CSS
-- Dynamic time renderer
-- New Profile System
-
-## Version 2.5
-
-- Prevent user to post without logging in
-- Remove Global Chat Feature
-- Fix Messaging CSS
-- Added Edit Profile Modal
-- Added Mobile-First Approach CSS
-- Add Images on Filmz
-- Bug Fixes and Optimizations
-
+<img src='/public/ProfilePage.png' title='Profile Page' width='' alt='Profile Page' />
 # Goals
 
-- [x] Enhance page performance by Caching.
 - [ ] Enable videos correctly
 - [ ] Make the 'Navbar' Search bar optimal
 - [ ] can see requested messages
 - [ ] can see unread messages
 - [ ] a popup appears on recent messages
 - [ ] make a profile page
-- [x] add a profanity preventer function
 
 # Blockers
 
 - [ ] Implementing videos is a challenge because you can only play the video once.
 - [ ] Editing videos css to match my desire Designs.
 - [ ] add infinite scrolling later
-- [x] add Pictures on Filmz using Cloudinary
 - [ ] fix User Search Modal
-- [x] add Edit Profile to the app
-- [x] implement cloudinary for pictures
-- [x] fix change name glitch on Filmz
-- [x] make the whole site support the mobile-first approach
-- [x] make a 'view profile' on User Menu
+- [ ] creating a AWS infrastructure
