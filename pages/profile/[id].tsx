@@ -19,7 +19,7 @@ function ProfileContainer({}: Props) {
   const id: any = router.query.id;
 
   return (
-    <div className="h-[100vh] w-[100vw] bg-gray-900">
+    <div className="h-[100vh] w-[100vw] bg-black">
       <Navbar />
       <EditProfileModal />
       <div className="w-full h-[15rem] relative">

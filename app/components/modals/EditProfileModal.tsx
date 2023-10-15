@@ -168,7 +168,7 @@ function EditProfileModal({}: Props) {
     bodyContent = (
       <div className="flex flex-col gap-8 ">
         <Heading
-          title="What is a picture that best describes you?"
+          title="What is a background picture that describes you?"
           subtitle="Press next to continue"
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
