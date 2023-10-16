@@ -56,6 +56,7 @@ NEXT_PUBLIC_measurementId=
 - [ ] add Comments Section
 - [ ] add Repost Functionality
 - [ ] add Image Expander when User Click an image
+- [ ] wrap the images in a div tag
 
 # Blockers
 

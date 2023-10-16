@@ -30,6 +30,7 @@ function FilmzCard({ main, post }: Props) {
 
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,
+    includeSeconds: true,
   });
 
   return (

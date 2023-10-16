@@ -20,24 +20,28 @@ function DynamicPhoto({
   return (
     <>
       {photoUrl ? (
-        <Image
-          className="rounded-full "
-          src={photoUrl}
-          alt="profile image"
-          width={size}
-          height={size}
-        />
+        <div className="">
+          <Image
+            className="rounded-full "
+            src={photoUrl}
+            alt="profile image"
+            width={size}
+            height={size}
+          />
+        </div>
       ) : (
-        <Avatar
-          sx={{
-            bgcolor: colorMaker(picId),
-            width: size,
-            height: size,
-            zIndex: 0,
-          }}
-        >
-          {email ? email[0].toUpperCase() : "?"}
-        </Avatar>
+        <div className="">
+          <Avatar
+            sx={{
+              bgcolor: colorMaker(picId),
+              width: size,
+              height: size,
+              zIndex: 0,
+            }}
+          >
+            {email ? email[0].toUpperCase() : "?"}
+          </Avatar>
+        </div>
       )}
     </>
   );
