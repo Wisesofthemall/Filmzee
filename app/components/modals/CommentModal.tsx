@@ -1,36 +1,27 @@
 "use client";
-import React, { useState } from "react";
-import Modal from "./Modal";
+import React, { useEffect, useState } from "react";
 import useCommentModal from "@/app/hooks/useCommentModal";
-import { collection, query, where } from "firebase/firestore";
-import { db } from "@/auth/Firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import FilmzMain from "../profile/FilmzMain";
+import CModal from "./CModal";
 
 type Props = {};
 
 function CommentModal({}: Props) {
   const commentModal = useCommentModal();
 
-  const [FilmzId, setFilmzId] = useState();
-
-  function handleEmailAndPassword(): void {
-    throw new Error("Function not implemented.");
-  }
-  // const filmzRef = collection(db, "filmz");
-  // const queryRef = query(filmzRef, where("id", "==", senderId))
-
-  // const [Posts] = useCollectionData(queryRef);
-  const body = <div className=""></div>;
+  const body = (
+    <div className="w-[80vw] h-[80vh]">
+      {" "}
+      <FilmzMain />
+    </div>
+  );
 
   return (
-    <Modal
+    <CModal
       isOpen={commentModal.isOpen}
       title="Comments"
-      actionLabel="Continue"
       onClose={commentModal.onClose}
-      onSubmit={handleEmailAndPassword}
       body={body}
-      footer={body}
     />
   );
 }

@@ -94,7 +94,7 @@ function FilmzCard({ main, post }: Props) {
           <FilmzCardButtons
             likes={post.likes}
             id={post.createdAt}
-            //filmzId={post.id}
+            filmzId={post.id}
           />
         </div>
       </div>

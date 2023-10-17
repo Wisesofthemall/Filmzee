@@ -2,6 +2,7 @@
 import useCommentModal from "@/app/hooks/useCommentModal";
 import { useAuth } from "@/auth/AuthState";
 import { db } from "@/auth/Firebase";
+import { pushSelected } from "@/functions/urlParams";
 import { FirebaseUserType } from "@/types/Types";
 import {
   collection,
@@ -16,9 +17,9 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiRepost } from "react-icons/bi";
 import { BsChat } from "react-icons/bs";
 
-type Props = { likes: any; id: any };
+type Props = { likes: any; id: any; filmzId: any };
 
-function FilmzCardButtons({ likes, id }: Props) {
+function FilmzCardButtons({ likes, id, filmzId }: Props) {
   const loginUser: FirebaseUserType = useAuth();
   const [liked, setLiked] = useState(false);
   const [docID, setDocID] = useState("");
@@ -58,14 +59,9 @@ function FilmzCardButtons({ likes, id }: Props) {
       }
     }
   };
-  const pushSelected = (value: string) => {
-    const url = new URL(window.location.href);
-
-    //* Add or update the query parameter
-    url.searchParams.set("filmz", value);
-
-    //* Replace the current URL with the updated URL
-    window.history.replaceState({}, "", url.toString());
+  const setComments = () => {
+    pushSelected("filmz", filmzId);
+    commentModal.onOpen();
   };
   useEffect(() => {
     getDocName();
@@ -78,7 +74,7 @@ function FilmzCardButtons({ likes, id }: Props) {
   return (
     <div className="flex justify-evenly ">
       <div
-        onClick={() => commentModal.onOpen()}
+        onClick={() => setComments()}
         className="flex text-sm text-gray-800 items-center font-bold"
       >
         <div className="mx-1 hover:text-blue-400 ">
