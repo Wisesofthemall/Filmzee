@@ -2,21 +2,20 @@
 import React, { useEffect, useState } from "react";
 
 import { useAuth } from "@/auth/AuthState";
-import Image from "next/image";
+
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 
 import { filter } from "@/functions/profanityBlocker";
-import { FirebaseUserType, UserType } from "@/types/Types";
+import { FirebaseUserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { useRouter } from "next/navigation";
 
-import { IoImageOutline } from "react-icons/io5";
-import ImageUploader from "../inputs/ImageUploader";
 import FilmzImageUploader from "./FilmzImageUploader";
 import FilmzImageRender from "./FilmzImageRender";
+import { v4 as uuidv4 } from "uuid";
 
 type Props = {};
 
@@ -41,16 +40,18 @@ function FilmzCreator({}: Props) {
     const post = filter.clean(newPost);
 
     await addDoc(filmzRef, {
+      id: uuidv4(),
+      senderId: loginUser.localId,
       text: post,
+      image: filmzPhoto,
       sender: {
         ...loginUser,
         displayName: userInfo.name,
         photoUrl: userInfo.photoUrl,
       },
-      senderId: loginUser.localId,
       createdAt: new Date(),
       likes: {},
-      image: filmzPhoto,
+      comments: 0,
     });
 
     setNewPost("");
@@ -74,16 +75,18 @@ function FilmzCreator({}: Props) {
       if (newPost === "") return;
       const post = filter.clean(newPost);
       await addDoc(filmzRef, {
+        id: uuidv4(),
+        senderId: loginUser.localId,
         text: post,
+        image: filmzPhoto,
         sender: {
           ...loginUser,
           displayName: userInfo.name,
           photoUrl: userInfo.photoUrl,
         },
-        senderId: loginUser.localId,
         createdAt: new Date(),
         likes: {},
-        image: filmzPhoto,
+        comments: 0,
       });
 
       setNewPost("");

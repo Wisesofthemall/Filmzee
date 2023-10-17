@@ -20,6 +20,7 @@ type Props = {
     senderId: string;
     sender: FirebaseUserType;
     image: string;
+    id: any;
   };
 };
 
@@ -90,7 +91,11 @@ function FilmzCard({ main, post }: Props) {
             </div>
           )}
 
-          <FilmzCardButtons likes={post.likes} id={post.createdAt} />
+          <FilmzCardButtons
+            likes={post.likes}
+            id={post.createdAt}
+            //filmzId={post.id}
+          />
         </div>
       </div>
       <hr className="border border-gray-800" />

@@ -1,4 +1,5 @@
 "use client";
+import useCommentModal from "@/app/hooks/useCommentModal";
 import { useAuth } from "@/auth/AuthState";
 import { db } from "@/auth/Firebase";
 import { FirebaseUserType } from "@/types/Types";
@@ -21,6 +22,7 @@ function FilmzCardButtons({ likes, id }: Props) {
   const loginUser: FirebaseUserType = useAuth();
   const [liked, setLiked] = useState(false);
   const [docID, setDocID] = useState("");
+  const commentModal = useCommentModal();
 
   const filmzCardRef = collection(db, "filmz");
   const q = query(filmzCardRef, where("createdAt", "==", id));
@@ -56,6 +58,15 @@ function FilmzCardButtons({ likes, id }: Props) {
       }
     }
   };
+  const pushSelected = (value: string) => {
+    const url = new URL(window.location.href);
+
+    //* Add or update the query parameter
+    url.searchParams.set("filmz", value);
+
+    //* Replace the current URL with the updated URL
+    window.history.replaceState({}, "", url.toString());
+  };
   useEffect(() => {
     getDocName();
     if (loginUser) {
@@ -66,13 +77,16 @@ function FilmzCardButtons({ likes, id }: Props) {
 
   return (
     <div className="flex justify-evenly ">
-      <div className="flex text-sm text-gray-800 items-center">
-        <div className="mx-1">
+      <div
+        onClick={() => commentModal.onOpen()}
+        className="flex text-sm text-gray-800 items-center font-bold"
+      >
+        <div className="mx-1 hover:text-blue-400 ">
           <BsChat size={20} />
         </div>{" "}
         0
       </div>
-      <div className="flex text-sm text-gray-800 items-center">
+      <div className="flex text-sm text-gray-800 items-center font-bold">
         {liked ? (
           <div onClick={() => updateLike(-1)} className={`mx-1 text-rose-500 `}>
             <AiFillHeart size={20} />
@@ -80,14 +94,14 @@ function FilmzCardButtons({ likes, id }: Props) {
         ) : (
           <div
             onClick={() => updateLike(1)}
-            className="mx-1 cursor-pointer hover:opacity-60"
+            className="mx-1 cursor-pointer hover:opacity-60 "
           >
             <AiOutlineHeart size={20} />
           </div>
         )}
         {Object.keys(likes).length}
       </div>
-      <div className="flex text-sm text-gray-800 items-center">
+      <div className="flex text-sm text-gray-800 items-center font-bold">
         <div className="mx-1">
           <BiRepost size={20} />
         </div>{" "}
