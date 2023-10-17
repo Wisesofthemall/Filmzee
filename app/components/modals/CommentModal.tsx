@@ -10,7 +10,7 @@ function CommentModal({}: Props) {
   const commentModal = useCommentModal();
 
   const body = (
-    <div className="w-[80vw] h-[80vh]">
+    <div className="w-[70vw] h-[70vh]">
       {" "}
       <FilmzMain />
     </div>

@@ -4,8 +4,7 @@ import DynamicPhoto from "../DynamicPhoto";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
-import FilmzCardButtons from "./FilmzCardButtons";
-import useCommentModal from "@/app/hooks/useCommentModal";
+
 import { getQueryParam } from "@/functions/urlParams";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
@@ -18,11 +17,13 @@ function FilmzMain({}: Props) {
   const [main, setMain] = useState<any>(null);
 
   useEffect(() => {
+    console.log(window);
     const filmz = getQueryParam("filmz");
     console.log(filmz);
     if (!filmz) return;
     setFilmzId(filmz);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window.location.search]);
 
   const filmzRef = collection(db, "filmz");
   console.log(filmzId);
