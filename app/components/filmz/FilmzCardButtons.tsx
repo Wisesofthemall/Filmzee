@@ -116,12 +116,6 @@ function FilmzCardButtons({ likes, id, filmzId, setFilmzId, disabled }: Props) {
         )}
         {likes && Object.keys(likes).length}
       </div>
-      <div className="flex text-sm text-gray-800 items-center font-bold">
-        <div className="mx-1">
-          <BiRepost size={20} />
-        </div>{" "}
-        0
-      </div>
     </div>
   );
 }
