@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "@/app/components/Navbar";
 import pic from "@/public/ExamplePic.jpg";
 import Image from "next/image";
@@ -69,7 +69,6 @@ function ProfileContainer({}: Props) {
         </div>
         <ProfileNavBar Users={Users} />
         <FilmzContainer
-          filmzId={filmzId}
           setFilmzId={setFilmzId}
           main={false}
           senderId={id}
