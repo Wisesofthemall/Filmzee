@@ -38,7 +38,7 @@ function FilmzContainer({ main, senderId, filmzId, setFilmzId }: Props) {
       setFilmz(Posts);
     }
   }, [Posts, senderId]);
-  console.log("im here");
+
   return (
     <div
       className={`w-full   flex flex-wrap pb-28 mt-3 overflow-y-scroll overflow-x-hidden ${

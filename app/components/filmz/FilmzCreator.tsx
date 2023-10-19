@@ -51,7 +51,6 @@ function FilmzCreator({}: Props) {
       },
       createdAt: new Date(),
       likes: {},
-      comments: 0,
     });
 
     setNewPost("");
@@ -86,7 +85,6 @@ function FilmzCreator({}: Props) {
         },
         createdAt: new Date(),
         likes: {},
-        comments: 0,
       });
 
       setNewPost("");
@@ -127,7 +125,7 @@ function FilmzCreator({}: Props) {
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
             className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-4/5 h-16  my-2 mx-1 p-2"
-            placeholder="What's happening?"
+            placeholder={"What's happening?"}
           />
           {filmzPhoto && (
             <FilmzImageRender

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { VideoType } from "@/types/Types";
-import FilmzContainer from "../profile/FilmzContainer";
+import FilmzContainer from "../filmz/FilmzContainer";
 import VideoSkeleton from "./VideoSkeleton";
 
 type Props = {

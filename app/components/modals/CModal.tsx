@@ -5,15 +5,29 @@ import { IoMdClose } from "react-icons/io";
 import Button from "../inputs/Button";
 import Logo from "@/assets/Logo.png";
 import Image from "next/image";
+import FilmzCreator from "../filmz/FilmzCreator";
+import ReplyCreator from "../reply/ReplyCreator";
+import ReplyContainer from "../reply/ReplyContainer";
 type Props = {
   isOpen?: boolean;
   onClose: () => void;
   title?: string;
   body?: React.ReactElement;
   disabled?: boolean;
+  filmzId: string;
+  setFilmzId: any;
 };
 
-function CModal({ isOpen, onClose, title, body, disabled }: Props) {
+function CModal({
+  isOpen,
+  onClose,
+  title,
+  body,
+  disabled,
+
+  filmzId,
+  setFilmzId,
+}: Props) {
   const [showModal, setShowModal] = useState(isOpen);
 
   useEffect(() => {
@@ -34,7 +48,7 @@ function CModal({ isOpen, onClose, title, body, disabled }: Props) {
     <>
       <div
         className={`${showModal ? "block" : "hidden"} justify-center
-        items-center
+        xitems-center
         flex
         overflow-x-hidden
         overflow-y-auto
@@ -92,7 +106,12 @@ function CModal({ isOpen, onClose, title, body, disabled }: Props) {
                   alt="Logo"
                 />
               </div>
-              <div className="relative p-6 flex-auto">{body}</div>
+              <div className="overflow-y-scroll overflow-x-hidden">
+                <div className="relative p-6 flex-auto">{body}</div>
+                <ReplyContainer filmzId={filmzId} setFilmzId={setFilmzId} />
+              </div>
+
+              <ReplyCreator filmzId={filmzId} />
             </div>
           </div>
         </div>

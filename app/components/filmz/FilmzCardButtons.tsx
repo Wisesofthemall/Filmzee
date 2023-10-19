@@ -8,22 +8,44 @@ import {
   collection,
   doc,
   getDocs,
+  orderBy,
   query,
   updateDoc,
   where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiRepost } from "react-icons/bi";
 import { BsChat } from "react-icons/bs";
 
-type Props = { likes: any; id: any; filmzId: any; setFilmzId: any };
+type Props = {
+  likes: any;
+  id: any;
+  filmzId: any;
+  setFilmzId: any;
+  disabled?: boolean;
+};
 
-function FilmzCardButtons({ likes, id, filmzId, setFilmzId }: Props) {
+function FilmzCardButtons({
+  likes,
+  id,
+  filmzId,
+  setFilmzId,
+
+  disabled,
+}: Props) {
   const loginUser: FirebaseUserType = useAuth();
   const [liked, setLiked] = useState(false);
   const [docID, setDocID] = useState("");
   const commentModal = useCommentModal();
+
+  const filmzRef = collection(db, "replies");
+  const queryRef = filmzId
+    ? query(filmzRef, where("filmzId", "==", filmzId))
+    : query(filmzRef, orderBy("createdAt", "desc"));
+
+  const [Posts] = useCollectionData(queryRef);
 
   const filmzCardRef = collection(db, "filmz");
   const q = query(filmzCardRef, where("createdAt", "==", id));
@@ -59,7 +81,11 @@ function FilmzCardButtons({ likes, id, filmzId, setFilmzId }: Props) {
       }
     }
   };
+
   const setComments = () => {
+    if (disabled) {
+      return;
+    }
     setFilmzId(filmzId);
     commentModal.onOpen();
   };
@@ -80,7 +106,7 @@ function FilmzCardButtons({ likes, id, filmzId, setFilmzId }: Props) {
         <div className="mx-1 hover:text-blue-400 ">
           <BsChat size={20} />
         </div>{" "}
-        0
+        {Posts?.length}
       </div>
       <div className="flex text-sm text-gray-800 items-center font-bold">
         {liked ? (

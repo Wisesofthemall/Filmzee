@@ -9,28 +9,21 @@ import { getQueryParam } from "@/functions/urlParams";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import FilmzCardButtons from "./FilmzCardButtons";
+import ReplyCardButtons from "../reply/ReplyCardButtons";
 
-type Props = { filmzId: any };
+type Props = { filmzId: any; setFilmzId: any };
 
-function FilmzMain({ filmzId }: Props) {
+function FilmzMain({ filmzId, setFilmzId }: Props) {
   const [main, setMain] = useState<any>(null);
-
-  // useEffect(() => {
-  //   console.log(window);
-  //   const filmz = getQueryParam("filmz");
-  //   console.log(filmz);
-  //   if (!filmz) return;
-  //   setFilmzId(filmz);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [window.location.search]);
 
   const filmzRef = collection(db, "filmz");
   console.log(filmzId);
+
   const queryRef = query(filmzRef, where("id", "==", filmzId));
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [Post] = useCollectionData(queryRef);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   useEffect(() => {
     if (Post && Post.length > 0) {
       setMain(Post[0]);
@@ -102,11 +95,13 @@ function FilmzMain({ filmzId }: Props) {
               />
             </div>
           )}
-          {/* <FilmzCardButtons
+          <FilmzCardButtons
             likes={main?.likes}
             id={main?.createdAt}
-            filmzId={main?.id}
-          /> */}
+            filmzId={filmzId}
+            setFilmzId={setFilmzId}
+            disabled
+          />
         </div>
       </div>
       <hr className="border border-gray-800" />
