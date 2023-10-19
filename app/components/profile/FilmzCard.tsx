@@ -22,9 +22,11 @@ type Props = {
     image: string;
     id: any;
   };
+  filmzId: string;
+  setFilmzId: any;
 };
 
-function FilmzCard({ main, post }: Props) {
+function FilmzCard({ main, post, filmzId, setFilmzId }: Props) {
   const router = useRouter();
 
   // S
@@ -95,6 +97,7 @@ function FilmzCard({ main, post }: Props) {
             likes={post.likes}
             id={post.createdAt}
             filmzId={post.id}
+            setFilmzId={setFilmzId}
           />
         </div>
       </div>

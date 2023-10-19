@@ -9,9 +9,11 @@ import { db } from "@/auth/Firebase";
 type Props = {
   main?: boolean;
   senderId?: string;
+  filmzId: any;
+  setFilmzId: any;
 };
 
-function FilmzContainer({ main, senderId }: Props) {
+function FilmzContainer({ main, senderId, filmzId, setFilmzId }: Props) {
   const filmzRef = collection(db, "filmz");
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))
@@ -46,7 +48,13 @@ function FilmzContainer({ main, senderId }: Props) {
       {main && <FilmzCreator />}
 
       {filmz.map((post: any) => (
-        <FilmzCard key={post.createdAt} main={main} post={post} />
+        <FilmzCard
+          key={post.createdAt}
+          main={main}
+          post={post}
+          filmzId={filmzId}
+          setFilmzId={setFilmzId}
+        />
       ))}
     </div>
   );

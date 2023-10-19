@@ -10,20 +10,19 @@ import { collection, query, where } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-type Props = {};
+type Props = { filmzId: any };
 
-function FilmzMain({}: Props) {
-  const [filmzId, setFilmzId] = useState<any>("");
+function FilmzMain({ filmzId }: Props) {
   const [main, setMain] = useState<any>(null);
 
-  useEffect(() => {
-    console.log(window);
-    const filmz = getQueryParam("filmz");
-    console.log(filmz);
-    if (!filmz) return;
-    setFilmzId(filmz);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window.location.search]);
+  // useEffect(() => {
+  //   console.log(window);
+  //   const filmz = getQueryParam("filmz");
+  //   console.log(filmz);
+  //   if (!filmz) return;
+  //   setFilmzId(filmz);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [window.location.search]);
 
   const filmzRef = collection(db, "filmz");
   console.log(filmzId);

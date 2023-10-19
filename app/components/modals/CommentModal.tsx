@@ -4,15 +4,17 @@ import useCommentModal from "@/app/hooks/useCommentModal";
 import FilmzMain from "../profile/FilmzMain";
 import CModal from "./CModal";
 
-type Props = {};
+type Props = {
+  filmzId: any;
+  setFilmzId: any;
+};
 
-function CommentModal({}: Props) {
+function CommentModal({ filmzId, setFilmzId }: Props) {
   const commentModal = useCommentModal();
 
   const body = (
     <div className="w-[70vw] h-[70vh]">
-      {" "}
-      <FilmzMain />
+      <FilmzMain filmzId={filmzId} />
     </div>
   );
 

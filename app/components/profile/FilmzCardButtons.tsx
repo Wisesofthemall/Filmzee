@@ -17,9 +17,9 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiRepost } from "react-icons/bi";
 import { BsChat } from "react-icons/bs";
 
-type Props = { likes: any; id: any; filmzId: any };
+type Props = { likes: any; id: any; filmzId: any; setFilmzId: any };
 
-function FilmzCardButtons({ likes, id, filmzId }: Props) {
+function FilmzCardButtons({ likes, id, filmzId, setFilmzId }: Props) {
   const loginUser: FirebaseUserType = useAuth();
   const [liked, setLiked] = useState(false);
   const [docID, setDocID] = useState("");
@@ -60,7 +60,7 @@ function FilmzCardButtons({ likes, id, filmzId }: Props) {
     }
   };
   const setComments = () => {
-    pushSelected("filmz", filmzId);
+    setFilmzId(filmzId);
     commentModal.onOpen();
   };
   useEffect(() => {
