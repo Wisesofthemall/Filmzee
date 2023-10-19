@@ -10,14 +10,12 @@ import { formatDistanceToNow } from "date-fns";
 import DynamicPhoto from "../DynamicPhoto";
 import { FirebaseUserType } from "@/types/Types";
 
-import UserMenu from "../user/UserMenu";
-import { Menu, MenuButton, MenuItem } from "@chakra-ui/react";
-import { FiEye } from "react-icons/fi";
+import { Menu, MenuButton } from "@chakra-ui/react";
+
 import FilmzMenu from "./FilmzMenu";
 import { useAuth } from "@/auth/AuthState";
 import useImageModal from "@/app/hooks/useImageModal";
 
-type dataType = {};
 type Props = {
   main?: boolean;
   post: {
@@ -29,16 +27,13 @@ type Props = {
     image: string;
     id: any;
   };
-  filmzId: string;
   setFilmzId: any;
   setImage: any;
 };
 
-function FilmzCard({ main, post, filmzId, setFilmzId, setImage }: Props) {
+function FilmzCard({ main, post, setFilmzId, setImage }: Props) {
   const router = useRouter();
   const imageModal = useImageModal();
-
-  const loginUser = useAuth();
 
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,

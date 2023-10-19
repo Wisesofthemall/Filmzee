@@ -1,8 +1,8 @@
 "use client";
-import useCommentModal from "@/app/hooks/useCommentModal";
+
 import { useAuth } from "@/auth/AuthState";
 import { db } from "@/auth/Firebase";
-import { pushSelected } from "@/functions/urlParams";
+
 import { FirebaseUserType } from "@/types/Types";
 import {
   collection,
@@ -14,8 +14,6 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BiRepost } from "react-icons/bi";
-import { BsChat } from "react-icons/bs";
 
 type Props = { likes: any; id: any };
 

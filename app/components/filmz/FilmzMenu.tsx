@@ -1,16 +1,15 @@
 "use client";
-import useEditProfileModal from "@/app/hooks/useEditProfileModal";
+
 import { useAuth } from "@/auth/AuthState";
-import { db, firebaseAuth } from "@/auth/Firebase";
+import { db } from "@/auth/Firebase";
 import { FirebaseUserType } from "@/types/Types";
-import { MenuList, MenuItem, MenuDivider } from "@chakra-ui/react";
-import { signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { MenuList, MenuItem } from "@chakra-ui/react";
+
 import React, { useEffect, useState } from "react";
-import { AiOutlineUser } from "react-icons/ai";
+
 import { FaRegTrashCan } from "react-icons/fa6";
 import { MdReportGmailerrorred } from "react-icons/md";
-import { FiEye, FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
+
 import {
   collection,
   deleteDoc,

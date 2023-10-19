@@ -2,12 +2,9 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import Button from "../inputs/Button";
-import Logo from "@/assets/Logo.png";
+
 import Image from "next/image";
-import FilmzCreator from "../filmz/FilmzCreator";
-import ReplyCreator from "../reply/ReplyCreator";
-import ReplyContainer from "../reply/ReplyContainer";
+
 type Props = {
   isOpen?: boolean;
   onClose: () => void;

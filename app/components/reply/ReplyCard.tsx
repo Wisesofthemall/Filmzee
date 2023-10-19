@@ -8,6 +8,8 @@ import { formatDistanceToNow } from "date-fns";
 import DynamicPhoto from "../DynamicPhoto";
 import { FirebaseUserType } from "@/types/Types";
 import ReplyCardButtons from "./ReplyCardButtons";
+import { Menu, MenuButton } from "@chakra-ui/react";
+import FilmzMenu from "../filmz/FilmzMenu";
 
 type dataType = {};
 type Props = {
@@ -21,11 +23,9 @@ type Props = {
     image: string;
     id: any;
   };
-  filmzId: string;
-  setFilmzId: any;
 };
 
-function ReplyCard({ main, post, filmzId, setFilmzId }: Props) {
+function ReplyCard({ main, post }: Props) {
   const router = useRouter();
 
   // S
@@ -73,7 +73,15 @@ function ReplyCard({ main, post, filmzId, setFilmzId }: Props) {
                 {formattedTimeDifference}
               </div>
               <div className="text-gray-800 text-sm items-center">
-                <BiDotsVerticalRounded />
+                <Menu isLazy>
+                  <MenuButton>
+                    <BiDotsVerticalRounded size={20} />
+                  </MenuButton>
+                  <FilmzMenu
+                    FilmzUser={post?.sender.localId}
+                    id={post?.createdAt}
+                  />
+                </Menu>
               </div>
             </div>
           </div>

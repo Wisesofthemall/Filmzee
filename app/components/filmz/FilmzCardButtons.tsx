@@ -2,13 +2,12 @@
 import useCommentModal from "@/app/hooks/useCommentModal";
 import { useAuth } from "@/auth/AuthState";
 import { db } from "@/auth/Firebase";
-import { pushSelected } from "@/functions/urlParams";
+
 import { FirebaseUserType } from "@/types/Types";
 import {
   collection,
   doc,
   getDocs,
-  orderBy,
   query,
   updateDoc,
   where,
@@ -16,7 +15,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BiRepost } from "react-icons/bi";
+
 import { BsChat } from "react-icons/bs";
 
 type Props = {

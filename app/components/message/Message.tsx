@@ -1,6 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
 import React from "react";
-import DynamicPhoto from "../DynamicPhoto";
 
 type Props = { message: any; loginUser: any };
 

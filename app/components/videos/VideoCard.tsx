@@ -14,10 +14,6 @@ function VideoCard({ video }: Props) {
         src={`https://www.youtube.com/embed/${video.link}?controls=0&autoplay=1&modestbranding=1&rel=0&loop=1&showinfo=0`}
         allowFullScreen
       ></iframe>
-      {/* <div className="">{video.title}</div>
-      <div className="">{video.description}</div>
-      <div className="">{video.tag}</div>
-      <div className="">{video.channelTitle}</div> */}
     </div>
   );
 }

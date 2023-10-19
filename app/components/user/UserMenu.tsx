@@ -7,7 +7,7 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { FiEye, FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
+import { FiEye, FiLogOut, FiSettings } from "react-icons/fi";
 
 type Props = {};
 

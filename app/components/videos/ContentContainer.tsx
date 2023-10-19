@@ -22,12 +22,7 @@ function ContentContainer({
   return (
     <div className="flex flex-wrap p-3  ">
       {selected === "Filmz" ? (
-        <FilmzContainer
-          main
-          filmzId={filmzId}
-          setFilmzId={setFilmzId}
-          setImage={setImage}
-        />
+        <FilmzContainer main setFilmzId={setFilmzId} setImage={setImage} />
       ) : (
         <VideoSkeleton />
       )}

@@ -27,12 +27,13 @@ export default function Home() {
   }, []);
   const content = (
     <div className="my-2">
-      <div className="font-bold">- Prevent user to post without logging in</div>
-      <div className="font-bold"> - Remove Global Chat Feature</div>
-      <div className="font-bold"> - Fix Messaging CSS </div>
-      <div className="font-bold"> - Added Edit Profile Modal </div>
-      <div className="font-bold"> - Added Mobile-First Approach CSS </div>
-      <div className="font-bold"> - Add Images on Filmz </div>
+      <div className="font-bold">- Added Comment Section</div>
+      <div className="font-bold"> - Remove Repost Feature</div>
+      <div className="font-bold"> - Added Image Expander </div>
+      <div className="font-bold"> - Added Delete Filmz Functionality </div>
+      <div className="font-bold"> - Added Report Filmz Functionality </div>
+      <div className="font-bold"> - Update User Menu </div>
+      <div className="font-bold"> - CSS Fix on Main page </div>
       <div className="font-bold"> - Bug Fixes and Optimizations </div>
     </div>
   );

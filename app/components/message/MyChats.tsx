@@ -53,9 +53,7 @@ function MyChats({
     >
       <UserSearch getChat={getChat} />
       <ChatsContainer
-        hide={hide}
         setHide={setHide}
-        showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
         myChats={myChats}
         setSelected={setSelected}

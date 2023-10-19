@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import FilmzCard from "../filmz/FilmzCard";
-import FilmzCreator from "../filmz/FilmzCreator";
+
 import { collection, orderBy, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
@@ -11,10 +10,9 @@ type Props = {
   main?: boolean;
   senderId?: string;
   filmzId: any;
-  setFilmzId: any;
 };
 
-function ReplyContainer({ main, senderId, filmzId, setFilmzId }: Props) {
+function ReplyContainer({ main, senderId, filmzId }: Props) {
   const filmzRef = collection(db, "replies");
   const queryRef = filmzId
     ? query(filmzRef, where("filmzId", "==", filmzId))
@@ -43,13 +41,7 @@ function ReplyContainer({ main, senderId, filmzId, setFilmzId }: Props) {
   return (
     <div className={`w-full h-2/5 flex flex-wrap mt-3  `}>
       {filmz.map((post: any) => (
-        <ReplyCard
-          key={post.createdAt}
-          main={main}
-          post={post}
-          filmzId={filmzId}
-          setFilmzId={setFilmzId}
-        />
+        <ReplyCard key={post.createdAt} main={main} post={post} />
       ))}
     </div>
   );

@@ -1,9 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import useCommentModal from "@/app/hooks/useCommentModal";
-import FilmzMain from "../filmz/FilmzMain";
-import CModal from "./CModal";
-import FilmzCreator from "../filmz/FilmzCreator";
+import React from "react";
+
 import IModal from "./IModal";
 import useImageModal from "@/app/hooks/useImageModal";
 

@@ -1,11 +1,8 @@
 "use client";
 require("dotenv").config();
 import React from "react";
-
 import { CldUploadWidget } from "next-cloudinary";
-import Image from "next/image";
 import { useCallback } from "react";
-import { TbPhotoPlus } from "react-icons/tb";
 import { IoImageOutline } from "react-icons/io5";
 
 declare global {

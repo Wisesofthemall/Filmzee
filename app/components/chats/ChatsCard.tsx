@@ -1,7 +1,5 @@
 "use client";
-import { colorMaker } from "@/functions/profileGenerator";
-import { Avatar } from "@mui/material";
-import Image from "next/image";
+
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
@@ -12,9 +10,9 @@ type Props = {
   user: ChatType;
   setSelected: any;
   selected: any;
-  showCurrent: any;
+
   setShowCurrent: any;
-  hide: any;
+
   setHide: any;
 };
 
@@ -22,9 +20,9 @@ function ChatsCard({
   user,
   setSelected,
   selected,
-  showCurrent,
+
   setShowCurrent,
-  hide,
+
   setHide,
 }: Props) {
   const [picId, setPicId] = useState(100);

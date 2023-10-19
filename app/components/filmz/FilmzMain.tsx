@@ -4,13 +4,12 @@ import DynamicPhoto from "../DynamicPhoto";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
-
-import { getQueryParam } from "@/functions/urlParams";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import FilmzCardButtons from "./FilmzCardButtons";
-import ReplyCardButtons from "../reply/ReplyCardButtons";
+import { Menu, MenuButton } from "@chakra-ui/react";
+import FilmzMenu from "./FilmzMenu";
 
 type Props = { filmzId: any; setFilmzId: any };
 
@@ -42,10 +41,7 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
         className={`bg-black rounded-lg  p-2 flex "w-full"
     `}
       >
-        <div
-          className=" ml-2 mt-1 cursor-pointer hover:opacity-60"
-          // onClick={() => router.push(`/profile/${post.senderId}`)}
-        >
+        <div className=" ml-2 mt-1 cursor-pointer hover:opacity-60">
           {main && (
             <DynamicPhoto
               photoUrl={main?.sender.photoUrl}
@@ -57,18 +53,12 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
         </div>
         <div className="w-full h-full ">
           <div className="flex pl-2">
-            <div
-              //onClick={() => router.push(`/profile/${post.senderId}`)}
-              className="font-semibold cursor-pointer hover:opacity-60 sm:text-sm md:text-2xl lg:text-3xl"
-            >
+            <div className="font-semibold cursor-pointer hover:opacity-60 sm:text-sm md:text-2xl lg:text-3xl">
               {main?.sender.displayName
                 ? main?.sender.displayName
                 : main?.sender.email.split("@")[0]}
             </div>
-            <div
-              //onClick={() => router.push(`/profile/${post.senderId}`)}
-              className="text-gray-800  ml-2 cursor-pointer hover:opacity-60 sm:text-sm md:text-2xl lg:text-3xl"
-            >
+            <div className="text-gray-800  ml-2 cursor-pointer hover:opacity-60 sm:text-sm md:text-2xl lg:text-3xl">
               {main?.sender.email}
             </div>
             <div className="flex pl-20 justify-end ml-auto">
@@ -76,7 +66,15 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
                 {formattedTimeDifference}
               </div>
               <div className="text-gray-800 text-sm items-center">
-                <BiDotsVerticalRounded />
+                <Menu isLazy>
+                  <MenuButton>
+                    <BiDotsVerticalRounded size={30} />
+                  </MenuButton>
+                  <FilmzMenu
+                    FilmzUser={main?.sender.localId}
+                    id={main?.createdAt}
+                  />
+                </Menu>
               </div>
             </div>
           </div>

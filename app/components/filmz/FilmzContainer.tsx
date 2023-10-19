@@ -9,7 +9,7 @@ import { db } from "@/auth/Firebase";
 type Props = {
   main?: boolean;
   senderId?: string;
-  filmzId: any;
+
   setFilmzId: any;
   setImage: any;
 };
@@ -17,7 +17,7 @@ type Props = {
 function FilmzContainer({
   main,
   senderId,
-  filmzId,
+
   setFilmzId,
   setImage,
 }: Props) {
@@ -59,7 +59,6 @@ function FilmzContainer({
           key={post.createdAt}
           main={main}
           post={post}
-          filmzId={filmzId}
           setFilmzId={setFilmzId}
           setImage={setImage}
         />
