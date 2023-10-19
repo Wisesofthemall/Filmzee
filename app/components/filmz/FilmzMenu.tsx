@@ -23,14 +23,17 @@ import toast from "react-hot-toast";
 type Props = {
   FilmzUser: string;
   id: any;
+  reply?: boolean;
 };
 
-function FilmzMenu({ FilmzUser, id }: Props) {
+function FilmzMenu({ FilmzUser, id, reply }: Props) {
   const loginUser: FirebaseUserType = useAuth();
 
   const [docID, setDocID] = useState("");
 
-  const filmzCardRef = collection(db, "filmz");
+  const filmzCardRef = reply
+    ? collection(db, "replies")
+    : collection(db, "filmz");
   const q = id
     ? query(filmzCardRef, where("createdAt", "==", id))
     : query(filmzCardRef, where("createdAt", "==", new Date()));
@@ -48,9 +51,10 @@ function FilmzMenu({ FilmzUser, id }: Props) {
       });
   };
   const handleDelete = () => {
-    console.log(docID);
-    const filmzRef = doc(db, "filmz", docID);
-    console.log(filmzRef);
+    const filmzRef = reply
+      ? doc(db, "replies", docID)
+      : doc(db, "filmz", docID);
+
     deleteDoc(filmzRef)
       .then(() => {
         toast.success("Successfully deleted ");
@@ -66,6 +70,7 @@ function FilmzMenu({ FilmzUser, id }: Props) {
   };
   useEffect(() => {
     getDocName();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

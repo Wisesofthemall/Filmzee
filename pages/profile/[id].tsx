@@ -20,9 +20,7 @@ function ProfileContainer({}: Props) {
   const [Users, setUsers] = useState<any>(null);
   const [image, setImage] = useState("");
   const imageModal = useImageModal();
-  const [filmzId, setFilmzId] = useState(
-    "b6098ebe-a596-414a-89d2-e2cfb2c16ea2",
-  );
+  const [filmzId, setFilmzId] = useState("");
 
   const handleImageExpander = (image: string) => {
     imageModal.onOpen();

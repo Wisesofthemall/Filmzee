@@ -13,9 +13,7 @@ export default function Home() {
   const [IsLoaded, setIsLoaded] = useState(true);
   const [videos, setVideos] = useState<any>([]);
   const [selected, setSelected] = useState("");
-  const [filmzId, setFilmzId] = useState(
-    "b6098ebe-a596-414a-89d2-e2cfb2c16ea2",
-  );
+  const [filmzId, setFilmzId] = useState("");
   const [image, setImage] = useState("");
   const RetrieveVideos = async () => {
     const video: VideoType[] = await getAllVideos();

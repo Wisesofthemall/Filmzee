@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import FilmzImageUploader from "../filmz/FilmzImageUploader";
 import FilmzImageRender from "../filmz/FilmzImageRender";
 import { v4 as uuidv4 } from "uuid";
+import toast from "react-hot-toast";
 
 type Props = { filmzId: any };
 
@@ -36,8 +37,12 @@ function ReplyCreator({ filmzId }: Props) {
       signupModal.onOpen();
       return;
     }
-    if (newPost === "") return;
-    const post = filter.clean(newPost);
+    if (newPost === "" && !filmzPhoto) {
+      toast.error("Please add a text or image");
+      return;
+    }
+
+    const post = newPost.length !== 0 ? filter.clean(newPost) : null;
 
     await addDoc(filmzRef, {
       id: uuidv4(),
@@ -73,8 +78,12 @@ function ReplyCreator({ filmzId }: Props) {
 
   const handleEnter = async (e: any) => {
     if (e === "Enter") {
-      if (newPost === "") return;
-      const post = filter.clean(newPost);
+      if (newPost === "" && !filmzPhoto) {
+        toast.error("Please add a text or image");
+        return;
+      }
+
+      const post = newPost.length !== 0 ? filter.clean(newPost) : null;
       await addDoc(filmzRef, {
         id: uuidv4(),
         filmzId: filmzId,
@@ -135,6 +144,7 @@ function ReplyCreator({ filmzId }: Props) {
             <FilmzImageRender
               photo={filmzPhoto}
               deletePhoto={() => setFilmzPhoto(null)}
+              size={40}
             />
           )}
           <div className="px-3">

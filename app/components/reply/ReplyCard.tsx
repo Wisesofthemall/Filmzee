@@ -11,7 +11,6 @@ import ReplyCardButtons from "./ReplyCardButtons";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import FilmzMenu from "../filmz/FilmzMenu";
 
-type dataType = {};
 type Props = {
   main?: boolean;
   post: {
@@ -28,7 +27,8 @@ type Props = {
 function ReplyCard({ main, post }: Props) {
   const router = useRouter();
 
-  // S
+  console.log(post?.sender.localId);
+  console.log(post?.createdAt);
 
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,
@@ -80,22 +80,25 @@ function ReplyCard({ main, post }: Props) {
                   <FilmzMenu
                     FilmzUser={post?.sender.localId}
                     id={post?.createdAt}
+                    reply
                   />
                 </Menu>
               </div>
             </div>
           </div>
-          <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
-            {post.text}
-          </p>
+          {post.text && (
+            <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
+              {post.text}
+            </p>
+          )}
           {post.image && (
             <div className="my-2 flex justify-center">
               <Image
                 alt="filmz image"
-                className="w-3/5 h-3/5 rounded-lg"
+                className="w-3/6 h-3/6 rounded-lg"
                 src={post.image}
-                width={60}
-                height={60}
+                width={40}
+                height={40}
               />
             </div>
           )}

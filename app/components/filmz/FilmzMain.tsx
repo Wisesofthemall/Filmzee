@@ -65,17 +65,7 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
               <div className="text-gray-800  hidden md:block sm:text-sm md:text-2xl lg:text-3xl">
                 {formattedTimeDifference}
               </div>
-              <div className="text-gray-800 text-sm items-center">
-                <Menu isLazy>
-                  <MenuButton>
-                    <BiDotsVerticalRounded size={30} />
-                  </MenuButton>
-                  <FilmzMenu
-                    FilmzUser={main?.sender.localId}
-                    id={main?.createdAt}
-                  />
-                </Menu>
-              </div>
+              <div className="text-gray-800 text-sm items-center"></div>
             </div>
           </div>
           <p className=" p-2 w-full flex flex-wrap overflow-wrap break-word sm:text-sm md:text-2xl lg:text-3xl">
@@ -101,6 +91,7 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
           />
         </div>
       </div>
+      <hr className="border border-gray-800" />
     </div>
   );
 }

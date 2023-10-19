@@ -8,11 +8,10 @@ import ReplyCard from "./ReplyCard";
 
 type Props = {
   main?: boolean;
-  senderId?: string;
   filmzId: any;
 };
 
-function ReplyContainer({ main, senderId, filmzId }: Props) {
+function ReplyContainer({ main, filmzId }: Props) {
   const filmzRef = collection(db, "replies");
   const queryRef = filmzId
     ? query(filmzRef, where("filmzId", "==", filmzId))
@@ -21,7 +20,7 @@ function ReplyContainer({ main, senderId, filmzId }: Props) {
 
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
-    if (Posts && senderId) {
+    if (Posts) {
       const filterMessage = Posts.sort(function (a, b) {
         // Convert Firestore Timestamps to JavaScript Date objects
 
@@ -36,7 +35,7 @@ function ReplyContainer({ main, senderId, filmzId }: Props) {
     } else if (Posts) {
       setFilmz(Posts);
     }
-  }, [Posts, senderId]);
+  }, [Posts]);
 
   return (
     <div className={`w-full h-2/5 flex flex-wrap mt-3  `}>
