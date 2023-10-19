@@ -18,7 +18,6 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
   const [main, setMain] = useState<any>(null);
 
   const filmzRef = collection(db, "filmz");
-  console.log(filmzId);
 
   const queryRef = query(filmzRef, where("id", "==", filmzId));
 
@@ -104,7 +103,6 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
           />
         </div>
       </div>
-      <hr className="border border-gray-800" />
     </div>
   );
 }

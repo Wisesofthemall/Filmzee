@@ -27,28 +27,21 @@ type Props = {
   disabled?: boolean;
 };
 
-function FilmzCardButtons({
-  likes,
-  id,
-  filmzId,
-  setFilmzId,
-
-  disabled,
-}: Props) {
+function FilmzCardButtons({ likes, id, filmzId, setFilmzId, disabled }: Props) {
   const loginUser: FirebaseUserType = useAuth();
   const [liked, setLiked] = useState(false);
   const [docID, setDocID] = useState("");
   const commentModal = useCommentModal();
 
   const filmzRef = collection(db, "replies");
-  const queryRef = filmzId
-    ? query(filmzRef, where("filmzId", "==", filmzId))
-    : query(filmzRef, orderBy("createdAt", "desc"));
+  const queryRef = query(filmzRef, where("filmzId", "==", filmzId));
 
   const [Posts] = useCollectionData(queryRef);
 
   const filmzCardRef = collection(db, "filmz");
-  const q = query(filmzCardRef, where("createdAt", "==", id));
+  const q = id
+    ? query(filmzCardRef, where("createdAt", "==", id))
+    : query(filmzCardRef, where("createdAt", "==", new Date()));
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -91,7 +84,7 @@ function FilmzCardButtons({
   };
   useEffect(() => {
     getDocName();
-    if (loginUser) {
+    if (loginUser && likes) {
       setLiked(likes[loginUser.localId] ? true : false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,7 +114,7 @@ function FilmzCardButtons({
             <AiOutlineHeart size={20} />
           </div>
         )}
-        {Object.keys(likes).length}
+        {likes && Object.keys(likes).length}
       </div>
       <div className="flex text-sm text-gray-800 items-center font-bold">
         <div className="mx-1">
