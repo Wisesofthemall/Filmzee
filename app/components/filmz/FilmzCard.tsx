@@ -15,6 +15,7 @@ import { Menu, MenuButton, MenuItem } from "@chakra-ui/react";
 import { FiEye } from "react-icons/fi";
 import FilmzMenu from "./FilmzMenu";
 import { useAuth } from "@/auth/AuthState";
+import useImageModal from "@/app/hooks/useImageModal";
 
 type dataType = {};
 type Props = {
@@ -30,10 +31,12 @@ type Props = {
   };
   filmzId: string;
   setFilmzId: any;
+  setImage: any;
 };
 
-function FilmzCard({ main, post, filmzId, setFilmzId }: Props) {
+function FilmzCard({ main, post, filmzId, setFilmzId, setImage }: Props) {
   const router = useRouter();
+  const imageModal = useImageModal();
 
   const loginUser = useAuth();
 
@@ -41,6 +44,11 @@ function FilmzCard({ main, post, filmzId, setFilmzId }: Props) {
     addSuffix: true,
     includeSeconds: true,
   });
+
+  const handleImageExpander = (image: string) => {
+    setImage(image);
+    imageModal.onOpen();
+  };
 
   return (
     <div className={`${main ? "w-full" : "w-full m-2"}`}>
@@ -96,10 +104,13 @@ function FilmzCard({ main, post, filmzId, setFilmzId }: Props) {
             {post.text}
           </p>
           {post.image && (
-            <div className="my-2 flex justify-center">
+            <div
+              onClick={() => handleImageExpander(post.image)}
+              className="my-2 flex justify-center"
+            >
               <Image
                 alt="filmz image"
-                className="w-3/5 h-3/5 rounded-lg"
+                className="w-3/5 h-3/5 rounded-lg cursor-pointer"
                 src={post.image}
                 width={60}
                 height={60}

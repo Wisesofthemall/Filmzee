@@ -62,6 +62,9 @@ function FilmzMenu({ FilmzUser, id }: Props) {
 
     return;
   };
+  const handleReport = () => {
+    toast.success("Successfully Reported");
+  };
   useEffect(() => {
     getDocName();
   }, []);
@@ -82,7 +85,11 @@ function FilmzMenu({ FilmzUser, id }: Props) {
         </MenuItem>
       )}
 
-      <MenuItem as="a" className="my-1 mr-1 cursor-pointer hover:text-blue-400">
+      <MenuItem
+        as="a"
+        className="my-1 mr-1 cursor-pointer hover:text-blue-400"
+        onClick={() => handleReport()}
+      >
         <div className="mx-2">
           <MdReportGmailerrorred />
         </div>

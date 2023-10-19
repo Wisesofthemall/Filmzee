@@ -94,14 +94,14 @@ function FilmzCardButtons({ likes, id, filmzId, setFilmzId, disabled }: Props) {
     <div className="flex justify-evenly ">
       <div
         onClick={() => setComments()}
-        className="flex text-sm text-gray-800 items-center font-bold"
+        className="flex text-sm text-gray-800 items-center font-bold hover:text-blue-400  cursor-pointer"
       >
-        <div className="mx-1 hover:text-blue-400 ">
+        <div className="mx-1 ">
           <BsChat size={20} />
         </div>{" "}
         {Posts?.length}
       </div>
-      <div className="flex text-sm text-gray-800 items-center font-bold">
+      <div className="flex text-sm text-gray-800 items-center font-bold ">
         {liked ? (
           <div onClick={() => updateLike(-1)} className={`mx-1 text-rose-500 `}>
             <AiFillHeart size={20} />

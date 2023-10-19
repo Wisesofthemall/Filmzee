@@ -11,9 +11,16 @@ type Props = {
   senderId?: string;
   filmzId: any;
   setFilmzId: any;
+  setImage: any;
 };
 
-function FilmzContainer({ main, senderId, filmzId, setFilmzId }: Props) {
+function FilmzContainer({
+  main,
+  senderId,
+  filmzId,
+  setFilmzId,
+  setImage,
+}: Props) {
   const filmzRef = collection(db, "filmz");
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))
@@ -54,6 +61,7 @@ function FilmzContainer({ main, senderId, filmzId, setFilmzId }: Props) {
           post={post}
           filmzId={filmzId}
           setFilmzId={setFilmzId}
+          setImage={setImage}
         />
       ))}
     </div>

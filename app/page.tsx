@@ -7,6 +7,7 @@ import { VideoType } from "@/types/Types";
 import NewsContainer from "./components/news/NewsContainer";
 import ContentContainer from "./components/videos/ContentContainer";
 import CommentModal from "./components/modals/CommentModal";
+import ImageModal from "./components/modals/ImageModal";
 
 export default function Home() {
   const [IsLoaded, setIsLoaded] = useState(true);
@@ -15,7 +16,7 @@ export default function Home() {
   const [filmzId, setFilmzId] = useState(
     "b6098ebe-a596-414a-89d2-e2cfb2c16ea2",
   );
-
+  const [image, setImage] = useState("");
   const RetrieveVideos = async () => {
     const video: VideoType[] = await getAllVideos();
     setVideos(video);
@@ -37,6 +38,7 @@ export default function Home() {
   );
   return (
     <div className="grid grid-cols-12 w-full h-full overflow-x-hidden overflow-y-hidden">
+      <ImageModal image={image} setImage={setImage} />
       <CommentModal filmzId={filmzId} setFilmzId={setFilmzId} />
       <div className="h-fit w-full absolute bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3">
         <VideoController setSelected={setSelected} selected={selected} />
@@ -48,6 +50,7 @@ export default function Home() {
             selected={selected}
             filmzId={filmzId}
             setFilmzId={setFilmzId}
+            setImage={setImage}
           />
         )}
       </div>

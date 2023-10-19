@@ -9,13 +9,25 @@ type Props = {
   selected: any;
   filmzId: string;
   setFilmzId: any;
+  setImage: any;
 };
 const TestFilmz = [1, 2, 3, 4, 5, 6, 7];
-function ContentContainer({ videos, selected, filmzId, setFilmzId }: Props) {
+function ContentContainer({
+  videos,
+  selected,
+  filmzId,
+  setFilmzId,
+  setImage,
+}: Props) {
   return (
     <div className="flex flex-wrap p-3  ">
       {selected === "Filmz" ? (
-        <FilmzContainer main filmzId={filmzId} setFilmzId={setFilmzId} />
+        <FilmzContainer
+          main
+          filmzId={filmzId}
+          setFilmzId={setFilmzId}
+          setImage={setImage}
+        />
       ) : (
         <VideoSkeleton />
       )}

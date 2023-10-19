@@ -11,30 +11,47 @@ import { useRouter } from "next/router";
 import EditProfileModal from "@/app/components/modals/EditProfileModal";
 import MobileProfileCard from "@/app/components/profile/MobileProfileCard";
 import CommentModal from "@/app/components/modals/CommentModal";
+import ImageModal from "@/app/components/modals/ImageModal";
+import useImageModal from "@/app/hooks/useImageModal";
 
 type Props = {};
 
 function ProfileContainer({}: Props) {
   const [Users, setUsers] = useState<any>(null);
+  const [image, setImage] = useState("");
+  const imageModal = useImageModal();
   const [filmzId, setFilmzId] = useState(
     "b6098ebe-a596-414a-89d2-e2cfb2c16ea2",
   );
+
+  const handleImageExpander = (image: string) => {
+    imageModal.onOpen();
+    setImage(image);
+  };
   const router = useRouter();
   const id: any = router.query.id;
 
   return (
     <div className="h-[100vh] w-[100vw] bg-black">
       <CommentModal filmzId={filmzId} setFilmzId={setFilmzId} />
+      <ImageModal image={image} setImage={setImage} />
       <Navbar />
       <EditProfileModal />
       <div className="w-full h-[15rem] relative">
         <div className="">
           <div className="hidden md:block">
-            <div className="h-[18rem] w-full">
+            <div
+              onClick={() =>
+                handleImageExpander(
+                  Users?.backgroundImg ? Users.backgroundImg : pic,
+                )
+              }
+              className="h-[18rem] w-full"
+            >
               <Image
                 width={180}
                 height={100}
-                className="w-full h-full object-fill"
+                className="w-full h-full object-fill cursor-pointer"
                 src={Users?.backgroundImg ? Users.backgroundImg : pic}
                 alt="profile pic"
               />
@@ -56,6 +73,7 @@ function ProfileContainer({}: Props) {
           setFilmzId={setFilmzId}
           main={false}
           senderId={id}
+          setImage={setImage}
         />
       </div>
     </div>
