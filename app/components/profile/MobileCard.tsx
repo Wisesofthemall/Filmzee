@@ -4,7 +4,6 @@ import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { collection, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import DynamicPhoto from "../DynamicPhoto";
 import { CiLocationOn } from "react-icons/ci";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { format } from "date-fns";

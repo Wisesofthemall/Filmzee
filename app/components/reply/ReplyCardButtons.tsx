@@ -1,6 +1,8 @@
 "use client";
+
 import { useAuth } from "@/auth/AuthState";
 import { db } from "@/auth/Firebase";
+
 import { FirebaseUserType } from "@/types/Types";
 import {
   collection,
@@ -12,18 +14,16 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BiRepost } from "react-icons/bi";
-import { BsChat } from "react-icons/bs";
 
 type Props = { likes: any; id: any };
 
-function FilmzCardButtons({ likes, id }: Props) {
+function ReplyCardButtons({ likes, id }: Props) {
   const loginUser: FirebaseUserType = useAuth();
   const [liked, setLiked] = useState(false);
   const [docID, setDocID] = useState("");
 
-  const filmzCardRef = collection(db, "filmz");
-  const q = query(filmzCardRef, where("createdAt", "==", id));
+  const replyCardRef = collection(db, "replies");
+  const q = query(replyCardRef, where("createdAt", "==", id));
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -40,22 +40,24 @@ function FilmzCardButtons({ likes, id }: Props) {
 
   const updateLike = (num: number) => {
     const isLiked = likes[loginUser.localId] ? true : false;
-    const filmzRef = doc(db, "filmz", docID);
+    const replyRef = doc(db, "replies", docID);
     if (num > 0) {
       setLiked(true);
 
       if (!isLiked) {
+        console.log(replyRef);
         likes[loginUser.localId] = loginUser.localId;
-        updateDoc(filmzRef, { likes: likes });
+        updateDoc(replyRef, { likes: likes });
       }
     } else {
       setLiked(false);
       if (isLiked) {
         delete likes[loginUser.localId];
-        updateDoc(filmzRef, { likes: likes });
+        updateDoc(replyRef, { likes: likes });
       }
     }
   };
+
   useEffect(() => {
     getDocName();
     if (loginUser) {
@@ -66,13 +68,7 @@ function FilmzCardButtons({ likes, id }: Props) {
 
   return (
     <div className="flex justify-evenly ">
-      <div className="flex text-sm text-gray-800 items-center">
-        <div className="mx-1">
-          <BsChat size={20} />
-        </div>{" "}
-        0
-      </div>
-      <div className="flex text-sm text-gray-800 items-center">
+      <div className="flex text-sm text-gray-800 items-center font-bold">
         {liked ? (
           <div onClick={() => updateLike(-1)} className={`mx-1 text-rose-500 `}>
             <AiFillHeart size={20} />
@@ -80,21 +76,15 @@ function FilmzCardButtons({ likes, id }: Props) {
         ) : (
           <div
             onClick={() => updateLike(1)}
-            className="mx-1 cursor-pointer hover:opacity-60"
+            className="mx-1 cursor-pointer hover:opacity-60 "
           >
             <AiOutlineHeart size={20} />
           </div>
         )}
         {Object.keys(likes).length}
       </div>
-      <div className="flex text-sm text-gray-800 items-center">
-        <div className="mx-1">
-          <BiRepost size={20} />
-        </div>{" "}
-        0
-      </div>
     </div>
   );
 }
 
-export default FilmzCardButtons;
+export default ReplyCardButtons;

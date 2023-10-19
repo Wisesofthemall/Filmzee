@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
 
 import Heading from "../inputs/Heading";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
 import ImageUploader from "../inputs/ImageUploader";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
@@ -15,7 +15,7 @@ import {
 } from "@/database/usersCRUD/Supabase";
 import useEditProfileModal from "@/app/hooks/useEditProfileModal";
 import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType, UserType } from "@/types/Types";
+import { FirebaseUserType } from "@/types/Types";
 
 type Props = {};
 enum STEPS {

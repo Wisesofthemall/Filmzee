@@ -10,7 +10,12 @@ import { formatDistanceToNow } from "date-fns";
 import DynamicPhoto from "../DynamicPhoto";
 import { FirebaseUserType } from "@/types/Types";
 
-type dataType = {};
+import { Menu, MenuButton } from "@chakra-ui/react";
+
+import FilmzMenu from "./FilmzMenu";
+import { useAuth } from "@/auth/AuthState";
+import useImageModal from "@/app/hooks/useImageModal";
+
 type Props = {
   main?: boolean;
   post: {
@@ -20,17 +25,25 @@ type Props = {
     senderId: string;
     sender: FirebaseUserType;
     image: string;
+    id: any;
   };
+  setFilmzId: any;
+  setImage: any;
 };
 
-function FilmzCard({ main, post }: Props) {
+function FilmzCard({ main, post, setFilmzId, setImage }: Props) {
   const router = useRouter();
-
-  // S
+  const imageModal = useImageModal();
 
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,
+    includeSeconds: true,
   });
+
+  const handleImageExpander = (image: string) => {
+    setImage(image);
+    imageModal.onOpen();
+  };
 
   return (
     <div className={`${main ? "w-full" : "w-full m-2"}`}>
@@ -69,19 +82,33 @@ function FilmzCard({ main, post }: Props) {
               <div className="text-gray-800 text-sm hidden md:block">
                 {formattedTimeDifference}
               </div>
-              <div className="text-gray-800 text-sm items-center">
-                <BiDotsVerticalRounded />
+              <div className="flex text-gray-800 text-sm items-center">
+                <Menu isLazy>
+                  <MenuButton>
+                    <BiDotsVerticalRounded size={20} />
+                  </MenuButton>
+                  <FilmzMenu
+                    FilmzUser={post.sender.localId}
+                    id={post.createdAt}
+                  />
+                </Menu>
               </div>
             </div>
           </div>
-          <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
-            {post.text}
-          </p>
+          {post.text && (
+            <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
+              {post.text}
+            </p>
+          )}
+
           {post.image && (
-            <div className="my-2 flex justify-center">
+            <div
+              onClick={() => handleImageExpander(post.image)}
+              className="my-2 flex justify-center"
+            >
               <Image
                 alt="filmz image"
-                className="w-3/5 h-3/5 rounded-lg"
+                className="w-3/5 h-3/5 rounded-lg cursor-pointer"
                 src={post.image}
                 width={60}
                 height={60}
@@ -89,7 +116,12 @@ function FilmzCard({ main, post }: Props) {
             </div>
           )}
 
-          <FilmzCardButtons likes={post.likes} id={post.createdAt} />
+          <FilmzCardButtons
+            likes={post.likes}
+            id={post.createdAt}
+            filmzId={post.id}
+            setFilmzId={setFilmzId}
+          />
         </div>
       </div>
       <hr className="border border-gray-800" />

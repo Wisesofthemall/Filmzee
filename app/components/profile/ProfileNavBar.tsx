@@ -10,13 +10,13 @@ type Props = { Users: any };
 function ProfileNavBar({ Users }: Props) {
   const [disabled, setDisabled] = useState(false);
   const router = useRouter();
-  const id: any = router.query.id;
+
   const loginUser: FirebaseUserType = useAuth();
 
   const updateChat = async () => {
     const roomId = [...loginUser.localId, ...Users.localId].sort().join("");
     setDisabled(true);
-    const myChat = await retrieveChat(
+    await retrieveChat(
       loginUser.localId,
       Users.id,
       Users.uniq,

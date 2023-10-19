@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/traverse": "^7.23.2",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
@@ -40,6 +41,7 @@
     "react-hook-form": "^7.47.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
+    "react-router-dom": "^6.17.0",
     "sharp": "^0.32.6",
     "socket.io": "^4.7.2",
     "styled-components": "^6.0.8",
@@ -47,6 +49,11 @@
     "timeago.js": "^4.0.2",
     "typescript": "5.2.2",
     "universal": "^0.1.1",
+    "uuid": "^9.0.1",
     "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.5",
+    "@babel/traverse": ">=7.23.2"
   }
 }

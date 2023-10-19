@@ -6,6 +6,7 @@ import { FiUsers } from "react-icons/fi";
 import { BiCompass } from "react-icons/bi";
 import { getShorts } from "@/api/Youtube";
 import { CgFeed } from "react-icons/cg";
+import { getQueryParam, pushSelected } from "@/functions/urlParams";
 
 type Props = { setSelected: any; selected: any };
 
@@ -15,39 +16,28 @@ function VideoController({ setSelected, selected }: Props) {
 
     return response;
   };
-  const getQueryParam = (key: string) => {
-    //* Get the current URL
-    const url = new URL(window.location.href);
 
-    //* Retrieve the query parameter value
-    return url.searchParams.get(key);
-  };
-  const pushSelected = (value: string) => {
-    const url = new URL(window.location.href);
-
-    //* Add or update the query parameter
-    url.searchParams.set("select", value);
-
-    //* Replace the current URL with the updated URL
-    window.history.replaceState({}, "", url.toString());
+  const pushSelect = (value: string) => {
+    pushSelected("select", value);
     const select = getQueryParam("select");
+
     setSelected(select as string);
   };
 
   useEffect(() => {
-    pushSelected("Filmz");
+    pushSelect("Filmz");
     //shortsss();
     const select = getQueryParam("select");
     setSelected(select as string);
   }, []);
 
   return (
-    <div className="z-50 p-1 flex justify-around w-full h-[6rem]  bg-black  md:h-full md:bg-transparent md:block">
+    <div className="z-40 p-1 flex justify-around w-full h-[6rem]  bg-black  md:h-full md:bg-transparent md:block">
       <div className=" w-1/5 md:w-full my-5">
         <Button
           label="For You"
           onClick={() => {
-            pushSelected("ForYou");
+            pushSelect("ForYou");
           }}
           selected={selected == "ForYou"}
           icon={FaHouse}
@@ -58,7 +48,7 @@ function VideoController({ setSelected, selected }: Props) {
         <Button
           label="Following"
           onClick={() => {
-            pushSelected("Following");
+            pushSelect("Following");
           }}
           selected={selected == "Following"}
           icon={FiUsers}
@@ -69,7 +59,7 @@ function VideoController({ setSelected, selected }: Props) {
         <Button
           label="Explore"
           onClick={() => {
-            pushSelected("Explore");
+            pushSelect("Explore");
           }}
           selected={selected == "Explore"}
           icon={BiCompass}
@@ -80,7 +70,7 @@ function VideoController({ setSelected, selected }: Props) {
         <Button
           label="Filmz"
           onClick={() => {
-            pushSelected("Filmz");
+            pushSelect("Filmz");
           }}
           selected={selected == "Filmz"}
           icon={CgFeed}

@@ -3,9 +3,9 @@ import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import SearchQuery from "./SearchQuery";
-import { AiOutlineClose } from "react-icons/ai";
+
 import { useAuth } from "@/auth/AuthState";
-import { UserType } from "@/types/Types";
+
 type Props = {
   getChat: (userId?: number) => {};
 };

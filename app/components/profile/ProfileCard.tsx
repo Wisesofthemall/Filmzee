@@ -5,7 +5,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
-import { useRouter } from "next/router";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { format } from "date-fns";
 import { collection, query, where } from "firebase/firestore";

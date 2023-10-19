@@ -1,11 +1,9 @@
 "use client";
 
 import { FirebaseUserType } from "@/types/Types";
-import Image from "next/image";
-import { Avatar } from "@mui/material";
-import { colorMaker } from "@/functions/profileGenerator";
+
 import { useEffect, useRef } from "react";
-import { formatDistanceToNow } from "date-fns";
+
 import DynamicPhoto from "../DynamicPhoto";
 import Message from "./Message";
 import { useRouter } from "next/router";

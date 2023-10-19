@@ -7,7 +7,7 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { FiEye, FiHeart, FiLogOut, FiSettings } from "react-icons/fi";
+import { FiEye, FiLogOut, FiSettings } from "react-icons/fi";
 
 type Props = {};
 
@@ -46,16 +46,6 @@ function UserMenu({}: Props) {
           <AiOutlineUser />
         </div>
         Edit Profile
-      </MenuItem>
-      <MenuItem
-        as="a"
-        href="#"
-        className="my-1 cursor-pointer hover:text-blue-400"
-      >
-        <div className="mx-2">
-          <FiHeart />
-        </div>
-        Likes
       </MenuItem>
       <MenuItem
         as="a"

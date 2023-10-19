@@ -9,9 +9,18 @@ import { db } from "@/auth/Firebase";
 type Props = {
   main?: boolean;
   senderId?: string;
+
+  setFilmzId: any;
+  setImage: any;
 };
 
-function FilmzContainer({ main, senderId }: Props) {
+function FilmzContainer({
+  main,
+  senderId,
+
+  setFilmzId,
+  setImage,
+}: Props) {
   const filmzRef = collection(db, "filmz");
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))
@@ -36,6 +45,7 @@ function FilmzContainer({ main, senderId }: Props) {
       setFilmz(Posts);
     }
   }, [Posts, senderId]);
+
   return (
     <div
       className={`w-full   flex flex-wrap pb-28 mt-3 overflow-y-scroll overflow-x-hidden ${
@@ -45,7 +55,13 @@ function FilmzContainer({ main, senderId }: Props) {
       {main && <FilmzCreator />}
 
       {filmz.map((post: any) => (
-        <FilmzCard key={post.createdAt} main={main} post={post} />
+        <FilmzCard
+          key={post.createdAt}
+          main={main}
+          post={post}
+          setFilmzId={setFilmzId}
+          setImage={setImage}
+        />
       ))}
     </div>
   );

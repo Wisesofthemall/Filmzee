@@ -1,11 +1,9 @@
 "use client";
 
 import { useAuth } from "@/auth/AuthState";
-import Image from "next/image";
+
 import React, { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-
-import Avatar from "@mui/material/Avatar";
 
 import { Menu, MenuButton } from "@chakra-ui/react";
 
