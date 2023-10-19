@@ -10,6 +10,12 @@ import { formatDistanceToNow } from "date-fns";
 import DynamicPhoto from "../DynamicPhoto";
 import { FirebaseUserType } from "@/types/Types";
 
+import UserMenu from "../user/UserMenu";
+import { Menu, MenuButton, MenuItem } from "@chakra-ui/react";
+import { FiEye } from "react-icons/fi";
+import FilmzMenu from "./FilmzMenu";
+import { useAuth } from "@/auth/AuthState";
+
 type dataType = {};
 type Props = {
   main?: boolean;
@@ -29,7 +35,7 @@ type Props = {
 function FilmzCard({ main, post, filmzId, setFilmzId }: Props) {
   const router = useRouter();
 
-  // S
+  const loginUser = useAuth();
 
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,
@@ -74,7 +80,15 @@ function FilmzCard({ main, post, filmzId, setFilmzId }: Props) {
                 {formattedTimeDifference}
               </div>
               <div className="flex text-gray-800 text-sm items-center">
-                <BiDotsVerticalRounded size={25} />
+                <Menu isLazy>
+                  <MenuButton>
+                    <BiDotsVerticalRounded size={20} />
+                  </MenuButton>
+                  <FilmzMenu
+                    FilmzUser={post.sender.localId}
+                    id={post.createdAt}
+                  />
+                </Menu>
               </div>
             </div>
           </div>
