@@ -39,7 +39,7 @@ export default function Home() {
     <div className="grid grid-cols-12 w-full h-full overflow-x-hidden overflow-y-hidden">
       <ImageModal image={image} setImage={setImage} />
       <CommentModal filmzId={filmzId} setFilmzId={setFilmzId} />
-      <div className="h-fit w-full absolute bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3">
+      <div className="h-fit w-full fixed bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3">
         <VideoController setSelected={setSelected} selected={selected} />
       </div>
       <div className=" col-span-12 md:col-span-8 lg:col-span-6 md:h-[100vh] overflow-y-scroll h-[100vh] pb-28">
