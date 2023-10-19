@@ -53,16 +53,6 @@ function UserMenu({}: Props) {
         className="my-1 cursor-pointer hover:text-blue-400"
       >
         <div className="mx-2">
-          <FiHeart />
-        </div>
-        Likes
-      </MenuItem>
-      <MenuItem
-        as="a"
-        href="#"
-        className="my-1 cursor-pointer hover:text-blue-400"
-      >
-        <div className="mx-2">
           <FiSettings />
         </div>
         Settings

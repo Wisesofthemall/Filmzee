@@ -73,8 +73,8 @@ function FilmzCard({ main, post, filmzId, setFilmzId }: Props) {
               <div className="text-gray-800 text-sm hidden md:block">
                 {formattedTimeDifference}
               </div>
-              <div className="text-gray-800 text-sm items-center">
-                <BiDotsVerticalRounded />
+              <div className="flex text-gray-800 text-sm items-center">
+                <BiDotsVerticalRounded size={25} />
               </div>
             </div>
           </div>
