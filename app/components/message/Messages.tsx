@@ -28,11 +28,14 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
   };
 
   useEffect(() => {
-    if (scroll) {
-      shouldScroll();
-      setScroll(false);
-    }
-  }, [scroll, setScroll]);
+    console.log("scroll update", scroll);
+
+    console.log("shouldve scroll ");
+    shouldScroll();
+    setScroll(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scroll]);
 
   return (
     <div className="h-full overflow-y-scroll">

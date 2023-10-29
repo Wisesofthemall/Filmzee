@@ -52,11 +52,10 @@ NEXT_PUBLIC_measurementId=
 - [ ] can see requested messages
 - [ ] can see unread messages
 - [ ] a popup appears on recent messages
-- [ ] make a profile page
+- [x] make a profile page
 - [x] add Comments Section
-- [ ] add Repost Functionality
-- [ ] add delete Filmz Functionality
-- [ ] add Image Expander when User Click an image
+- [x] add delete Filmz Functionality
+- [x] add Image Expander when User Click an image
 
 # Blockers
 
