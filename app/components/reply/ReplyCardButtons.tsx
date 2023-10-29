@@ -45,7 +45,6 @@ function ReplyCardButtons({ likes, id }: Props) {
       setLiked(true);
 
       if (!isLiked) {
-        console.log(replyRef);
         likes[loginUser.localId] = loginUser.localId;
         updateDoc(replyRef, { likes: likes });
       }

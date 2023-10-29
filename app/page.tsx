@@ -35,6 +35,22 @@ export default function Home() {
       <div className="font-bold"> - Bug Fixes and Optimizations </div>
     </div>
   );
+  const test = (
+    <div className="my-2">
+      <div className="font-bold">Email: test@gmail.com</div>
+      <div className="font-bold">Password: 123456</div>
+    </div>
+  );
+  const news = (
+    <div className="my-2">
+      <div className="font-bold">- Creating a AWS infrastructure</div>
+      <div className="font-bold">- A popup appears on recent messages</div>
+      <div className="font-bold">- Add Images on Messages</div>
+      <div className="font-bold">
+        - Create a Webscrapper to fetch videos to display on this app
+      </div>
+    </div>
+  );
   return (
     <div className="grid grid-cols-12 w-full h-full overflow-x-hidden overflow-y-hidden">
       <ImageModal image={image} setImage={setImage} />
@@ -58,6 +74,16 @@ export default function Home() {
           header="Whats New?"
           subtitle="Version 2.6"
           content={content}
+        />
+        <NewsContainer
+          header="Just testing the App ?"
+          subtitle="Dont worry use our testing account"
+          content={test}
+        />
+        <NewsContainer
+          header="Whats Coming ?"
+          subtitle="What is going to be added!"
+          content={news}
         />
       </div>
     </div>

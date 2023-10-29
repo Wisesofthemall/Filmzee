@@ -7,8 +7,6 @@ import SignupModal from "./components/modals/SignupModal";
 import Navbar from "./components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 import EditProfileModal from "./components/modals/EditProfileModal";
-import CommentModal from "./components/modals/CommentModal";
-import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 

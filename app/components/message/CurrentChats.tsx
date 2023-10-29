@@ -44,7 +44,8 @@ function CurrentChats({
 
   const handleSubmit = async (e: any) => {
     if (newMessage === "") return;
-    const message = filter.clean(newMessage);
+    const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
+
     await addDoc(messagesRef, {
       text: message,
       sender: {
@@ -57,11 +58,14 @@ function CurrentChats({
     });
 
     setNewMessage("");
+
+    setScroll(true);
+    setScroll(false);
   };
   const handleEnter = async (e: any) => {
     if (e === "Enter") {
       if (newMessage === "") return;
-      const message = filter.clean(newMessage);
+      const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
       await addDoc(messagesRef, {
         text: message,
         sender: {
@@ -74,11 +78,19 @@ function CurrentChats({
       });
 
       setNewMessage("");
+
       setScroll(true);
+      setScroll(false);
     } else {
       return;
     }
   };
+
+  useEffect(() => {
+    setScroll(true);
+    setScroll(false);
+  }, [selected]);
+
   const getInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
 
@@ -108,6 +120,7 @@ function CurrentChats({
       setScroll(true);
     }
   }, [Message, roomId]);
+
   if (selected.show === false) {
     return (
       <div

@@ -27,8 +27,7 @@ type Props = {
 function ReplyCard({ main, post }: Props) {
   const router = useRouter();
 
-  console.log(post?.sender.localId);
-  console.log(post?.createdAt);
+
 
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,
