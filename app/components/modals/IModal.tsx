@@ -81,7 +81,7 @@ function IModal({ isOpen, onClose, image }: Props) {
                 <div className="flex justify-center items-center w-full h-full">
                   <Image
                     src={image}
-                    className="w-4/5 h-4/5 object-contain"
+                    className="w-[40%] h-[40%] object-contain"
                     alt="Image Expanded"
                     width={100}
                     height={100}
