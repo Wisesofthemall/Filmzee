@@ -28,9 +28,6 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
   };
 
   useEffect(() => {
-    console.log("scroll update", scroll);
-
-    console.log("shouldve scroll ");
     shouldScroll();
     setScroll(false);
 

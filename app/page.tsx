@@ -26,13 +26,10 @@ export default function Home() {
   const content = (
     <div className="my-2">
       <div className="font-bold">- Added Comment Section</div>
-      <div className="font-bold"> - Remove Repost Feature</div>
       <div className="font-bold"> - Added Image Expander </div>
       <div className="font-bold"> - Added Delete Filmz Functionality </div>
-      <div className="font-bold"> - Added Report Filmz Functionality </div>
       <div className="font-bold"> - Update User Menu </div>
       <div className="font-bold"> - CSS Fix on Main page </div>
-      <div className="font-bold"> - Bug Fixes and Optimizations </div>
     </div>
   );
   const test = (
@@ -49,10 +46,11 @@ export default function Home() {
       <div className="font-bold">
         - Create a Webscrapper to fetch videos to display on this app
       </div>
+      <div className="font-bold">- Other things that i dont know yet 😅</div>
     </div>
   );
   return (
-    <div className="grid grid-cols-12 w-full h-full overflow-x-hidden overflow-y-hidden">
+    <div className="grid grid-cols-12 w-full h-full overflow-x-hidden overflow-y-scroll">
       <ImageModal image={image} setImage={setImage} />
       <CommentModal filmzId={filmzId} setFilmzId={setFilmzId} />
       <div className="h-fit w-full fixed bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3">
