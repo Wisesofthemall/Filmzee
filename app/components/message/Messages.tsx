@@ -12,15 +12,17 @@ type MessageType = {
   sender: FirebaseUserType;
   createdAt: string;
   text: string;
+  photo: string;
 };
 type Props = {
   messages: MessageType[];
   loginUser: FirebaseUserType;
   scroll: any;
   setScroll: any;
+  setImage: any;
 };
 
-function Messages({ messages, loginUser, scroll, setScroll }: Props) {
+function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
   const router = useRouter();
   const dummy: any = useRef();
   const shouldScroll = () => {
@@ -44,7 +46,11 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
               key={message.createdAt}
               className="flex items-end justify-end m-2"
             >
-              <Message message={message} loginUser={loginUser} />
+              <Message
+                message={message}
+                loginUser={loginUser}
+                setImage={setImage}
+              />
               <div
                 onClick={() =>
                   router.push(`/profile/${message.sender.localId}`)
@@ -75,7 +81,11 @@ function Messages({ messages, loginUser, scroll, setScroll }: Props) {
                   email={message.sender.email}
                 />
               </div>
-              <Message message={message} loginUser={loginUser} />
+              <Message
+                message={message}
+                loginUser={loginUser}
+                setImage={setImage}
+              />
             </div>
           )}
         </div>

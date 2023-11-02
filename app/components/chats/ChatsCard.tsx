@@ -63,7 +63,7 @@ function ChatsCard({
       </div>
       <div className={`mx-1`}>
         <div className="flex  ">
-          <div className="text-xs ">{user.recepientName}</div>
+          <div className="text-xs  font-semibold">{user.recepientName}</div>
           {user.recepientEmail === "foxxydieujuste@gmail.com" ? (
             <div className="text-yellow-300">
               <AiFillStar />
@@ -74,7 +74,7 @@ function ChatsCard({
         </div>
         <div className="text-xs flex flex-wrap  ">
           {" "}
-          <div className="font-bold text-xs mr-1 ">Email:</div>
+          <div className=" font-semibold text-xs mr-1 ">Email:</div>
           {user.recepientEmail}
         </div>
       </div>

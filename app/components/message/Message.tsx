@@ -1,21 +1,45 @@
+import useImageModal from "@/app/hooks/useImageModal";
 import { formatDistanceToNow } from "date-fns";
+import Image from "next/image";
 import React from "react";
 
-type Props = { message: any; loginUser: any };
+type Props = { message: any; loginUser: any; setImage: any };
 
-function Message({ message, loginUser }: Props) {
+function Message({ message, loginUser, setImage }: Props) {
+  const imageModal = useImageModal();
+
+  const handleImageExpander = (image: string) => {
+    setImage(image);
+    imageModal.onOpen();
+  };
   return (
     <div className="">
+      {message.image && (
+        <div
+          onClick={() => handleImageExpander(message.image)}
+          className="my-2 flex justify-center"
+        >
+          <Image
+            alt="filmz image"
+            className=" rounded-lg cursor-pointer"
+            src={message.image}
+            width={260}
+            height={260}
+          />
+        </div>
+      )}
       <div
         className={`${
           loginUser?.localId === message.sender.localId ? "ml-auto" : "mx-1"
         } w-fit `}
       >
-        <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end">
-          {message.text}
-        </div>
+        {message.text && (
+          <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end  font-semibold w-fit">
+            {message.text}
+          </div>
+        )}
       </div>
-      <div className="text-xs text-blue-400 px-2 text-end">
+      <div className="text-xs  font-semibold text-blue-400 px-2 text-end">
         {formatDistanceToNow(message.createdAt.toDate(), {
           addSuffix: true,
         })}

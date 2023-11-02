@@ -5,9 +5,11 @@ import MyChats from "./MyChats";
 import CurrentChats from "./CurrentChats";
 import { ChatType } from "@/types/Types";
 
-type Props = {};
+type Props = {
+  setImage: any;
+};
 
-function MessageContainer({}: Props) {
+function MessageContainer({ setImage }: Props) {
   const test: ChatType = {
     show: false,
     created_at: "",
@@ -35,6 +37,7 @@ function MessageContainer({}: Props) {
         setShowCurrent={setShowCurrent}
       />
       <CurrentChats
+        setImage={setImage}
         hide={hide}
         setHide={setHide}
         selected={selectedChat}

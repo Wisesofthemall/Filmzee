@@ -41,7 +41,7 @@ function Navbar({}: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-  
+
   return (
     <div className="p-4 flex flex-row justify-around z-50 bg-black ">
       <div
@@ -55,7 +55,7 @@ function Navbar({}: Props) {
           height={20}
           alt="Logo"
         />
-        <div className="p-1 hidden md:block">ilmzee</div>
+        <div className="p-1 hidden md:block  font-semibold">ilmzee</div>
       </div>
       <Search />
       <div onClick={() => navMessage()} className="flex place-items-center">

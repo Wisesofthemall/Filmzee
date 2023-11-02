@@ -96,7 +96,7 @@ function FilmzCard({ main, post, setFilmzId, setImage }: Props) {
             </div>
           </div>
           {post.text && (
-            <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word">
+            <p className="text-sm p-2 w-full flex flex-wrap overflow-wrap break-word ">
               {post.text}
             </p>
           )}
