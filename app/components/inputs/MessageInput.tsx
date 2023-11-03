@@ -42,10 +42,11 @@ function MessageInput({
         }}
         disabled={disabled}
         type={type}
+        placeholder="Type a message"
         className={`peer
         w-full
         p-4
-        pt-6
+        pt-3
         pb-[2.25rem]
         bg-gray-700
         border-2
@@ -60,25 +61,6 @@ function MessageInput({
         font-semibold
         text-white`}
       />
-      <label
-        className={`absolute
-        text-md
-        duration-150
-        transform
-        -translate-y-3
-        top-5
-        z-10
-        origin-[0]
-        left-4
-        peer-placeholder-shown:scale-100
-        peer-placeholder-shown:translate-y-0
-        peer-focus:scale-75
-        peer-focus:-translate-y-4
-        font-semibold
-        text-white`}
-      >
-        {label}
-      </label>
       <label
         className={`
         flex
