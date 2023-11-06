@@ -1,6 +1,6 @@
 "use client";
 
-import VideoController from "./components/videos/VideoController";
+import MenuController from "./components/videos/MenuController";
 import { useEffect, useState } from "react";
 import { getAllVideos } from "@/database/videosCRUD/Supabase";
 import { VideoType } from "@/types/Types";
@@ -54,7 +54,7 @@ export default function Home() {
       <ImageModal image={image} setImage={setImage} />
       <CommentModal filmzId={filmzId} setFilmzId={setFilmzId} />
       <div className="h-fit w-full fixed bottom-0 flex items-end md:relative md:block md:col-span-4 lg:col-span-3">
-        <VideoController setSelected={setSelected} selected={selected} />
+        <MenuController setSelected={setSelected} selected={selected} />
       </div>
       <div className=" col-span-12 md:col-span-8 lg:col-span-6 md:h-[100vh] overflow-y-scroll h-[100vh] pb-28">
         {IsLoaded && (

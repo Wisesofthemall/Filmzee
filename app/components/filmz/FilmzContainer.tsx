@@ -48,7 +48,7 @@ function FilmzContainer({
 
   return (
     <div
-      className={`w-full   flex flex-wrap pb-28 mt-3 overflow-y-scroll overflow-x-hidden ${
+      className={`w-full  p-3 flex flex-wrap pb-28 mt-3 overflow-y-scroll overflow-x-hidden ${
         main ? "" : " pl-0 md:pl-[15rem]"
       } ${main ? "" : " h-[52vh] overflow-y-scroll"}  `}
     >

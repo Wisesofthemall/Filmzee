@@ -10,7 +10,7 @@ import { getQueryParam, pushSelected } from "@/functions/urlParams";
 
 type Props = { setSelected: any; selected: any };
 
-function VideoController({ setSelected, selected }: Props) {
+function MenuController({ setSelected, selected }: Props) {
   const shortsss = async () => {
     const response = await getShorts("music");
 
@@ -26,7 +26,7 @@ function VideoController({ setSelected, selected }: Props) {
 
   useEffect(() => {
     pushSelect("Filmz");
-    //shortsss();
+
     const select = getQueryParam("select");
     setSelected(select as string);
   }, []);
@@ -81,4 +81,4 @@ function VideoController({ setSelected, selected }: Props) {
   );
 }
 
-export default VideoController;
+export default MenuController;
