@@ -1,5 +1,5 @@
 "use client";
-
+//
 import MenuController from "./components/videos/MenuController";
 import { useEffect, useState } from "react";
 import { getAllVideos } from "@/database/videosCRUD/Supabase";
