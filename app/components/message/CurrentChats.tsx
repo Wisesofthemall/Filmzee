@@ -18,6 +18,7 @@ type Props = {
   setShowCurrent: any;
   setHide: any;
   hide: any;
+  setImage: any;
 };
 
 function CurrentChats({
@@ -26,9 +27,11 @@ function CurrentChats({
   setShowCurrent,
   setHide,
   hide,
+  setImage,
 }: Props) {
   const [userInfo, setUserInfo] = useState<any>({});
   const [newMessage, setNewMessage] = useState("");
+  const [messagePhoto, setMessagePhoto] = useState<any>(null);
   const [scroll, setScroll] = useState(false);
   const roomId = [...selected.userId, ...selected.recepientLocalID]
     .sort()
@@ -43,11 +46,11 @@ function CurrentChats({
   const loginUser = useAuth();
 
   const handleSubmit = async (e: any) => {
-    if (newMessage === "") return;
+    if (newMessage === "" && !messagePhoto) return;
     const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
-
     await addDoc(messagesRef, {
       text: message,
+      image: messagePhoto,
       sender: {
         ...loginUser,
         displayName: userInfo.name,
@@ -58,16 +61,18 @@ function CurrentChats({
     });
 
     setNewMessage("");
-
+    setMessagePhoto(null);
     setScroll(true);
     setScroll(false);
   };
   const handleEnter = async (e: any) => {
     if (e === "Enter") {
-      if (newMessage === "") return;
+      if (newMessage === "" && !messagePhoto) return;
       const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
+      if (!message) return;
       await addDoc(messagesRef, {
         text: message,
+        image: messagePhoto,
         sender: {
           ...loginUser,
           displayName: userInfo.name,
@@ -79,6 +84,7 @@ function CurrentChats({
 
       setNewMessage("");
 
+      setMessagePhoto(null);
       setScroll(true);
       setScroll(false);
     } else {
@@ -154,6 +160,7 @@ function CurrentChats({
         {messages ? (
           <div className="h-full">
             <Messages
+              setImage={setImage}
               messages={messages}
               loginUser={loginUser}
               scroll={scroll}
@@ -164,15 +171,17 @@ function CurrentChats({
           "Introduce yourself !!! Dont be shy"
         )}
       </div>
-      <div className="bottom-0 px-4 flex">
+      <div className="bottom-0 px-4 flex h-[7.5rem]">
         <MessageInput
           id={"message"}
           value={newMessage}
           stateChange={setNewMessage}
-          label="Type your message here..."
+          label="Start a message"
           required
           submit={handleSubmit}
           enter={handleEnter}
+          messagePhoto={messagePhoto}
+          setMessagePhoto={setMessagePhoto}
         />
       </div>
     </div>

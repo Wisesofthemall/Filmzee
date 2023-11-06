@@ -13,6 +13,7 @@ export const postSingleVideo = async (
   tag: string,
   link: string,
   channelTitle: string,
+  thumbnail: string,
 ) => {
   const { data, error } = await supabase.from("Videos").insert([
     {
@@ -21,6 +22,7 @@ export const postSingleVideo = async (
       tag,
       link,
       channelTitle,
+      thumbnail,
     },
   ]);
 
@@ -36,7 +38,15 @@ export const postVideos = async (videos: any[], tag: string) => {
     const hashtag = tag;
     const link = videos[i].id.videoId;
     const channelTitle = videos[i].snippet.channelTitle;
-    await postSingleVideo(title, description, hashtag, link, channelTitle);
+    const thumbnail = videos[i].snippet.thumbnails.high.url;
+    await postSingleVideo(
+      title,
+      description,
+      hashtag,
+      link,
+      channelTitle,
+      thumbnail,
+    );
   }
 };
 

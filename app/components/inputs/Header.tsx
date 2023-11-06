@@ -55,8 +55,10 @@ export default function Header({
           <DynamicPhoto photoUrl={photo} picId={picId} email={name} />
         </div>
         <div className="">
-          <div className="text-2xl mx-2 ">{name}</div>
-          <div className=" mx-2 text-gray-800 text-sm ">{email}</div>
+          <div className="text-2xl mx-2  font-semibold">{name}</div>
+          <div className=" mx-2 text-gray-800 text-sm  font-semibold">
+            {email}
+          </div>
         </div>
       </div>
     </div>

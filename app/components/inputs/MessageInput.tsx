@@ -1,5 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import SendIcon from "./SendIcon";
+import { IoImageOutline } from "react-icons/io5";
+import FilmzImageUploader from "../filmz/FilmzImageUploader";
+import FilmzImageRender from "../filmz/FilmzImageRender";
 
 type Props = {
   id: string;
@@ -11,6 +15,8 @@ type Props = {
   submit: any;
   enter: any;
   required: boolean;
+  messagePhoto: any;
+  setMessagePhoto: any;
 };
 
 function MessageInput({
@@ -22,9 +28,11 @@ function MessageInput({
   value,
   submit,
   enter,
+  messagePhoto,
+  setMessagePhoto,
 }: Props) {
   return (
-    <div className="w-full relative my-5 flex">
+    <div className="w-full relative my-3 flex">
       <input
         onChange={(e) => stateChange(e.target.value)}
         value={value}
@@ -34,12 +42,13 @@ function MessageInput({
         }}
         disabled={disabled}
         type={type}
+        placeholder="Type a message"
         className={`peer
         w-full
         p-4
-        pt-6
-        font-light
-        bg-white
+        pt-3
+        pb-[2.25rem]
+        bg-gray-700
         border-2
         rounded-md
         outline-none
@@ -48,32 +57,51 @@ function MessageInput({
         disabled:cursor-not-allowed
         pl-4
         border-neutral-300
-        focus:border-black
-        text-black`}
+        focus:border-blue-500
+        font-semibold
+        text-white`}
       />
       <label
-        className={`absolute
+        className={`
+        flex
+        absolute
         text-md
-        duration-150
-        transform
-        -translate-y-3
-        top-5
+        top-[3.75rem]
         z-10
-        origin-[0]
         left-4
-        peer-placeholder-shown:scale-100
-        peer-placeholder-shown:translate-y-0
-        peer-focus:scale-75
-        peer-focus:-translate-y-4
-        text-zinc-400`}
+        font-semibold
+        text-white`}
       >
-        {label}
+        <FilmzImageUploader value={messagePhoto} onChange={setMessagePhoto} />
+        {messagePhoto && (
+          <FilmzImageRender
+            photo={messagePhoto}
+            deletePhoto={() => setMessagePhoto(null)}
+          />
+        )}
       </label>
-      <div onClick={() => submit()} className="cursor-pointer hover:opacity-60">
-        <SendIcon />
+
+      <div
+        onClick={() => submit()}
+        className="flex items-center cursor-pointer hover:opacity-60"
+      >
+        {(value.length > 0 || messagePhoto) && <SendIcon />}
       </div>
     </div>
   );
 }
 
+// {filmzPhoto && (
+//   <FilmzImageRender
+//     photo={filmzPhoto}
+//     deletePhoto={() => setFilmzPhoto(null)}
+//   />
+// )}
+// <div className="px-3">
+//   <div className="flex justify-between">
+//     <div className="flex items-center justify-items-center cursor-pointer ">
+//       <FilmzImageUploader
+//         value={filmzPhoto}
+//         onChange={setFilmzPhoto}
+//       />
 export default MessageInput;
