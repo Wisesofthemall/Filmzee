@@ -26,6 +26,16 @@ function ContentContainer({
         <FilmzContainer main setFilmzId={setFilmzId} setImage={setImage} />
       )}
       {selected === "ForYou" && <ForYouPlayer />}
+      {selected === "Following" && (
+        <div className=" grid w-full h-full place-items-center font-bold text-2xl">
+          Feature not out yet
+        </div>
+      )}
+      {selected === "Explore" && (
+        <div className=" grid w-full h-full place-items-center font-bold text-2xl">
+          Feature not out yet
+        </div>
+      )}
     </div>
   );
 }
