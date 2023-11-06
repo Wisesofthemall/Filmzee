@@ -29,6 +29,7 @@ function MenuController({ setSelected, selected }: Props) {
 
     const select = getQueryParam("select");
     setSelected(select as string);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
