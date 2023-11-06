@@ -30,7 +30,7 @@ function FilmzCreator({}: Props) {
   const [newPost, setNewPost] = useState("");
   const signupModal = useSignupModal();
 
-  const filmzRef = collection(db, "filmz");
+  const filmzRef = collection(db, "filmzx");
 
   const handleSubmit = async () => {
     if (!loginUser) {
