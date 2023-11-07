@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import Image from "next/image";
-import Logo from "../../assets/Logo.png";
+import Logo from "@/assets/Logo.png";
 import Search from "./Search";
 import MessageIcon from "./message/MessageIcon";
 import { useRouter } from "next/navigation";

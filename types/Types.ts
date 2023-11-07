@@ -5,7 +5,8 @@ export type VideoType = {
   tag: string;
   link: string;
   channelTitle: string;
-  thumbnail: string;
+  likes: number;
+  bookmark: number;
 };
 
 export type UserType = {

@@ -12,6 +12,7 @@
     "@babel/traverse": "^7.23.2",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.1",
+    "@cloudinary-util/url-loader": "^3.14.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.9",
