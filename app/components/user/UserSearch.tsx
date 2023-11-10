@@ -5,12 +5,14 @@ import { FaSearch } from "react-icons/fa";
 import SearchQuery from "./SearchQuery";
 
 import { useAuth } from "@/auth/AuthState";
+import { UserType } from "@/types/Types";
 
 type Props = {
   getChat: (userId?: number) => {};
+  loginInfo: UserType;
 };
 
-function UserSearch({ getChat }: Props) {
+function UserSearch({ getChat, loginInfo }: Props) {
   const [username, setUsername] = useState<string>("");
   const [hide, setHide] = useState(true);
   const [query, setQuery] = useState("");
@@ -79,6 +81,7 @@ function UserSearch({ getChat }: Props) {
               name={username}
               getChat={getChat}
               setHide={setHide}
+              loginInfo={loginInfo}
             />
           </div>
         )}

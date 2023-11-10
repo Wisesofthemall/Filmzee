@@ -10,16 +10,26 @@ import { AiFillStar } from "react-icons/ai";
 type Props = {
   user: UserType;
   getChat: any;
+  loginInfo: UserType;
 };
 
-export default function UserSearchCard({ user, getChat }: Props) {
+export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
   const [picId, setPicId] = useState(100);
   const [roomID, setRoomID] = useState("");
   const loginUser: FirebaseUserType = useAuth();
 
+  // userUniq: string,
+  // userName: string,
+  // userEmail: string,
+  // userPhoto: string,
   const updateChat = async () => {
     const newChats = await retrieveChat(
       loginUser.localId,
+      loginInfo.id,
+      loginUser.createdAt,
+      loginInfo.displayName || loginInfo.email.split("@")[0],
+      loginUser.email,
+      loginInfo.photoUrl,
       user.id,
       user.uniq,
       user.name,

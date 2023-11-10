@@ -64,7 +64,12 @@ export const createChat = async (
 };
 
 export const retrieveChat = async (
-  userId: string,
+  userLocalID: string,
+  userId: number,
+  userUniq: string,
+  userName: string,
+  userEmail: string,
+  userPhoto: string,
   recepientId: number,
   recepientUniq: string,
   recepientName: string,
@@ -74,11 +79,12 @@ export const retrieveChat = async (
   roomId: string,
 ) => {
   try {
-    const chat = await getChatByRoomId(userId, recepientEmail);
+    const chat = await getChatByRoomId(userLocalID, recepientEmail);
+    const secondChat = await getChatByRoomId(recepientLocalID, userEmail);
 
     if (!chat || chat.length === 0) {
       await createChat(
-        userId,
+        userLocalID,
         recepientId,
         recepientUniq,
         recepientName,
@@ -88,8 +94,20 @@ export const retrieveChat = async (
         roomId,
       );
     }
+    if (!secondChat || secondChat.length === 0) {
+      await createChat(
+        recepientLocalID,
+        userId,
+        userUniq,
+        userName,
+        userEmail,
+        userPhoto,
+        userLocalID,
+        roomId,
+      );
+    }
 
-    const newChat = await getAllChatsbyID(userId);
+    const newChat = await getAllChatsbyID(userLocalID);
 
     return newChat;
   } catch (error) {}

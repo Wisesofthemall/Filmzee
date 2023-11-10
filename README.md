@@ -56,8 +56,10 @@ NEXT_PUBLIC_measurementId=
 - [x] add Comments Section
 - [x] add delete Filmz Functionality
 - [x] add Image Expander when User Click an image
+- [x] Image on Messages
 - [ ] add a group chat mode
 - [] able to ban users
+- [x] when a user messaage another user, both users can see the chat
 
 # Blockers
 

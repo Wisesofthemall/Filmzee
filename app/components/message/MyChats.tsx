@@ -7,6 +7,7 @@ import { useAuth } from "@/auth/AuthState";
 
 import { FirebaseUserType } from "@/types/Types";
 import { getAllChatsbyID } from "@/database/chatsCRUD/Supabase";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 
 type Props = {
   selected: any;
@@ -27,6 +28,7 @@ function MyChats({
 }: Props) {
   const [myChats, setMyChats] = useState<any[] | null>([]);
   const loginUser: FirebaseUserType = useAuth();
+  const [userInfo, setUserInfo] = useState<any>({});
 
   const getChat: any = async (chats: any) => {
     setMyChats(chats);
@@ -36,10 +38,15 @@ function MyChats({
 
     setMyChats(chats);
   };
+  const getUserInfo = async () => {
+    const user = await getUserByLocalId(loginUser.localId);
+    setUserInfo(user);
+  };
 
   useEffect(() => {
     if (loginUser) {
       getAllChat();
+      getUserInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
@@ -51,7 +58,7 @@ function MyChats({
       } ${hide ? " col-span-10  " : ""}
        ${!showCurrent && !hide ? "md:col-span-3" : "md:col-span-10 "} `}
     >
-      <UserSearch getChat={getChat} />
+      <UserSearch getChat={getChat} loginInfo={userInfo} />
       <ChatsContainer
         setHide={setHide}
         setShowCurrent={setShowCurrent}

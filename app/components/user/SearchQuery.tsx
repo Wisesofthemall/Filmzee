@@ -13,12 +13,18 @@ type Props = {
   hide: boolean;
   name: string | undefined;
   setHide: any;
+  loginInfo: UserType;
 };
 
-function SearchQuery({ query, hide, name, getChat, setHide }: Props) {
-  const user = useAuth();
+function SearchQuery({
+  query,
+  hide,
+  name,
+  getChat,
+  setHide,
+  loginInfo,
+}: Props) {
   const [results, setResults] = useState<UserType[] | []>([]);
-  const [queryResult, setQueryResult] = useState([]);
   const getResults = async () => {
     const users: UserType[] = await getUsersByName(query, name || "");
     setResults(users);
@@ -45,7 +51,12 @@ function SearchQuery({ query, hide, name, getChat, setHide }: Props) {
         } overflow-y-scroll h-40`}
       >
         {results.map((u) => (
-          <UserSearchCard user={u} key={u.id} getChat={getChat} />
+          <UserSearchCard
+            user={u}
+            key={u.id}
+            getChat={getChat}
+            loginInfo={loginInfo}
+          />
         ))}
       </div>
     </div>
