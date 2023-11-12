@@ -1,5 +1,6 @@
-import { UserType, VideoType } from "@/types/Types";
+import { MemberType, UserType, VideoType } from "@/types/Types";
 import { createClient } from "@supabase/supabase-js";
+import { formatISO9075 } from "date-fns";
 require("dotenv").config();
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -29,14 +30,14 @@ export const getChatByRoomId = async (
   }
 };
 export const createChat = async (
-  userId: string,
-  recepientId: number,
-  recepientUniq: string,
-  recepientName: string,
-  recepientEmail: string,
-  recepientPhoto: string,
-  recepientLocalID: string,
-  roomId: string,
+  userId?: string,
+  recepientId?: number,
+  recepientUniq?: string,
+  recepientName?: string,
+  recepientEmail?: string,
+  recepientPhoto?: string,
+  recepientLocalID?: string,
+  roomId?: string,
 ) => {
   try {
     const { data, error } = await supabase.from("Chats").upsert([
@@ -64,7 +65,12 @@ export const createChat = async (
 };
 
 export const retrieveChat = async (
-  userId: string,
+  userLocalID: string,
+  userId: number,
+  userUniq: string,
+  userName: string,
+  userEmail: string,
+  userPhoto: string,
   recepientId: number,
   recepientUniq: string,
   recepientName: string,
@@ -74,11 +80,12 @@ export const retrieveChat = async (
   roomId: string,
 ) => {
   try {
-    const chat = await getChatByRoomId(userId, recepientEmail);
+    const chat = await getChatByRoomId(userLocalID, recepientEmail);
+    const secondChat = await getChatByRoomId(recepientLocalID, userEmail);
 
     if (!chat || chat.length === 0) {
       await createChat(
-        userId,
+        userLocalID,
         recepientId,
         recepientUniq,
         recepientName,
@@ -88,8 +95,20 @@ export const retrieveChat = async (
         roomId,
       );
     }
+    if (!secondChat || secondChat.length === 0) {
+      await createChat(
+        recepientLocalID,
+        userId,
+        userUniq,
+        userName,
+        userEmail,
+        userPhoto,
+        userLocalID,
+        roomId,
+      );
+    }
 
-    const newChat = await getAllChatsbyID(userId);
+    const newChat = await getAllChatsbyID(userLocalID);
 
     return newChat;
   } catch (error) {}
@@ -99,7 +118,8 @@ export const getAllChatsbyID = async (userId: string) => {
     const { data, error } = await supabase
       .from("Chats") // Replace 'Chats' with the actual name of your table
       .select("*")
-      .eq("userId", userId);
+      .eq("userId", userId)
+      .order("created_at", { ascending: false });
 
     if (error) {
       return null;
@@ -109,4 +129,26 @@ export const getAllChatsbyID = async (userId: string) => {
   } catch (error) {
     return null;
   }
+};
+
+export const createGroupChat = async (
+  membersIds: MemberType[],
+  groupName: string,
+  groupPhoto: string,
+  roomId: string,
+  uniq: string,
+) => {
+  for (var i = 0; i < membersIds.length; i++) {
+    await createChat(
+      membersIds[i].localId,
+      undefined,
+      uniq,
+      groupName,
+      groupName.replace(/\s/g, ""),
+      groupPhoto,
+      membersIds[0].localId,
+      roomId,
+    );
+  }
+  return;
 };

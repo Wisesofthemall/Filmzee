@@ -10,7 +10,7 @@ import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
 import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
-import Messages from "./Messages";
+import Messages from "../message/Messages";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 type Props = {
   selected: ChatType;
@@ -33,9 +33,7 @@ function CurrentChats({
   const [newMessage, setNewMessage] = useState("");
   const [messagePhoto, setMessagePhoto] = useState<any>(null);
   const [scroll, setScroll] = useState(false);
-  const roomId = [...selected.userId, ...selected.recepientLocalID]
-    .sort()
-    .join("");
+  const roomId = selected.roomId;
 
   const messagesRef = collection(db, "messages");
   const queryRef = query(messagesRef, where("roomId", "==", roomId));
@@ -155,6 +153,7 @@ function CurrentChats({
         name={selected.recepientName}
         uniq={selected.recepientUniq}
         email={selected.recepientEmail}
+        edit
       />
       <div className="flex-grow h-[25rem]">
         {messages ? (

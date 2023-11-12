@@ -5,7 +5,8 @@ export type VideoType = {
   tag: string;
   link: string;
   channelTitle: string;
-  thumbnail: string;
+  likes: number;
+  bookmark: number;
 };
 
 export type UserType = {
@@ -41,4 +42,12 @@ export type ChatType = {
   recepientUniq: string;
   userId: string;
   roomId: string;
+};
+
+export type MemberType = {
+  name: string;
+  email: string;
+  photoUrl: string;
+  localId: string;
+  uniq: string;
 };

@@ -7,11 +7,12 @@ type Props = {
   type?: string;
   disabled?: boolean;
   stateChange: React.Dispatch<React.SetStateAction<string>>;
+  dark?: boolean;
 
   required?: boolean;
 };
 
-function Input({ id, label, type, disabled, stateChange, value }: Props) {
+function Input({ id, label, type, disabled, stateChange, value, dark }: Props) {
   return (
     <div className="w-full relative my-5">
       <input
@@ -25,7 +26,7 @@ function Input({ id, label, type, disabled, stateChange, value }: Props) {
         p-4
         pt-6
         font-light
-        bg-white
+        ${dark ? " bg-gray-900 " : " bg-white "}
         border-2
         rounded-md
         outline-none
@@ -35,7 +36,7 @@ function Input({ id, label, type, disabled, stateChange, value }: Props) {
         pl-4
         border-neutral-300
         focus:border-black
-        text-black`}
+        ${dark ? "text-white" : "text-black"}`}
       />
       <label
         className={`absolute

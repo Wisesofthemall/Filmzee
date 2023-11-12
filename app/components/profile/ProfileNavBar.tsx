@@ -1,23 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 import { retrieveChat } from "@/database/chatsCRUD/Supabase";
 import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 
 type Props = { Users: any };
 
 function ProfileNavBar({ Users }: Props) {
+  const [loginInfo, setLoginInfo] = useState<any>({});
   const [disabled, setDisabled] = useState(false);
   const router = useRouter();
 
   const loginUser: FirebaseUserType = useAuth();
+
+  const getLoginInfo = async () => {
+    const info = await getUserByLocalId(loginUser.localId);
+    setLoginInfo(info);
+  };
+  useEffect(() => {
+    if (loginUser) {
+      getLoginInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   const updateChat = async () => {
     const roomId = [...loginUser.localId, ...Users.localId].sort().join("");
     setDisabled(true);
     await retrieveChat(
       loginUser.localId,
+      loginInfo.id,
+      loginUser.createdAt,
+      loginInfo?.displayName || loginInfo?.email.split("@")[0],
+      loginUser.email,
+      loginInfo?.photoUrl,
       Users.id,
       Users.uniq,
       Users.name,

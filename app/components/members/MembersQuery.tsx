@@ -3,30 +3,23 @@ import { getUsersByName } from "@/database/usersCRUD/Supabase";
 import { UserType } from "@/types/Types";
 
 import React, { useEffect, useState } from "react";
-import UserSearchCard from "./UserSearchCard";
+import UserSearchCard from "../user/UserSearchCard";
 import { useAuth } from "@/auth/AuthState";
 import { AiOutlineClose } from "react-icons/ai";
+import MembersSearchCard from "./MembersSearchCard";
 
 type Props = {
-  getChat: (userId?: number) => {};
   query: string;
   hide: boolean;
-  name: string | undefined;
+
   setHide: any;
-  loginInfo: UserType;
+  addMember: any;
 };
 
-function SearchQuery({
-  query,
-  hide,
-  name,
-  getChat,
-  setHide,
-  loginInfo,
-}: Props) {
+function MembersQuery({ query, hide, setHide, addMember }: Props) {
   const [results, setResults] = useState<UserType[] | []>([]);
   const getResults = async () => {
-    const users: UserType[] = await getUsersByName(query, name || "");
+    const users: UserType[] = await getUsersByName(query, "");
     setResults(users);
   };
   useEffect(() => {
@@ -51,16 +44,11 @@ function SearchQuery({
         } overflow-y-scroll h-40`}
       >
         {results.map((u) => (
-          <UserSearchCard
-            user={u}
-            key={u.id}
-            getChat={getChat}
-            loginInfo={loginInfo}
-          />
+          <MembersSearchCard user={u} key={u.id} addMember={addMember} />
         ))}
       </div>
     </div>
   );
 }
 
-export default SearchQuery;
+export default MembersQuery;

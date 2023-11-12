@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
 import { useRouter } from "next/navigation";
+import { BiPencil } from "react-icons/bi";
 
 type Props = {
   photo: string;
@@ -16,6 +17,7 @@ type Props = {
   setShowCurrent: any;
   localId: any;
   email: any;
+  edit: boolean;
 };
 
 export default function Header({
@@ -26,6 +28,7 @@ export default function Header({
   setShowCurrent,
   email,
   localId,
+  edit,
 }: Props) {
   const router = useRouter();
   const [picId, setPicId] = useState(200);
@@ -60,6 +63,10 @@ export default function Header({
             {email}
           </div>
         </div>
+      </div>
+      <div className="ml-auto cursor-pointer">
+        {" "}
+        <BiPencil size={25} />
       </div>
     </div>
   );

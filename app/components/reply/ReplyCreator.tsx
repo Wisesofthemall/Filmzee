@@ -41,7 +41,7 @@ function ReplyCreator({ filmzId }: Props) {
       toast.error("Please add a text or image");
       return;
     }
-
+    console.log("new post", newPost);
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
 
     await addDoc(filmzRef, {
