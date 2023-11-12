@@ -65,6 +65,8 @@ function FilmzCreator({}: Props) {
   useEffect(() => {
     if (loginUser) {
       getInfo();
+    } else {
+      setUserInfo({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
