@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
-
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -16,7 +15,6 @@ import { BsGithub } from "react-icons/bs";
 import Modal from "./Modal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { firebaseAuth } from "@/auth/Firebase";
-
 import useSignupModal from "@/app/hooks/useSignupModal";
 
 type Props = {};

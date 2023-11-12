@@ -1,8 +1,6 @@
 "use client";
-
 import { useAuth } from "@/auth/AuthState";
 import { db } from "@/auth/Firebase";
-
 import { FirebaseUserType } from "@/types/Types";
 import {
   collection,

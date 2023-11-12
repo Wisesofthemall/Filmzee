@@ -13,10 +13,10 @@ import Input from "../inputs/Input";
 import Button from "../inputs/Button";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
-
 import Modal from "./Modal";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import { firebaseAuth } from "@/auth/Firebase";
+
 type Props = {};
 
 function SignupModal({}: Props) {

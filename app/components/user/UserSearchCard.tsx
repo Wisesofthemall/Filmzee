@@ -1,3 +1,4 @@
+"use client";
 import { useAuth } from "@/auth/AuthState";
 import { retrieveChat } from "@/database/chatsCRUD/Supabase";
 import { colorMaker } from "@/functions/profileGenerator";

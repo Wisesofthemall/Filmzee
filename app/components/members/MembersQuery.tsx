@@ -3,8 +3,6 @@ import { getUsersByName } from "@/database/usersCRUD/Supabase";
 import { UserType } from "@/types/Types";
 
 import React, { useEffect, useState } from "react";
-import UserSearchCard from "../user/UserSearchCard";
-import { useAuth } from "@/auth/AuthState";
 import { AiOutlineClose } from "react-icons/ai";
 import MembersSearchCard from "./MembersSearchCard";
 

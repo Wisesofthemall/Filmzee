@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import SendIcon from "./SendIcon";
-import { IoImageOutline } from "react-icons/io5";
 import FilmzImageUploader from "../filmz/FilmzImageUploader";
 import FilmzImageRender from "../filmz/FilmzImageRender";
 

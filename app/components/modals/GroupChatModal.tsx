@@ -1,14 +1,10 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
-
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
-
 import Modal from "./Modal";
-
 import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";
-
 import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType, MemberType, UserType } from "@/types/Types";
 import { createGroupChat } from "@/database/chatsCRUD/Supabase";
@@ -16,10 +12,11 @@ import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { Skeleton } from "@mui/material";
 import ImageUploader from "../inputs/ImageUploader";
 import MembersQuery from "../members/MembersQuery";
-
 import MemberCard from "../members/MemberCard";
 import { v4 as uuidv4 } from "uuid";
 import { uniqGenerator } from "@/functions/uniqGenerator";
+import { db } from "@/auth/Firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 type Props = {
   getAllChat: any;
@@ -32,7 +29,6 @@ enum STEPS {
 }
 function GroupChatModal({ getAllChat }: Props) {
   const groupChatModal = useCreateGroupChatModal();
-
   const [hide, setHide] = useState(true);
   const [query, setQuery] = useState("");
   const [apiQuery, setApiQuery] = useState("");
@@ -43,6 +39,7 @@ function GroupChatModal({ getAllChat }: Props) {
   const [chatImage, setChatImage] = useState("");
   const [step, setStep] = useState(STEPS.NAME);
   const [members, setMembers] = useState<MemberType | {}>({});
+  const groupInfoRef = collection(db, "groupInfo");
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -108,7 +105,7 @@ function GroupChatModal({ getAllChat }: Props) {
   let bodyContent = (
     <div className="">
       {" "}
-      <Heading title="A cool name for your group" />
+      <Heading title="A name for your group" />
       <hr />
       <Input
         id={"name"}
@@ -143,6 +140,28 @@ function GroupChatModal({ getAllChat }: Props) {
       await createGroupChat(membersArray, chatName, chatImage, roomId, uniq);
       toast.success("Group chat created");
       groupChatModal.onClose();
+      await addDoc(groupInfoRef, {
+        roomId,
+        uniq,
+        chatName,
+        chatImage,
+        membersArray,
+      });
+      setChatName("");
+      setChatImage("");
+      setMembers((prevMembers: any) => {
+        return {
+          ...prevMembers,
+          [userInfo.localId]: {
+            name: userInfo.name,
+            email: userInfo.email,
+            photoUrl: userInfo.photoUrl,
+            localId: userInfo.localId,
+            uniq: userInfo.uniq,
+          },
+        };
+      });
+      setStep(STEPS.NAME);
       getAllChat();
     } catch (error: any) {
       toast.error(error.message);
@@ -175,6 +194,8 @@ function GroupChatModal({ getAllChat }: Props) {
   if (step === STEPS.MEMBERS) {
     bodyContent = (
       <div className="items-center">
+        <Heading title="Add members to your group" />
+        <hr />
         <div className="z-50 my-8">
           <div className="bg-black rounded-lg grid grid-cols-10 w-full mb-4">
             <input

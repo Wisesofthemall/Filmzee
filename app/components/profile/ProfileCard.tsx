@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-
+"use client";
 import Logo from "@/assets/Logo.png";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";

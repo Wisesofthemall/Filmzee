@@ -15,7 +15,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-
 import { BsChat } from "react-icons/bs";
 
 type Props = {

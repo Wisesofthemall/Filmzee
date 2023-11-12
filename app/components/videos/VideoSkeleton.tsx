@@ -1,6 +1,8 @@
+"use client";
 import React from "react";
 import Grid from "@mui/material/Grid";
 import SkeletonCard from "./SkeletonCard";
+
 type Props = {};
 
 function VideoSkeleton({}: Props) {

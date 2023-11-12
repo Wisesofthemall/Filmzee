@@ -1,8 +1,7 @@
+"use client";
 import Image from "next/image";
 import React from "react";
-
 import { BiDotsVerticalRounded, BiRepost } from "react-icons/bi";
-
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import DynamicPhoto from "../DynamicPhoto";
@@ -26,8 +25,6 @@ type Props = {
 
 function ReplyCard({ main, post }: Props) {
   const router = useRouter();
-
-
 
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,

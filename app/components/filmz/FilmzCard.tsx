@@ -1,19 +1,14 @@
+"use client";
 import Image from "next/image";
 import React from "react";
-
-import { BiDotsVerticalRounded, BiRepost } from "react-icons/bi";
-
+import { BiDotsVerticalRounded } from "react-icons/bi";
 import FilmzCardButtons from "./FilmzCardButtons";
-
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import DynamicPhoto from "../DynamicPhoto";
 import { FirebaseUserType } from "@/types/Types";
-
 import { Menu, MenuButton } from "@chakra-ui/react";
-
 import FilmzMenu from "./FilmzMenu";
-import { useAuth } from "@/auth/AuthState";
 import useImageModal from "@/app/hooks/useImageModal";
 
 type Props = {

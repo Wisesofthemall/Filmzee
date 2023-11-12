@@ -1,7 +1,6 @@
 "use client";
 require("dotenv").config();
 import React from "react";
-
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { useCallback } from "react";
@@ -14,10 +13,6 @@ type Props = {
   onChange: (value: string) => void;
   value: string;
 };
-
-declare global {
-  var cloudinary: any;
-}
 
 function ImageUploader({ onChange, value }: Props) {
   const handleUpload = useCallback(

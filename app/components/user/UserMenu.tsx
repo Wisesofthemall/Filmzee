@@ -1,3 +1,4 @@
+"use client";
 import useEditProfileModal from "@/app/hooks/useEditProfileModal";
 import { useAuth } from "@/auth/AuthState";
 import { firebaseAuth } from "@/auth/Firebase";

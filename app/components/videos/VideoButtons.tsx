@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiDownArrow, BiUpArrow } from "react-icons/bi";
@@ -21,19 +22,16 @@ function VideoButtons({ changeIndex, index, endIndex }: Props) {
       )}
       {liked ? (
         <div className="mx-1 text-rose-500 text-center">
-          <AiFillHeart size={50} />
-          1293
+          <AiFillHeart size={50} />0
         </div>
       ) : (
         <div className="mx-1  text-center">
-          <AiOutlineHeart size={50} />
-          1293
+          <AiOutlineHeart size={50} />0
         </div>
       )}
 
       <div className="text-center">
-        <BsChat size={50} />
-        34
+        <BsChat size={50} />0
       </div>
       {endIndex !== index && (
         <div onClick={() => changeIndex(1)} className="hover:text-blue-500">

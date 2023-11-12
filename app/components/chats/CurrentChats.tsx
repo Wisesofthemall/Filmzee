@@ -1,9 +1,7 @@
 "use client";
 import MessageInput from "../inputs/MessageInput";
 import { filter } from "@/functions/profanityBlocker";
-
 import React, { useEffect, useState } from "react";
-
 import { collection, addDoc, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
@@ -12,6 +10,7 @@ import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
 import Messages from "../message/Messages";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+
 type Props = {
   selected: ChatType;
   showCurrent: any;
@@ -154,7 +153,8 @@ function CurrentChats({
         uniq={selected.recepientUniq}
         email={selected.recepientEmail}
         id={selected.recepientId}
-        edit
+        edit={!selected.recepientId}
+        roomId={roomId}
       />
       <div className="flex-grow h-[25rem]">
         {messages ? (

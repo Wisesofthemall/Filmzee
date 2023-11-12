@@ -1,5 +1,5 @@
+"use client";
 import React, { useEffect, useState } from "react";
-
 import { useRouter } from "next/router";
 import { retrieveChat } from "@/database/chatsCRUD/Supabase";
 import { useAuth } from "@/auth/AuthState";

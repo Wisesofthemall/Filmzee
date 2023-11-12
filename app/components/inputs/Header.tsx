@@ -1,13 +1,21 @@
 "use client";
-import { colorMaker } from "@/functions/profileGenerator";
-import { Avatar } from "@mui/material";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
 
+import React, { useEffect, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
 import { useRouter } from "next/navigation";
-import { BiPencil } from "react-icons/bi";
+import { PiInfoBold } from "react-icons/pi";
+import {
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
+import { db } from "@/auth/Firebase";
+import { collection, orderBy, query, where } from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import MemberCard from "../members/MemberCard";
 
 type Props = {
   photo: string;
@@ -19,6 +27,7 @@ type Props = {
   email: any;
   edit: boolean;
   id: number | null;
+  roomId: string;
 };
 
 export default function Header({
@@ -31,9 +40,14 @@ export default function Header({
   localId,
   edit,
   id,
+  roomId,
 }: Props) {
   const router = useRouter();
   const [picId, setPicId] = useState(200);
+  const groupInfoRef = collection(db, "groupInfo");
+  const queryRef = query(groupInfoRef, where("roomId", "==", roomId));
+
+  const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
     if (uniq) {
       const id = parseInt(uniq.slice(-3));
@@ -71,10 +85,41 @@ export default function Header({
           </div>
         </div>
       </div>
-      <div className="ml-auto cursor-pointer">
-        {" "}
-        <BiPencil size={25} />
-      </div>
+      {edit && (
+        <div className="ml-auto mr-5">
+          {" "}
+          <Menu isLazy>
+            <MenuButton className="cursor-pointer">
+              <PiInfoBold size={30} />
+            </MenuButton>
+            <MenuList
+              className=" bg-black  text-white rounded-lg overflow-y-scroll "
+              boxSize={300}
+            >
+              <MenuItem as="a" className="my-1">
+                <div className="mx-2 font-bold">
+                  <div className="">
+                    <div className="my-1">Members:</div>
+                    {Posts &&
+                      Posts[0] &&
+                      Posts[0].membersArray &&
+                      Posts[0].membersArray.map((post: any) => (
+                        <div key={post.uniq} className="w-full my-1">
+                          <MemberCard
+                            mem={post}
+                            key={post.localId}
+                            onRemove={() => console.log("remove")}
+                          />
+                        </div>
+                      ))}
+                  </div>
+                  <hr />
+                </div>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div>
+      )}
     </div>
   );
 }

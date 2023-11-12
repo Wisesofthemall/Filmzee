@@ -1,3 +1,4 @@
+"use client";
 import { colorMaker } from "@/functions/profileGenerator";
 import { MemberType } from "@/types/Types";
 import { Avatar } from "@mui/material";

@@ -9,18 +9,11 @@ import { db } from "@/auth/Firebase";
 type Props = {
   main?: boolean;
   senderId?: string;
-
   setFilmzId: any;
   setImage: any;
 };
 
-function FilmzContainer({
-  main,
-  senderId,
-
-  setFilmzId,
-  setImage,
-}: Props) {
+function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
   const filmzRef = collection(db, "filmz");
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))
@@ -30,17 +23,13 @@ function FilmzContainer({
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
     if (Posts && senderId) {
-      const filterMessage = Posts.sort(function (a, b) {
-        // Convert Firestore Timestamps to JavaScript Date objects
-
+      const sortedMessage = Posts.sort(function (a, b) {
         const dateA = a.createdAt;
         const dateB = b.createdAt;
-
-        // Compare the Date objects to sort in ascending order
         return dateB - dateA;
       });
 
-      setFilmz(filterMessage);
+      setFilmz(sortedMessage);
     } else if (Posts) {
       setFilmz(Posts);
     }

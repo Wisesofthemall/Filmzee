@@ -1,10 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import UserSearch from "../user/UserSearch";
 import ChatsContainer from "./ChatsContainer";
 import { useAuth } from "@/auth/AuthState";
-
 import { FirebaseUserType } from "@/types/Types";
 import { getAllChatsbyID } from "@/database/chatsCRUD/Supabase";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";

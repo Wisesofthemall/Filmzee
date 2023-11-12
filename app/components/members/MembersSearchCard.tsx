@@ -1,7 +1,6 @@
-import { useAuth } from "@/auth/AuthState";
-import { retrieveChat } from "@/database/chatsCRUD/Supabase";
+"use client";
 import { colorMaker } from "@/functions/profileGenerator";
-import { FirebaseUserType, UserType } from "@/types/Types";
+import { UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";

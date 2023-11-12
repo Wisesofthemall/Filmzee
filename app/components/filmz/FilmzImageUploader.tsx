@@ -4,18 +4,14 @@ import React from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { useCallback } from "react";
 import { IoImageOutline } from "react-icons/io5";
-
 declare global {
   var cloudinary: any;
 }
+
 type Props = {
   onChange: (value: string) => void;
   value: string;
 };
-
-declare global {
-  var cloudinary: any;
-}
 
 function FilmzImageUploader({ onChange, value }: Props) {
   const handleUpload = useCallback(

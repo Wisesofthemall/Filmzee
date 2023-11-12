@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-
 import IModal from "./IModal";
 import useImageModal from "@/app/hooks/useImageModal";
 
