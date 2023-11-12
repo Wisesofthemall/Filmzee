@@ -94,6 +94,6 @@ NEXT_PUBLIC_measurementId=
 
 # Blockers
 
--[ ] adding a video algorithm
+- [ ] adding a video algorithm
 
 - [ ] setting up video properly
