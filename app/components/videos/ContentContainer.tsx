@@ -3,6 +3,7 @@ import React from "react";
 import { VideoType } from "@/types/Types";
 import FilmzContainer from "../filmz/FilmzContainer";
 import VideoSkeleton from "./VideoSkeleton";
+import ForYouPlayer from "./ForYouPlayer";
 
 type Props = {
   videos: VideoType[];
@@ -20,12 +21,11 @@ function ContentContainer({
   setImage,
 }: Props) {
   return (
-    <div className="flex flex-wrap p-3  ">
-      {selected === "Filmz" ? (
+    <div className=" ">
+      {selected === "Filmz" && (
         <FilmzContainer main setFilmzId={setFilmzId} setImage={setImage} />
-      ) : (
-        <VideoSkeleton />
       )}
+      {selected === "ForYou" && <ForYouPlayer />}
     </div>
   );
 }
