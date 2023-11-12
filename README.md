@@ -9,19 +9,32 @@
 ![Cloudinary](https://img.shields.io/badge/cloudinary-039BE5?style=for-the-badge&logo=Cloudinary&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white)
 
-## Filmz Page
+# Features List
+
+- Users can create an account using their email ,Google , or Github using Firebase Authentication
+- Users can upload images to their post and messages using Cloudinary
+- Users can message other users in realtime using Supabase and Firebase FireStore
+- User can post content for everyone to see in realtime using Firebase Firestore
+- Users can delete their post using Firebase Firestore
+- Users can comment and like on other users post using Firebase Firestore
+- Users can view other users profile and their post using Supabase and Firebase Firestore
+- Users can edit their profile using Supabase
+- Users can group chat with other users using Supabase and Firebase Firestore
+- Users can watch videos in the ForYou page (pre-release) using Youtube API and Supabase
+
+# Filmz Page
 
 <img src='/public/FilmzPage.png' title='Filmz Page' width='' alt='Filmz Page' />
 
-## Message Page
+# Message Page
 
 <img src='/public/MessagePage.png' title='Message Page' width='' alt='Message Page' />
 
-## Profile Page
+# Profile Page
 
 <img src='/public/ProfilePage.png' title='Profile Page' width='' alt='Profile Page' />
 
-## Getting Started
+# Getting Started
 
 First, run the development server:
 
