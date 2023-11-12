@@ -3,9 +3,10 @@ import React from "react";
 
 type Props = {
   video: VideoType;
+  changeIndex: any;
 };
 
-function VideoCard({ video }: Props) {
+function VideoCard({ video, changeIndex }: Props) {
   return (
     <div className="w-[14rem] h-60 rounded-lg m-4">
       <iframe
