@@ -153,6 +153,7 @@ function CurrentChats({
         name={selected.recepientName}
         uniq={selected.recepientUniq}
         email={selected.recepientEmail}
+        id={selected.recepientId}
         edit
       />
       <div className="flex-grow h-[25rem]">

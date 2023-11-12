@@ -18,6 +18,7 @@ type Props = {
   localId: any;
   email: any;
   edit: boolean;
+  id: number | null;
 };
 
 export default function Header({
@@ -29,6 +30,7 @@ export default function Header({
   email,
   localId,
   edit,
+  id,
 }: Props) {
   const router = useRouter();
   const [picId, setPicId] = useState(200);
@@ -53,7 +55,12 @@ export default function Header({
       <div className="flex w-1/2 mx-auto">
         <div
           className="cursor-pointer hover:opacity-60"
-          onClick={() => router.push(`/profile/${localId}`)}
+          onClick={() => {
+            if (!id) {
+              return;
+            }
+            router.push(`/profile/${localId}`);
+          }}
         >
           <DynamicPhoto photoUrl={photo} picId={picId} email={name} />
         </div>

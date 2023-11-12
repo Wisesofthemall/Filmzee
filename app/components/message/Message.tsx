@@ -13,15 +13,19 @@ function Message({ message, loginUser, setImage }: Props) {
     imageModal.onOpen();
   };
   return (
-    <div className="">
+    <div className="mx-1">
       {message.image && (
         <div
           onClick={() => handleImageExpander(message.image)}
-          className="my-2 flex justify-center"
+          className={`${
+            loginUser?.localId === message.sender.localId
+              ? " flex justify-end "
+              : " "
+          }my-2  mt-auto`}
         >
           <Image
             alt="filmz image"
-            className=" rounded-lg cursor-pointer"
+            className=" rounded-lg cursor-pointer mt-auto"
             src={message.image}
             width={260}
             height={260}
