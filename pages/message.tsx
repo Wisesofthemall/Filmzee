@@ -18,7 +18,7 @@ function message({}: Props) {
       <Navbar />
       <ToasterProvider />
       <EditProfileModal />
-      <GroupChatModal />
+
       <ImageModal image={image} setImage={setImage} />
       <div className=" grid  place-items-center w-full h-[85vh]">
         <MessageContainer setImage={setImage} />

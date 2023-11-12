@@ -43,10 +43,8 @@ export default function Home() {
   );
   const news = (
     <div className="my-2">
-      <div className="font-bold">- A popup appears on recent messages</div>
-      <div className="font-bold">
-        - Create a Webscrapper to fetch videos to display on this app
-      </div>
+      <div className="font-bold">- Can Edit your group chat</div>
+      <div className="font-bold">- New ForYou Page</div>
     </div>
   );
   return (

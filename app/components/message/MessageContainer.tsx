@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import MyChats from "./MyChats";
-import CurrentChats from "./CurrentChats";
+import MyChats from "../chats/MyChats";
+import CurrentChats from "../chats/CurrentChats";
 import { ChatType } from "@/types/Types";
 
 type Props = {

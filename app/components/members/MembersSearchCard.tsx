@@ -9,46 +9,11 @@ import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   user: UserType;
-  getChat: any;
-  loginInfo: UserType;
-  deleteMember: any;
   addMember: any;
 };
 
-export default function MembersSearchCard({
-  user,
-  getChat,
-  loginInfo,
-  deleteMember,
-  addMember,
-}: Props) {
+export default function MembersSearchCard({ user, addMember }: Props) {
   const [picId, setPicId] = useState(100);
-  const [roomID, setRoomID] = useState("");
-  const loginUser: FirebaseUserType = useAuth();
-
-  // userUniq: string,
-  // userName: string,
-  // userEmail: string,
-  // userPhoto: string,
-  const updateChat = async () => {
-    const newChats = await retrieveChat(
-      loginUser.localId,
-      loginInfo.id,
-      loginUser.createdAt,
-      loginInfo.displayName || loginInfo.email.split("@")[0],
-      loginUser.email,
-      loginInfo.photoUrl,
-      user.id,
-      user.uniq,
-      user.name,
-      user.email,
-      user.photoUrl,
-      user.localId,
-      roomID,
-    );
-
-    getChat(newChats);
-  };
 
   useEffect(() => {
     if (user) {
@@ -56,14 +21,6 @@ export default function MembersSearchCard({
       setPicId(id);
     }
   }, [user]);
-
-  useEffect(() => {
-    if (loginUser) {
-      const roomId = [...user.localId, ...loginUser.localId].sort().join("");
-      setRoomID(roomId);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginUser]);
 
   const color: any = colorMaker(picId);
   return (

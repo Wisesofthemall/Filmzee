@@ -4,48 +4,39 @@ import { toast } from "react-hot-toast";
 
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
-import Button from "../inputs/Button";
 
 import Modal from "./Modal";
-import useLoginModal from "@/app/hooks/useLoginModal";
-import { firebaseAuth } from "@/auth/Firebase";
 
-import useSignupModal from "@/app/hooks/useSignupModal";
 import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";
-import SearchQuery from "../user/SearchQuery";
+
 import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType, MemberType, UserType } from "@/types/Types";
-import {
-  createGroupChat,
-  getAllChatsbyID,
-} from "@/database/chatsCRUD/Supabase";
+import { createGroupChat } from "@/database/chatsCRUD/Supabase";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
-import { Avatar, Skeleton } from "@mui/material";
+import { Skeleton } from "@mui/material";
 import ImageUploader from "../inputs/ImageUploader";
 import MembersQuery from "../members/MembersQuery";
-import Image from "next/image";
-import { color } from "@chakra-ui/react";
-import { RxCross2 } from "react-icons/rx";
-import { colorMaker } from "@/functions/profileGenerator";
+
 import MemberCard from "../members/MemberCard";
 import { v4 as uuidv4 } from "uuid";
 import { uniqGenerator } from "@/functions/uniqGenerator";
 
-type Props = {};
+type Props = {
+  getAllChat: any;
+};
 
 enum STEPS {
   NAME,
   IMAGE,
   MEMBERS,
 }
-function GroupChatModal({}: Props) {
+function GroupChatModal({ getAllChat }: Props) {
   const groupChatModal = useCreateGroupChatModal();
-  const [username, setUsername] = useState<string>("");
+
   const [hide, setHide] = useState(true);
   const [query, setQuery] = useState("");
   const [apiQuery, setApiQuery] = useState("");
   const [typing, setTyping] = useState(false);
-  const [myChats, setMyChats] = useState<any[] | null>([]);
   const [userInfo, setUserInfo] = useState<any>({});
   const loginUser: FirebaseUserType = useAuth();
   const [chatName, setChatName] = useState("");
@@ -74,7 +65,7 @@ function GroupChatModal({}: Props) {
 
   const handleDeleteMember = (member: MemberType) => {
     if (member.localId === userInfo.localId) {
-      toast.error("You cannot remove yourself from the group");
+      toast.error("You can not remove yourself from the group");
       return;
     }
     setMembers((prevMembers: any) => {
@@ -90,28 +81,6 @@ function GroupChatModal({}: Props) {
     toast.success(`${member.name} added to group`);
   };
 
-  useEffect(() => {
-    if (loginUser) {
-      if (loginUser.displayName) {
-        setUsername(loginUser.displayName);
-      } else {
-        const parsedName = loginUser.email?.split("@")[0];
-        setUsername(parsedName);
-      }
-      getAllChat();
-      getUserInfo();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginUser]);
-
-  const getChat: any = async (chats: any) => {
-    setMyChats(chats);
-  };
-  const getAllChat = async () => {
-    const chats = await getAllChatsbyID(loginUser.localId);
-
-    setMyChats(chats);
-  };
   const getUserInfo = async () => {
     const user: UserType = await getUserByLocalId(loginUser.localId);
     setUserInfo(user);
@@ -128,6 +97,13 @@ function GroupChatModal({}: Props) {
       };
     });
   };
+
+  useEffect(() => {
+    if (loginUser) {
+      getUserInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   let bodyContent = (
     <div className="">
@@ -167,6 +143,7 @@ function GroupChatModal({}: Props) {
       await createGroupChat(membersArray, chatName, chatImage, roomId, uniq);
       toast.success("Group chat created");
       groupChatModal.onClose();
+      getAllChat();
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -222,11 +199,7 @@ function GroupChatModal({}: Props) {
                 <MembersQuery
                   query={apiQuery}
                   hide={hide}
-                  name={username}
-                  getChat={getChat}
                   setHide={setHide}
-                  loginInfo={userInfo}
-                  deleteMember={handleDeleteMember}
                   addMember={handleAddMember}
                 />
               </div>

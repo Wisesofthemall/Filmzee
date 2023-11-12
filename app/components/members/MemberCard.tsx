@@ -9,7 +9,7 @@ type Props = { mem: MemberType; onRemove: any };
 
 function MemberCard({ mem, onRemove }: Props) {
   return (
-    <div className="mx-1 border-[1px] border-white rounded-lg p-1">
+    <div className="mx-1 border-[1px] border-white rounded-lg p-1 text-white">
       <div className="flex justify-between">
         {mem.photoUrl ? (
           <Image

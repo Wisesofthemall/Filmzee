@@ -10,7 +10,7 @@ import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
 import { ChatType } from "@/types/Types";
 import Header from "../inputs/Header";
-import Messages from "./Messages";
+import Messages from "../message/Messages";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 type Props = {
   selected: ChatType;
@@ -153,6 +153,7 @@ function CurrentChats({
         name={selected.recepientName}
         uniq={selected.recepientUniq}
         email={selected.recepientEmail}
+        edit
       />
       <div className="flex-grow h-[25rem]">
         {messages ? (

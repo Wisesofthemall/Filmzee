@@ -118,7 +118,8 @@ export const getAllChatsbyID = async (userId: string) => {
     const { data, error } = await supabase
       .from("Chats") // Replace 'Chats' with the actual name of your table
       .select("*")
-      .eq("userId", userId);
+      .eq("userId", userId)
+      .order("created_at", { ascending: false });
 
     if (error) {
       return null;
@@ -145,7 +146,7 @@ export const createGroupChat = async (
       groupName,
       groupName.replace(/\s/g, ""),
       groupPhoto,
-      undefined,
+      membersIds[0].localId,
       roomId,
     );
   }

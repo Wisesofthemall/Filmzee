@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 import UserSearch from "../user/UserSearch";
-import ChatsContainer from "../chats/ChatsContainer";
+import ChatsContainer from "./ChatsContainer";
 import { useAuth } from "@/auth/AuthState";
 
 import { FirebaseUserType } from "@/types/Types";
@@ -10,6 +10,7 @@ import { getAllChatsbyID } from "@/database/chatsCRUD/Supabase";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { IoReload } from "react-icons/io5";
 import toast from "react-hot-toast";
+import GroupChatModal from "../modals/GroupChatModal";
 
 type Props = {
   selected: any;
@@ -60,6 +61,7 @@ function MyChats({
       } ${hide ? " col-span-10  " : ""}
        ${!showCurrent && !hide ? "md:col-span-3" : "md:col-span-10 "} `}
     >
+      <GroupChatModal getAllChat={getAllChat} />
       <UserSearch getChat={getChat} loginInfo={userInfo} />
       <div
         onClick={() => {
