@@ -1,3 +1,4 @@
+"use client";
 import { VideoType } from "@/types/Types";
 import React from "react";
 

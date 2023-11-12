@@ -1,7 +1,5 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import { AiFillStar } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
 import { useRouter } from "next/router";
 import { ChatType } from "@/types/Types";
@@ -10,9 +8,7 @@ type Props = {
   user: ChatType;
   setSelected: any;
   selected: any;
-
   setShowCurrent: any;
-
   setHide: any;
 };
 
@@ -20,9 +16,7 @@ function ChatsCard({
   user,
   setSelected,
   selected,
-
   setShowCurrent,
-
   setHide,
 }: Props) {
   const [picId, setPicId] = useState(100);

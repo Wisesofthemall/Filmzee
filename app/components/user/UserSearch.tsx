@@ -3,7 +3,6 @@ import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import SearchQuery from "./SearchQuery";
-
 import { useAuth } from "@/auth/AuthState";
 import { UserType } from "@/types/Types";
 import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";

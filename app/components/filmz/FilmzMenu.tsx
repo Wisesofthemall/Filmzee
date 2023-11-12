@@ -1,15 +1,11 @@
 "use client";
-
 import { useAuth } from "@/auth/AuthState";
 import { db } from "@/auth/Firebase";
 import { FirebaseUserType } from "@/types/Types";
 import { MenuList, MenuItem } from "@chakra-ui/react";
-
 import React, { useEffect, useState } from "react";
-
 import { FaRegTrashCan } from "react-icons/fa6";
 import { MdReportGmailerrorred } from "react-icons/md";
-
 import {
   collection,
   deleteDoc,

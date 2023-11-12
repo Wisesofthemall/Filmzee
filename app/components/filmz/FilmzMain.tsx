@@ -1,25 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DynamicPhoto from "../DynamicPhoto";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import FilmzCardButtons from "./FilmzCardButtons";
-import { Menu, MenuButton } from "@chakra-ui/react";
-import FilmzMenu from "./FilmzMenu";
 
 type Props = { filmzId: any; setFilmzId: any };
 
 function FilmzMain({ filmzId, setFilmzId }: Props) {
   const [main, setMain] = useState<any>(null);
-
   const filmzRef = collection(db, "filmz");
-
   const queryRef = query(filmzRef, where("id", "==", filmzId));
-
   const [Post] = useCollectionData(queryRef);
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+"use client";
 import useImageModal from "@/app/hooks/useImageModal";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";

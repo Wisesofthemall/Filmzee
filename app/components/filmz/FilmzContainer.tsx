@@ -9,18 +9,11 @@ import { db } from "@/auth/Firebase";
 type Props = {
   main?: boolean;
   senderId?: string;
-
   setFilmzId: any;
   setImage: any;
 };
 
-function FilmzContainer({
-  main,
-  senderId,
-
-  setFilmzId,
-  setImage,
-}: Props) {
+function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
   const filmzRef = collection(db, "filmz");
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))

@@ -1,10 +1,8 @@
 "use client";
 import { getUsersByName } from "@/database/usersCRUD/Supabase";
 import { UserType } from "@/types/Types";
-
 import React, { useEffect, useState } from "react";
 import UserSearchCard from "./UserSearchCard";
-import { useAuth } from "@/auth/AuthState";
 import { AiOutlineClose } from "react-icons/ai";
 
 type Props = {

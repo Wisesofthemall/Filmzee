@@ -1,14 +1,10 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
-
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
-
 import Modal from "./Modal";
-
 import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";
-
 import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType, MemberType, UserType } from "@/types/Types";
 import { createGroupChat } from "@/database/chatsCRUD/Supabase";
@@ -16,7 +12,6 @@ import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { Skeleton } from "@mui/material";
 import ImageUploader from "../inputs/ImageUploader";
 import MembersQuery from "../members/MembersQuery";
-
 import MemberCard from "../members/MemberCard";
 import { v4 as uuidv4 } from "uuid";
 import { uniqGenerator } from "@/functions/uniqGenerator";
@@ -108,7 +103,7 @@ function GroupChatModal({ getAllChat }: Props) {
   let bodyContent = (
     <div className="">
       {" "}
-      <Heading title="A cool name for your group" />
+      <Heading title="A name for your group" />
       <hr />
       <Input
         id={"name"}
@@ -175,6 +170,8 @@ function GroupChatModal({ getAllChat }: Props) {
   if (step === STEPS.MEMBERS) {
     bodyContent = (
       <div className="items-center">
+        <Heading title="Add members to your group" />
+        <hr />
         <div className="z-50 my-8">
           <div className="bg-black rounded-lg grid grid-cols-10 w-full mb-4">
             <input

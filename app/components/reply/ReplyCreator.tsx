@@ -1,18 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import { useAuth } from "@/auth/AuthState";
-
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
-
 import { filter } from "@/functions/profanityBlocker";
 import { FirebaseUserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { useRouter } from "next/navigation";
-
 import FilmzImageUploader from "../filmz/FilmzImageUploader";
 import FilmzImageRender from "../filmz/FilmzImageRender";
 import { v4 as uuidv4 } from "uuid";

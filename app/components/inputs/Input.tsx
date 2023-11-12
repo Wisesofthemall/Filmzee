@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 type Props = {
@@ -8,7 +9,6 @@ type Props = {
   disabled?: boolean;
   stateChange: React.Dispatch<React.SetStateAction<string>>;
   dark?: boolean;
-
   required?: boolean;
 };
 

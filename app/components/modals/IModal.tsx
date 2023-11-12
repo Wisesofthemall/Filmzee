@@ -1,8 +1,6 @@
 "use client";
-
 import React, { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-
 import Image from "next/image";
 
 type Props = {

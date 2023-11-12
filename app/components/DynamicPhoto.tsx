@@ -1,6 +1,6 @@
+"use client";
 import { colorMaker } from "@/functions/profileGenerator";
 import { Avatar } from "@mui/material";
-
 import Image from "next/image";
 import React from "react";
 

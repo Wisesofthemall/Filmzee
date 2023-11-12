@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
-
 import Heading from "../inputs/Heading";
-
 import ImageUploader from "../inputs/ImageUploader";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";

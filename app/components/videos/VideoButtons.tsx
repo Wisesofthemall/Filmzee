@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BiDownArrow, BiUpArrow } from "react-icons/bi";

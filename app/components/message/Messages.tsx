@@ -1,12 +1,10 @@
 "use client";
-
 import { FirebaseUserType } from "@/types/Types";
-
 import { useEffect, useRef } from "react";
-
 import DynamicPhoto from "../DynamicPhoto";
 import Message from "./Message";
 import { useRouter } from "next/router";
+
 type MessageType = {
   roomId: string;
   sender: FirebaseUserType;

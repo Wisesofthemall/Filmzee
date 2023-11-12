@@ -1,13 +1,10 @@
 "use client";
-import { colorMaker } from "@/functions/profileGenerator";
-import { Avatar } from "@mui/material";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
 
+import React, { useEffect, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
 import { useRouter } from "next/navigation";
-import { BiPencil } from "react-icons/bi";
+import { PiInfoBold } from "react-icons/pi";
 
 type Props = {
   photo: string;
@@ -73,7 +70,7 @@ export default function Header({
       </div>
       <div className="ml-auto cursor-pointer">
         {" "}
-        <BiPencil size={25} />
+        <PiInfoBold size={25} />
       </div>
     </div>
   );

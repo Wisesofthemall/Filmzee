@@ -1,17 +1,14 @@
 "use client";
-
 import { useAuth } from "@/auth/AuthState";
-
 import React, { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-
 import { Menu, MenuButton } from "@chakra-ui/react";
-
 import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
 import { colorMaker } from "@/functions/profileGenerator";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+
 type Props = {};
 
 function UserIcon({}: Props) {

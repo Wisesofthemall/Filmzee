@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import MyChats from "../chats/MyChats";
 import CurrentChats from "../chats/CurrentChats";
