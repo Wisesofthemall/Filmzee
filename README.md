@@ -11,16 +11,25 @@
 
 # Features List
 
-- Users can create an account using their email ,Google , or Github using Firebase Authentication
-- Users can upload images to their post and messages using Cloudinary
-- Users can message other users in realtime using Supabase and Firebase FireStore
-- User can post content for everyone to see in realtime using Firebase Firestore
-- Users can delete their post using Firebase Firestore
-- Users can comment and like on other users post using Firebase Firestore
-- Users can view other users profile and their post using Supabase and Firebase Firestore
-- Users can edit their profile using Supabase
-- Users can group chat with other users using Supabase and Firebase Firestore
-- Users can watch videos in the ForYou page (pre-release) using Youtube API and Supabase
+- Users can create an account using their email, Google, or Github using [Firebase Authentication](https://firebase.google.com/products/auth).
+
+- Users can upload images to their post and messages using [Cloudinary](https://cloudinary.com/).
+
+- Users can message other users in real-time using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- User can post content for everyone to see in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- Users can delete their post using [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- Users can comment and like on other users' posts using [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- Users can view other users' profiles and their posts using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- Users can edit their profile using [Supabase](https://supabase.io/).
+
+- Users can group chat with other users using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- Users can watch videos on the ForYou page (pre-release) using [Youtube API](https://developers.google.com/youtube/registering_an_application) and [Supabase](https://supabase.io/).
 
 # Filmz Page
 
