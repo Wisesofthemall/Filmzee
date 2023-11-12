@@ -52,7 +52,12 @@ function ChatsCard({
       } p-1 rounded-lg`}
     >
       <div
-        onClick={() => router.push(`/profile/${user.recepientId}`)}
+        onClick={() => {
+          if (!user.recepientId) {
+            return;
+          }
+          router.push(`/profile/${user.recepientLocalID}`);
+        }}
         className=""
       >
         <DynamicPhoto
