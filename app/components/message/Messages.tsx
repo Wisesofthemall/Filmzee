@@ -55,7 +55,7 @@ function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
                 onClick={() =>
                   router.push(`/profile/${message.sender.localId}`)
                 }
-                className="flex justify-center items-center h-full mb-4 cursor-pointer hover:opacity-60"
+                className="flex justify-center items-center h-full pb-4 cursor-pointer hover:opacity-60 mt-auto "
               >
                 <DynamicPhoto
                   photoUrl={message.sender.photoUrl}
@@ -70,7 +70,7 @@ function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
               className="flex items-start justify-start m-2"
             >
               <div
-                className="cursor-pointer hover:opacity-60"
+                className="cursor-pointer hover:opacity-60 pb-4 mt-auto"
                 onClick={() =>
                   router.push(`/profile/${message.sender.localId}`)
                 }
