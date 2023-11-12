@@ -8,6 +8,8 @@ import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType } from "@/types/Types";
 import { getAllChatsbyID } from "@/database/chatsCRUD/Supabase";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { IoReload } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 type Props = {
   selected: any;
@@ -59,6 +61,15 @@ function MyChats({
        ${!showCurrent && !hide ? "md:col-span-3" : "md:col-span-10 "} `}
     >
       <UserSearch getChat={getChat} loginInfo={userInfo} />
+      <div
+        onClick={() => {
+          getAllChat();
+          toast.success("Reloaded Chats Sucessfully");
+        }}
+        className="text-white font-bold text-end flex justify-end px-6 cursor-pointer"
+      >
+        <IoReload size={20} />
+      </div>
       <ChatsContainer
         setHide={setHide}
         setShowCurrent={setShowCurrent}

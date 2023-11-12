@@ -25,11 +25,14 @@ export default function Home() {
   }, []);
   const content = (
     <div className="my-2">
-      <div className="font-bold">- Added Comment Section</div>
-      <div className="font-bold"> - Added Image Expander </div>
-      <div className="font-bold"> - Added Delete Filmz Functionality </div>
-      <div className="font-bold"> - Update User Menu </div>
-      <div className="font-bold"> - CSS Fix on Main page </div>
+      <div className="font-bold">- Added image support on messages</div>
+      <div className="font-bold"> - Added two way chat creation</div>
+      <div className="font-bold"> - Added group chat feature </div>
+      <div className="font-bold">
+        - Fix Image Resizing bug on Image Expander
+      </div>
+      <div className="font-bold"> - New Messaging UI </div>
+      <div className="font-bold"> - Add ForYou (pre-release) </div>
     </div>
   );
   const test = (
@@ -40,13 +43,10 @@ export default function Home() {
   );
   const news = (
     <div className="my-2">
-      <div className="font-bold">- Creating a AWS infrastructure</div>
       <div className="font-bold">- A popup appears on recent messages</div>
-      <div className="font-bold">- Add Images on Messages</div>
       <div className="font-bold">
         - Create a Webscrapper to fetch videos to display on this app
       </div>
-      <div className="font-bold">- Other things that i dont know yet 😅</div>
     </div>
   );
   return (
@@ -70,7 +70,7 @@ export default function Home() {
       <div className="col-span-3  w-full h-[100vh] lg:block hidden p-2">
         <NewsContainer
           header="Whats New?"
-          subtitle="Version 2.6"
+          subtitle="Version 3.0"
           content={content}
         />
         <NewsContainer

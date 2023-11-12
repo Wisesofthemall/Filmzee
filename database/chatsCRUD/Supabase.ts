@@ -1,5 +1,6 @@
-import { UserType, VideoType } from "@/types/Types";
+import { MemberType, UserType, VideoType } from "@/types/Types";
 import { createClient } from "@supabase/supabase-js";
+import { formatISO9075 } from "date-fns";
 require("dotenv").config();
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -29,14 +30,14 @@ export const getChatByRoomId = async (
   }
 };
 export const createChat = async (
-  userId: string,
-  recepientId: number,
-  recepientUniq: string,
-  recepientName: string,
-  recepientEmail: string,
-  recepientPhoto: string,
-  recepientLocalID: string,
-  roomId: string,
+  userId?: string,
+  recepientId?: number,
+  recepientUniq?: string,
+  recepientName?: string,
+  recepientEmail?: string,
+  recepientPhoto?: string,
+  recepientLocalID?: string,
+  roomId?: string,
 ) => {
   try {
     const { data, error } = await supabase.from("Chats").upsert([
@@ -127,4 +128,26 @@ export const getAllChatsbyID = async (userId: string) => {
   } catch (error) {
     return null;
   }
+};
+
+export const createGroupChat = async (
+  membersIds: MemberType[],
+  groupName: string,
+  groupPhoto: string,
+  roomId: string,
+  uniq: string,
+) => {
+  for (var i = 0; i < membersIds.length; i++) {
+    await createChat(
+      membersIds[i].localId,
+      undefined,
+      uniq,
+      groupName,
+      groupName.replace(/\s/g, ""),
+      groupPhoto,
+      undefined,
+      roomId,
+    );
+  }
+  return;
 };

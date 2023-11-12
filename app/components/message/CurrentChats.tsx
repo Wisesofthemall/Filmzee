@@ -33,9 +33,7 @@ function CurrentChats({
   const [newMessage, setNewMessage] = useState("");
   const [messagePhoto, setMessagePhoto] = useState<any>(null);
   const [scroll, setScroll] = useState(false);
-  const roomId = [...selected.userId, ...selected.recepientLocalID]
-    .sort()
-    .join("");
+  const roomId = selected.roomId;
 
   const messagesRef = collection(db, "messages");
   const queryRef = query(messagesRef, where("roomId", "==", roomId));

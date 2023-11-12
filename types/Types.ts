@@ -43,3 +43,11 @@ export type ChatType = {
   userId: string;
   roomId: string;
 };
+
+export type MemberType = {
+  name: string;
+  email: string;
+  photoUrl: string;
+  localId: string;
+  uniq: string;
+};

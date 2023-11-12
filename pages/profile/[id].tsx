@@ -13,6 +13,7 @@ import MobileProfileCard from "@/app/components/profile/MobileProfileCard";
 import CommentModal from "@/app/components/modals/CommentModal";
 import ImageModal from "@/app/components/modals/ImageModal";
 import useImageModal from "@/app/hooks/useImageModal";
+import ToasterProvider from "@/providers/ToastProvider";
 
 type Props = {};
 
@@ -31,6 +32,7 @@ function ProfileContainer({}: Props) {
 
   return (
     <div className="h-[100vh] w-[100vw] bg-black">
+      <ToasterProvider />
       <CommentModal filmzId={filmzId} setFilmzId={setFilmzId} />
       <ImageModal image={image} setImage={setImage} />
       <Navbar />

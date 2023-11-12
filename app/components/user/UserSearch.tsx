@@ -1,11 +1,12 @@
 "use client";
 import { Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { HiOutlineUserGroup } from "react-icons/hi2";
 import SearchQuery from "./SearchQuery";
 
 import { useAuth } from "@/auth/AuthState";
 import { UserType } from "@/types/Types";
+import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";
 
 type Props = {
   getChat: (userId?: number) => {};
@@ -19,6 +20,7 @@ function UserSearch({ getChat, loginInfo }: Props) {
   const [apiQuery, setApiQuery] = useState("");
   const [typing, setTyping] = useState(false);
   const user = useAuth();
+  const groupChat = useCreateGroupChatModal();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (query.length) {
@@ -55,11 +57,14 @@ function UserSearch({ getChat, loginInfo }: Props) {
         <input
           onChange={(e) => handleOnChange(e)}
           className="rounded-lg bg-gray-300 col-span-8 outline-none p-1"
-          placeholder="Search for Users"
+          placeholder="Search for Users by Email"
         />
 
-        <div className="  col-span-2 border-l border-white flex justify-center items-center cursor-pointer hover:opacity-60">
-          <FaSearch />
+        <div
+          onClick={() => groupChat.onOpen()}
+          className="  col-span-2 border-l border-white flex justify-center items-center cursor-pointer hover:opacity-60 font-bold"
+        >
+          <HiOutlineUserGroup size={26} />
         </div>
       </div>
       <div className="px-5">

@@ -61,22 +61,17 @@ function ChatsCard({
           picId={picId}
         />
       </div>
-      <div className={`mx-1`}>
+      <div className={`mx-1 h-full my-auto`}>
         <div className="flex  ">
           <div className="text-xs  font-semibold">{user.recepientName}</div>
-          {user.recepientEmail === "foxxydieujuste@gmail.com" ? (
-            <div className="text-yellow-300">
-              <AiFillStar />
-            </div>
-          ) : (
-            <div className=""></div>
-          )}
         </div>
-        <div className="text-xs flex flex-wrap  ">
-          {" "}
-          <div className=" font-semibold text-xs mr-1 ">Email:</div>
-          {user.recepientEmail}
-        </div>
+
+        {user.recepientEmail.includes("@") && (
+          <div className="text-xs flex flex-wrap  ">
+            <div className=" font-semibold text-xs mr-1 ">Email:</div>
+            {user.recepientEmail}
+          </div>
+        )}
       </div>
     </div>
   );
