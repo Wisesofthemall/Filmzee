@@ -16,6 +16,8 @@ import { db } from "@/auth/Firebase";
 import { collection, orderBy, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import MemberCard from "../members/MemberCard";
+import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { MemberType } from "@/types/Types";
 
 type Props = {
   photo: string;
@@ -46,6 +48,7 @@ export default function Header({
   const [picId, setPicId] = useState(200);
   const groupInfoRef = collection(db, "groupInfo");
   const queryRef = query(groupInfoRef, where("roomId", "==", roomId));
+  const [owner, setOwner] = useState<any>({});
 
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
@@ -55,6 +58,18 @@ export default function Header({
       setPicId(id);
     }
   }, [uniq]);
+
+  const getOwnerInfo = async () => {
+    const own = await getUserByLocalId(localId);
+    setOwner(own);
+  };
+  useEffect(() => {
+    if (localId) {
+      getOwnerInfo();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localId]);
 
   return (
     <div className="w-full bg-blue-400  flex items-center rounded-lg">
@@ -99,6 +114,13 @@ export default function Header({
               <MenuItem as="a" className="my-1">
                 <div className="mx-2 font-bold">
                   <div className="">
+                    <div className="my-1">Owner:</div>
+                    <MemberCard
+                      mem={owner}
+                      key={owner.localId}
+                      onRemove={() => console.log("remove")}
+                    />
+
                     <div className="my-1">Members:</div>
                     {Posts &&
                       Posts[0] &&

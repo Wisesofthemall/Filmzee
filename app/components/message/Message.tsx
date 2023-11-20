@@ -39,7 +39,7 @@ function Message({ message, loginUser, setImage }: Props) {
         } w-fit `}
       >
         {message.text && (
-          <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end  font-semibold w-fit">
+          <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end  font-semibold w-fit flex-wrap">
             {message.text}
           </div>
         )}
