@@ -25,14 +25,13 @@ export default function Home() {
   }, []);
   const content = (
     <div className="my-2">
-      <div className="font-bold">- Added image support on messages</div>
-      <div className="font-bold"> - Added two way chat creation</div>
-      <div className="font-bold"> - Added group chat feature </div>
+      <div className="font-bold">- Owner of groupchat can remove Users</div>
+      <div className="font-bold">- Owner of groupchat can add Users</div>
       <div className="font-bold">
-        - Fix Image Resizing bug on Image Expander
+        {" "}
+        - Disable /message route on users that are not logged in
       </div>
-      <div className="font-bold"> - New Messaging UI </div>
-      <div className="font-bold"> - Add ForYou (pre-release) </div>
+      <div className="font-bold">- Fix Video Player Error</div>
     </div>
   );
   const test = (
@@ -68,7 +67,7 @@ export default function Home() {
       <div className="col-span-3  w-full h-[100vh] lg:block hidden p-2">
         <NewsContainer
           header="Whats New?"
-          subtitle="Version 2.8"
+          subtitle="Version 2.9"
           content={content}
         />
         <NewsContainer
