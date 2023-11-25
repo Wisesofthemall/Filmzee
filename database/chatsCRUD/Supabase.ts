@@ -152,3 +152,22 @@ export const createGroupChat = async (
   }
   return;
 };
+
+export const deleteChatByLocalID = async (localID: string) => {
+  try {
+    const { error } = await supabase
+      .from("Chats")
+      .delete()
+      .eq("userId", localID); // Assuming "recepientLocalID" is the field to match local IDs
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    return "Chat deleted successfully";
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
