@@ -80,6 +80,9 @@ export const retrieveChat = async (
   roomId: string,
 ) => {
   try {
+    if (userLocalID === recepientLocalID) {
+      return;
+    }
     const chat = await getChatByRoomId(userLocalID, recepientEmail);
     const secondChat = await getChatByRoomId(recepientLocalID, userEmail);
 

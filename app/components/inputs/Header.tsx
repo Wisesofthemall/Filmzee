@@ -131,6 +131,21 @@ export default function Header({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localId]);
 
+  useEffect(() => {
+    if (Posts) {
+      let currentMembers: [] = Posts[0].membersArray;
+      let check = currentMembers.filter(
+        (member: any) => member.localId === loginUser.localId,
+      );
+      if (check.length === 0) {
+        toast.error("You have been removed from the group");
+        router.refresh();
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [Posts]);
+
   return (
     <div className="w-full bg-blue-400  flex items-center rounded-lg">
       <div

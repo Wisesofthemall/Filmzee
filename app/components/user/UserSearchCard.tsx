@@ -6,6 +6,7 @@ import { FirebaseUserType, UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
 
 type Props = {
@@ -24,6 +25,10 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
   // userEmail: string,
   // userPhoto: string,
   const updateChat = async () => {
+    if (loginUser.localId === user.localId) {
+      toast.success("Cannot create a chat with yourself");
+      return;
+    }
     const newChats = await retrieveChat(
       loginUser.localId,
       loginInfo.id,
