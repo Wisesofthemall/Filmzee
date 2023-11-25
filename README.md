@@ -29,6 +29,8 @@
 
 - Users can group chat with other users using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
 
+- Owners of the group can remove and add users to their group using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+
 - Users can watch videos on the ForYou page (pre-release) using [Youtube API](https://developers.google.com/youtube/registering_an_application) and [Supabase](https://supabase.io/).
 
 # Filmz Page

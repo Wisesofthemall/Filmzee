@@ -153,7 +153,7 @@ function CurrentChats({
         uniq={selected.recepientUniq}
         email={selected.recepientEmail}
         id={selected.recepientId}
-        edit={!selected.recepientId}
+        isGroupChat={!selected.recepientId}
         roomId={roomId}
       />
       <div className="flex-grow h-[25rem]">

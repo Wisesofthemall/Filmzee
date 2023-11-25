@@ -29,6 +29,9 @@ import { FirebaseUserType, MemberType } from "@/types/Types";
 import { useAuth } from "@/auth/AuthState";
 import toast from "react-hot-toast";
 import { deleteChatByLocalID } from "@/database/chatsCRUD/Supabase";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import useAddMemberModal from "@/app/hooks/useAddMemberModal";
+import AddMemberModal from "../modals/AddMemberModal";
 
 type Props = {
   photo: string;
@@ -38,7 +41,7 @@ type Props = {
   setShowCurrent: any;
   localId: any;
   email: any;
-  edit: boolean;
+  isGroupChat: boolean;
   id: number | null;
   roomId: string;
 };
@@ -51,7 +54,7 @@ export default function Header({
   setShowCurrent,
   email,
   localId,
-  edit,
+  isGroupChat,
   id,
   roomId,
 }: Props) {
@@ -62,7 +65,7 @@ export default function Header({
   const groupInfoRef = collection(db, "groupInfo");
   const queryRef = query(groupInfoRef, where("roomId", "==", roomId));
   const loginUser: FirebaseUserType = useAuth();
-
+  const addMember = useAddMemberModal();
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
     if (uniq) {
@@ -148,6 +151,12 @@ export default function Header({
 
   return (
     <div className="w-full bg-blue-400  flex items-center rounded-lg">
+      <AddMemberModal
+        roomId={roomId}
+        chatName={name}
+        chatImage={photo}
+        uniq={uniq}
+      />
       <div
         onClick={() => {
           setShowCurrent(false);
@@ -175,9 +184,16 @@ export default function Header({
           </div>
         </div>
       </div>
-      {edit && (
-        <div className="ml-auto mr-5">
-          {" "}
+      {isGroupChat && (
+        <div
+          onClick={() => addMember.onOpen()}
+          className="flex ml-auto mr-5 cursor-pointer"
+        >
+          {loginUser?.localId === localId && (
+            <div className="mx-2 font-bold cursor-pointer">
+              <IoMdAddCircleOutline size={30} />
+            </div>
+          )}{" "}
           <Menu isLazy>
             <MenuButton className="cursor-pointer">
               <PiInfoBold size={30} />

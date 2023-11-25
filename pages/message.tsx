@@ -5,7 +5,7 @@ import MessageContainer from "@/app/components/message/MessageContainer";
 import React, { useState } from "react";
 import EditProfileModal from "@/app/components/modals/EditProfileModal";
 import ImageModal from "@/app/components/modals/ImageModal";
-import GroupChatModal from "@/app/components/modals/GroupChatModal";
+
 import ToasterProvider from "@/providers/ToastProvider";
 
 type Props = {};
