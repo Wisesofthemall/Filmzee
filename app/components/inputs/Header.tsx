@@ -59,13 +59,16 @@ export default function Header({
   roomId,
 }: Props) {
   const [picId, setPicId] = useState(200);
-  const [owner, setOwner] = useState<any>({});
+
   const [docID, setDocID] = useState("");
+  const [currentMemberLength, setCurrentMemberLength] = useState(0);
+
   const router = useRouter();
   const groupInfoRef = collection(db, "groupInfo");
   const queryRef = query(groupInfoRef, where("roomId", "==", roomId));
   const loginUser: FirebaseUserType = useAuth();
   const addMember = useAddMemberModal();
+
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
     if (uniq) {
@@ -92,10 +95,6 @@ export default function Header({
       });
   };
 
-  const getOwnerInfo = async () => {
-    const own = await getUserByLocalId(localId);
-    setOwner(own);
-  };
   const updateMemberList = (num: string) => {
     const groupRef = doc(db, "groupInfo", docID);
 
@@ -109,7 +108,7 @@ export default function Header({
   };
 
   const handleRemove = async (userId: string) => {
-    if (loginUser.localId !== localId) {
+    if (Posts && loginUser.localId !== Posts[0].membersArray[0].localId) {
       toast.error("Only the Owner can remove someone from the group ");
       return;
     }
@@ -127,7 +126,6 @@ export default function Header({
   };
   useEffect(() => {
     if (localId) {
-      getOwnerInfo();
       getDocName();
     }
 
@@ -136,6 +134,7 @@ export default function Header({
 
   useEffect(() => {
     if (Posts) {
+      console.log("YG*YH", Posts[0].membersArray);
       let currentMembers: [] = Posts[0].membersArray;
       let check = currentMembers.filter(
         (member: any) => member.localId === loginUser.localId,
@@ -144,6 +143,16 @@ export default function Header({
         toast.error("You have been removed from the group");
         router.refresh();
       }
+      if (currentMemberLength === 0) {
+        setCurrentMemberLength(currentMembers.length);
+        return;
+      }
+      if (currentMembers.length > currentMemberLength) {
+        toast.success("A new member has been added");
+      } else if (currentMembers.length < currentMemberLength) {
+        toast.success("A member has been removed");
+      }
+      setCurrentMemberLength(currentMembers.length);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -185,15 +194,19 @@ export default function Header({
         </div>
       </div>
       {isGroupChat && (
-        <div
-          onClick={() => addMember.onOpen()}
-          className="flex ml-auto mr-5 cursor-pointer"
-        >
-          {loginUser?.localId === localId && (
-            <div className="mx-2 font-bold cursor-pointer">
-              <IoMdAddCircleOutline size={30} />
-            </div>
-          )}{" "}
+        <div className="flex ml-auto mr-5 cursor-pointer">
+          {Posts &&
+            Posts[0] &&
+            Posts[0].membersArray &&
+            loginUser?.localId === Posts[0].membersArray[0].localId && (
+              <div
+                onClick={() => addMember.onOpen()}
+                className="mx-2 font-bold cursor-pointer"
+              >
+                <IoMdAddCircleOutline size={30} />
+              </div>
+            )}
+
           <Menu isLazy>
             <MenuButton className="cursor-pointer">
               <PiInfoBold size={30} />
@@ -206,11 +219,15 @@ export default function Header({
                 <div className="mx-2 font-bold">
                   <div className="">
                     <div className="my-1">Owner:</div>
-                    <MemberCard
-                      mem={owner}
-                      key={owner.localId}
-                      onRemove={() => console.log("remove")}
-                    />
+                    {Posts && Posts[0] && Posts[0].membersArray && (
+                      <MemberCard
+                        mem={Posts[0].membersArray[0]}
+                        key={Posts[0].membersArray[0].localId}
+                        onRemove={() =>
+                          handleRemove(Posts[0].membersArray[0].localId)
+                        }
+                      />
+                    )}
 
                     <div className="my-1">Members:</div>
                     {Posts &&
