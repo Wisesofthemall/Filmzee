@@ -16,6 +16,8 @@ function UserMenu({}: Props) {
   const router = useRouter();
   const loginUser: FirebaseUserType = useAuth();
   const editProfile = useEditProfileModal();
+
+  //* Logout user
   const handleLogOut = () => {
     signOut(firebaseAuth);
     router.push("/");

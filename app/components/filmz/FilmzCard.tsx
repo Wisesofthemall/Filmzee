@@ -30,11 +30,13 @@ function FilmzCard({ main, post, setFilmzId, setImage }: Props) {
   const router = useRouter();
   const imageModal = useImageModal();
 
+  //* Returns the estimated time of the filmz
   const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
     addSuffix: true,
     includeSeconds: true,
   });
 
+  //* Opens Modal that have the expanded image of the filmz
   const handleImageExpander = (image: string) => {
     setImage(image);
     imageModal.onOpen();

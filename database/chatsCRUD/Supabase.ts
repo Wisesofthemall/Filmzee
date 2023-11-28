@@ -1,6 +1,5 @@
 import { MemberType, UserType, VideoType } from "@/types/Types";
 import { createClient } from "@supabase/supabase-js";
-import { formatISO9075 } from "date-fns";
 require("dotenv").config();
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

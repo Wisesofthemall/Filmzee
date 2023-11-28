@@ -9,6 +9,7 @@ type Props = { message: any; loginUser: any; setImage: any };
 function Message({ message, loginUser, setImage }: Props) {
   const imageModal = useImageModal();
 
+  //* Allow User to expand the image that have been sent
   const handleImageExpander = (image: string) => {
     setImage(image);
     imageModal.onOpen();

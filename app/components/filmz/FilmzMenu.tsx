@@ -33,6 +33,8 @@ function FilmzMenu({ FilmzUser, id, reply }: Props) {
   const q = id
     ? query(filmzCardRef, where("createdAt", "==", id))
     : query(filmzCardRef, where("createdAt", "==", new Date()));
+
+  //* get filmz Document ID and store it
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -46,6 +48,7 @@ function FilmzMenu({ FilmzUser, id, reply }: Props) {
         console.error("Error querying documents: ", error);
       });
   };
+  //* Deletes the Filmz or Comment
   const handleDelete = () => {
     const filmzRef = reply
       ? doc(db, "replies", docID)
@@ -61,6 +64,7 @@ function FilmzMenu({ FilmzUser, id, reply }: Props) {
 
     return;
   };
+  //* Does absolutley nothing but a toast notification
   const handleReport = () => {
     toast.success("Successfully Reported");
   };

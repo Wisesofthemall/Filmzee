@@ -24,11 +24,14 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
   // userName: string,
   // userEmail: string,
   // userPhoto: string,
+
+  //* Update the login user's chat list
   const updateChat = async () => {
     if (loginUser.localId === user.localId) {
-      toast.success("Cannot create a chat with yourself");
+      toast.error("Cannot create a chat with yourself");
       return;
     }
+    //* Creates and retrieve a new chat
     const newChats = await retrieveChat(
       loginUser.localId,
       loginInfo.id,
@@ -50,6 +53,7 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
 
   useEffect(() => {
     if (user) {
+      //* Creating a picID base on the user 'uniq'
       const id = parseInt(user.uniq.slice(-3));
       setPicId(id);
     }
@@ -57,6 +61,7 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
 
   useEffect(() => {
     if (loginUser) {
+      //* Creating a roomID base on the user and login user localIDs
       const roomId = [...user.localId, ...loginUser.localId].sort().join("");
       setRoomID(roomId);
     }

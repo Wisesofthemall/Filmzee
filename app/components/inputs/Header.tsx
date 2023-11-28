@@ -5,27 +5,19 @@ import { AiOutlineLeft } from "react-icons/ai";
 import DynamicPhoto from "../DynamicPhoto";
 import { useRouter } from "next/navigation";
 import { PiInfoBold } from "react-icons/pi";
-import {
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { db } from "@/auth/Firebase";
 import {
   collection,
   doc,
   getDocs,
-  orderBy,
   query,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import MemberCard from "../members/MemberCard";
-import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
-import { FirebaseUserType, MemberType } from "@/types/Types";
+import { FirebaseUserType } from "@/types/Types";
 import { useAuth } from "@/auth/AuthState";
 import toast from "react-hot-toast";
 import { deleteChatByLocalID } from "@/database/chatsCRUD/Supabase";
@@ -81,6 +73,7 @@ export default function Header({
   const groupCardRef = collection(db, "groupInfo");
   const q = query(groupCardRef, where("roomId", "==", roomId));
 
+  //* Get the Document ID of the current collection and store it
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -95,6 +88,7 @@ export default function Header({
       });
   };
 
+  //* Update the member list without the removed user
   const updateMemberList = (num: string) => {
     const groupRef = doc(db, "groupInfo", docID);
 
@@ -107,17 +101,22 @@ export default function Header({
     }
   };
 
+  //* Allows Owner to remove users
   const handleRemove = async (userId: string) => {
+    //* Check if login user is the owner
     if (Posts && loginUser.localId !== Posts[0].membersArray[0].localId) {
       toast.error("Only the Owner can remove someone from the group ");
       return;
     }
+    //*Check if the user trying to remove themselves from the group
     if (loginUser.localId === userId) {
       toast.error("Owners cannot remove themselves from the group");
       return;
     }
     try {
+      //* Delete Chat from deleted User
       await deleteChatByLocalID(userId);
+      //* Update Member List
       updateMemberList(userId);
       toast.success("Sucessfully removed member from group");
     } catch (error) {
@@ -134,21 +133,25 @@ export default function Header({
 
   useEffect(() => {
     if (Posts) {
-      console.log("YG*YH", Posts[0].membersArray);
       let currentMembers: [] = Posts[0].membersArray;
       let check = currentMembers.filter(
         (member: any) => member.localId === loginUser.localId,
       );
+      //* Give a toast notification to the deleted user that he has been removed and refresh website
       if (check.length === 0) {
         toast.error("You have been removed from the group");
         router.refresh();
       }
+
       if (currentMemberLength === 0) {
         setCurrentMemberLength(currentMembers.length);
         return;
       }
+      //* Give a toast notification to users that a new member has been added
       if (currentMembers.length > currentMemberLength) {
         toast.success("A new member has been added");
+
+        //* Give a toast notification to users that a new member has been removed
       } else if (currentMembers.length < currentMemberLength) {
         toast.success("A member has been removed");
       }
@@ -215,7 +218,7 @@ export default function Header({
               className=" bg-black  text-white rounded-lg overflow-y-scroll "
               boxSize={300}
             >
-              <MenuItem as="a" className="my-1">
+              <MenuItem as="a" className="my-1 cursor-default">
                 <div className="mx-2 font-bold">
                   <div className="">
                     <div className="my-1">Owner:</div>

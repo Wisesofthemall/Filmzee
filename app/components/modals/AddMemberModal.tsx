@@ -1,20 +1,17 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Heading from "../inputs/Heading";
 import Modal from "./Modal";
 import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType, MemberType, UserType } from "@/types/Types";
+import { FirebaseUserType, MemberType } from "@/types/Types";
 import { createGroupChat } from "@/database/chatsCRUD/Supabase";
-import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+
 import { Skeleton } from "@mui/material";
 import MembersQuery from "../members/MembersQuery";
 import MemberCard from "../members/MemberCard";
-import { v4 as uuidv4 } from "uuid";
-import { uniqGenerator } from "@/functions/uniqGenerator";
 import { db } from "@/auth/Firebase";
 import {
-  addDoc,
   collection,
   getDocs,
   where,
@@ -34,8 +31,6 @@ type Props = {
 
 enum STEPS {
   NAME,
-  IMAGE,
-  MEMBERS,
 }
 function AddMemberModal({ chatName, chatImage, roomId, uniq }: Props) {
   const addMember = useAddMemberModal();
@@ -54,8 +49,10 @@ function AddMemberModal({ chatName, chatImage, roomId, uniq }: Props) {
 
   const membersRef = fireQuery(groupInfoRef, where("roomId", "==", roomId));
   const [Posts] = useCollectionData(membersRef);
-  console.log("Post plese", Posts);
 
+  //* This useEffect is use to check if the user stop typing for 1 second
+  //* If so then make a query to the database
+  //* This prevent over calling the database when the user isn't even finish typing
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (query.length) {
@@ -70,8 +67,10 @@ function AddMemberModal({ chatName, chatImage, roomId, uniq }: Props) {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
+  //* Grabs the infomation on the groupchat info the user is in
   const q = fireQuery(groupInfoRef, where("roomId", "==", roomId));
 
+  //* Get the Document ID of the current groupchat and store it
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -86,38 +85,47 @@ function AddMemberModal({ chatName, chatImage, roomId, uniq }: Props) {
       });
   };
 
+  //* When the user start typing then store the value and set typing to true
   const handleOnChange = (event: any) => {
     setQuery(event.target.value);
     setTyping(true);
   };
 
+  //*Remove member from the groupchat invite list
   const handleDeleteMember = (member: MemberType) => {
+    //* Check if Owner try to remove themselves (They can't do that)
     if (member.localId === userInfo.localId) {
       toast.error("You can not remove yourself from the group");
       return;
     }
+    //* Removes the user
     setMembers((prevMembers: any) => {
       const { [member.localId]: deletedValue, ...newMembers } = prevMembers;
       return newMembers;
     });
     toast.success(`${member.name} removed from group`);
   };
+
+  //* Adds a user to the groupchat invite list
   const handleAddMember = (member: MemberType) => {
     let check = existingMembers.filter(
       (mem: any) => mem.localId === member.localId,
     );
-    console.log("the mmembers", existingMembers);
+
+    //* Check if user already in groupchat
     if (check.length === 1) {
       toast.error("Cannot add member that already in group");
       return;
     }
 
+    //* Add user to the groupchat invite list
     setMembers((prevMembers: any) => {
       return { ...prevMembers, [member.localId]: member };
     });
     toast.success(`${member.name} added to group`);
   };
 
+  //* Get and store the list of existing members in the groupchat
   const getMembersInfo = async () => {
     if (Posts) {
       setExistingMembers(Posts[0].membersArray);
@@ -135,9 +143,12 @@ function AddMemberModal({ chatName, chatImage, roomId, uniq }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Posts]);
 
+  //* Add users in the groupchat invite list to the actual groupchat
   const onSubmit = async () => {
+    //* Convert it to an array of Users
     const membersArray: any = Object.values(members);
 
+    //* Add users to the groupchat and update the 'groupInfo' with the new members
     try {
       await createGroupChat(membersArray, chatName, chatImage, roomId, uniq);
       toast.success("Sucessfully added members");

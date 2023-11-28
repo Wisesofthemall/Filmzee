@@ -11,13 +11,17 @@ type Props = {
 };
 
 function ReplyContainer({ main, filmzId }: Props) {
+  const [filmz, setFilmz] = useState<any>([]);
   const filmzRef = collection(db, "replies");
+
+  //* query that get all the comments associated with the filmz
   const queryRef = filmzId
     ? query(filmzRef, where("filmzId", "==", filmzId))
     : query(filmzRef, orderBy("createdAt", "desc"));
-  const [filmz, setFilmz] = useState<any>([]);
 
   const [Posts] = useCollectionData(queryRef);
+
+  //* Simply sort the comment base on when it was created
   useEffect(() => {
     if (Posts) {
       const filterMessage = Posts.sort(function (a, b) {

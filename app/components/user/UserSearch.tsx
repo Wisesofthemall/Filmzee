@@ -20,6 +20,10 @@ function UserSearch({ getChat, loginInfo }: Props) {
   const [typing, setTyping] = useState(false);
   const user = useAuth();
   const groupChat = useCreateGroupChatModal();
+
+  //* This useEffect is use to check if the user stop typing for 1 second
+  //* If so then make a query to the database
+  //* This prevent over calling the database when the user isn't even finish typing
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (query.length) {
@@ -41,8 +45,11 @@ function UserSearch({ getChat, loginInfo }: Props) {
 
   useEffect(() => {
     if (user) {
+      //* If user have a display name then store it
       if (user.displayName) {
         setUsername(user.displayName);
+
+        //* Else create one by their email
       } else {
         const parsedName = user.email?.split("@")[0];
         setUsername(parsedName);

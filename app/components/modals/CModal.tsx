@@ -28,10 +28,12 @@ function CModal({
 }: Props) {
   const [showModal, setShowModal] = useState(isOpen);
 
+  //* Open the Modal
   useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
 
+  //* Close the Modal
   const handleClose = useCallback(() => {
     if (disabled) {
       return;

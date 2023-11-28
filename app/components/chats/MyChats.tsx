@@ -31,19 +31,23 @@ function MyChats({
   const loginUser: FirebaseUserType = useAuth();
   const [userInfo, setUserInfo] = useState<any>({});
 
+  //* Set MyChats
   const getChat: any = async (chats: any) => {
     setMyChats(chats);
   };
+  //* Get all the chats the login User is in
   const getAllChat = async () => {
     const chats = await getAllChatsbyID(loginUser.localId);
 
     setMyChats(chats);
   };
+  //* Set User Info
   const getUserInfo = async () => {
     const user = await getUserByLocalId(loginUser.localId);
     setUserInfo(user);
   };
 
+  //* Invoke these function everytime the login User changes
   useEffect(() => {
     if (loginUser) {
       getAllChat();

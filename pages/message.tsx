@@ -17,6 +17,7 @@ function message({}: Props) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const loginUser = useAuth();
 
+  //* If user is not log in then navigate them back to the main page
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const timeout = setTimeout(() => {

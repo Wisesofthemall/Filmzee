@@ -31,9 +31,9 @@ function MemberCard({ mem, onRemove }: Props) {
         )}
         <div
           onClick={() => onRemove(mem)}
-          className="text-sm text-white mr-1 cursor-pointer"
+          className="text-sm text-white mr-1 cursor-pointer hover:text-red-500"
         >
-          <RxCross2 size={15} />
+          <RxCross2 size={20} />
         </div>
       </div>
       <div className={`mx-1`}>

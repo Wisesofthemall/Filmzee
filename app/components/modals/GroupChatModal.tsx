@@ -41,6 +41,9 @@ function GroupChatModal({ getAllChat }: Props) {
   const [members, setMembers] = useState<MemberType | {}>({});
   const groupInfoRef = collection(db, "groupInfo");
 
+  //* This useEffect is use to check if the user stop typing for 1 second
+  //* If so then make a query to the database
+  //* This prevent over calling the database when the user isn't even finish typing
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (query.length) {
@@ -60,17 +63,22 @@ function GroupChatModal({ getAllChat }: Props) {
     setTyping(true);
   };
 
+  //* Removes members from the group chat invite list
   const handleDeleteMember = (member: MemberType) => {
+    //* Check to see if the owner try to remove themselves (They can't do that)
     if (member.localId === userInfo.localId) {
       toast.error("You can not remove yourself from the group");
       return;
     }
+    //* Return object with deleted member from the group chat invite list
     setMembers((prevMembers: any) => {
       const { [member.localId]: deletedValue, ...newMembers } = prevMembers;
       return newMembers;
     });
     toast.success(`${member.name} removed from group`);
   };
+
+  //* Add member to the group chat invite list
   const handleAddMember = (member: MemberType) => {
     setMembers((prevMembers: any) => {
       return { ...prevMembers, [member.localId]: member };
@@ -78,6 +86,7 @@ function GroupChatModal({ getAllChat }: Props) {
     toast.success(`${member.name} added to group`);
   };
 
+  //* Setting the login user (owner) to be a member by default
   const getUserInfo = async () => {
     const user: UserType = await getUserByLocalId(loginUser.localId);
     setUserInfo(user);

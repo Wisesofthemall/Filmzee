@@ -27,6 +27,7 @@ function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  //* Activate Auto Scrolling
   useEffect(() => {
     shouldScroll();
     setScroll(false);

@@ -114,7 +114,7 @@ export const editUserById = async (id: number, update: any) => {
   }
 };
 
-export const updateUserByEmail = async (
+export const updateUserChatInfo = async (
   email: string,
   photo: string,
   name: string,

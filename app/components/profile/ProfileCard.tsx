@@ -20,10 +20,13 @@ export default function ProfileCard({ setUsers, Users, id }: Props) {
   const filmzRef = collection(db, "filmz");
   const anyCollection = query(filmzRef);
 
+  //* Set query to grab all the filmz by the user or grab all the filmz
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [Posts] = queryRef
     ? useCollectionData(queryRef)
     : useCollectionData(anyCollection);
+
+  //* Set query to grab all the filmz by the user
   const getProfileUser = async () => {
     if (id) {
       const Query = query(filmzRef, where("senderId", "==", id));

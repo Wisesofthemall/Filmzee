@@ -22,8 +22,11 @@ function ChatsCard({
   const [picId, setPicId] = useState(100);
   const router = useRouter();
 
+  //* Set the chat for the user and make it visible
   const setSelectedAndCurrent = () => {
+    //* Set the chat to the user
     setSelected(user);
+    //* Show current chat
     setShowCurrent(true);
     setHide(false);
   };

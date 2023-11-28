@@ -29,16 +29,19 @@ function FilmzCreator({}: Props) {
   const filmzRef = collection(db, "filmz");
 
   const handleSubmit = async () => {
+    //* Check if user is authorized , if not then show sign up modal
     if (!loginUser) {
       signupModal.onOpen();
       return;
     }
+    //* Check if theres any content to be sent
     if (newPost === "" && !filmzPhoto) {
       toast.error("Please add a text or image");
       return;
     }
+    //* Filter out any curse words the user may have sent
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
-
+    //* Add Filmz to our database
     await addDoc(filmzRef, {
       id: uuidv4(),
       senderId: loginUser.localId,
@@ -53,31 +56,26 @@ function FilmzCreator({}: Props) {
       likes: {},
     });
 
+    //* Reset Filmz State
     setNewPost("");
     setFilmzPhoto(null);
   };
-  const getInfo = async () => {
-    const result = await getUserByLocalId(loginUser.localId);
-
-    setUserInfo(result);
-  };
-
-  useEffect(() => {
-    if (loginUser) {
-      getInfo();
-    } else {
-      setUserInfo({});
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginUser]);
-
   const handleEnter = async (e: any) => {
+    //* Check is user press the 'Enter' Key
     if (e === "Enter") {
+      //* Check if user is authorized , if not then show sign up modal
+      if (!loginUser) {
+        signupModal.onOpen();
+        return;
+      }
+      //* Check if theres any content to be sent
       if (newPost === "" && !filmzPhoto) {
         toast.error("Please add a text or image");
         return;
       }
+      //* Filter out any curse words the user may have sent
       const post = newPost.length !== 0 ? filter.clean(newPost) : null;
+      //* Add Filmz to our database
       await addDoc(filmzRef, {
         id: uuidv4(),
         senderId: loginUser.localId,
@@ -92,12 +90,29 @@ function FilmzCreator({}: Props) {
         likes: {},
       });
 
+      //* Reset Filmz State
       setNewPost("");
       setFilmzPhoto(null);
     } else {
       return;
     }
   };
+
+  //* Get login user's info and store it in a state
+  const getInfo = async () => {
+    const result = await getUserByLocalId(loginUser.localId);
+    setUserInfo(result);
+  };
+
+  //* Fetch login user info or reset state
+  useEffect(() => {
+    if (loginUser) {
+      getInfo();
+    } else {
+      setUserInfo({});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   return (
     <div className="w-full">

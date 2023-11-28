@@ -42,9 +42,13 @@ function CurrentChats({
 
   const loginUser = useAuth();
 
+  //* Sends Message to Users
   const handleSubmit = async (e: any) => {
+    //* Check if theres any content to be sent
     if (newMessage === "" && !messagePhoto) return;
+    //* Filter out any curse words the user might've sent
     const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
+    //* Add the message to our database
     await addDoc(messagesRef, {
       text: message,
       image: messagePhoto,
@@ -56,17 +60,23 @@ function CurrentChats({
       createdAt: new Date(),
       roomId,
     });
-
+    //* Reset Message States
     setNewMessage("");
     setMessagePhoto(null);
+    //* Activate auto scroll
     setScroll(true);
     setScroll(false);
   };
+
+  //* Sends Message to Users
   const handleEnter = async (e: any) => {
+    //* Check if user press the 'Enter' Key
     if (e === "Enter") {
-      if (newMessage === "" && !messagePhoto) return;
+      //* Check if theres any content to be sent
+      if (newMessage.length === 0 && !messagePhoto) return;
+      //* Filter out any curse words the user might've sent
       const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
-      if (!message) return;
+      //* Add the message to our database
       await addDoc(messagesRef, {
         text: message,
         image: messagePhoto,
@@ -79,9 +89,10 @@ function CurrentChats({
         roomId,
       });
 
+      //* Reset Message States
       setNewMessage("");
-
       setMessagePhoto(null);
+      //* Activate auto scroll
       setScroll(true);
       setScroll(false);
     } else {
@@ -90,13 +101,14 @@ function CurrentChats({
   };
 
   useEffect(() => {
+    //* Activate Auto Scroll
     setScroll(true);
     setScroll(false);
   }, [selected]);
 
+  //* Set the User Info
   const getInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
-
     setUserInfo(result);
   };
 
@@ -108,6 +120,7 @@ function CurrentChats({
   }, [loginUser]);
 
   useEffect(() => {
+    //* Sort Messages between the users by time
     if (Message) {
       const filterMessage = Message.sort(function (a, b) {
         // Convert Firestore Timestamps to JavaScript Date objects

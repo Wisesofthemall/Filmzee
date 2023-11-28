@@ -22,6 +22,7 @@ function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
 
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
+    //* if you're in the /profile page then sort and set state
     if (Posts && senderId) {
       const sortedMessage = Posts.sort(function (a, b) {
         const dateA = a.createdAt;
@@ -31,6 +32,7 @@ function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
 
       setFilmz(sortedMessage);
     } else if (Posts) {
+      //* else you're in the main page then set state
       setFilmz(Posts);
     }
   }, [Posts, senderId]);

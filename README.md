@@ -85,6 +85,7 @@ NEXT_PUBLIC_measurementId=
 - [ ] can see requested messages
 - [ ] can see unread messages
 - [ ] a popup appears on recent messages
+- [ ] make a edit group chat info modal
 - [x] make a profile page
 - [x] add Comments Section
 - [x] add delete Filmz Functionality

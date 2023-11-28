@@ -15,6 +15,7 @@ function ProfileNavBar({ Users }: Props) {
 
   const loginUser: FirebaseUserType = useAuth();
 
+  //* Get the login user info and store it
   const getLoginInfo = async () => {
     const info = await getUserByLocalId(loginUser.localId);
     setLoginInfo(info);
@@ -26,7 +27,9 @@ function ProfileNavBar({ Users }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
+  //* Creates chat between the user and the receipient and navigate to the '/message' route
   const updateChat = async () => {
+    //* Creates a roomid based on the login user and receipient localIDs
     const roomId = [...loginUser.localId, ...Users.localId].sort().join("");
     setDisabled(true);
     await retrieveChat(

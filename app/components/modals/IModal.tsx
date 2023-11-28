@@ -12,10 +12,12 @@ type Props = {
 function IModal({ isOpen, onClose, image }: Props) {
   const [showModal, setShowModal] = useState(isOpen);
 
+  //* Open Modal
   useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
 
+  //* Close Modal
   const handleClose = useCallback(() => {
     setShowModal(false);
     setTimeout(() => {

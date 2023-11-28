@@ -28,18 +28,22 @@ function ReplyCreator({ filmzId }: Props) {
 
   const filmzRef = collection(db, "replies");
 
+  //* Submit the comment to the database
   const handleSubmit = async () => {
+    //* If user is not login then open the signup modal and end the sending process
     if (!loginUser) {
       signupModal.onOpen();
       return;
     }
+    //* If user did not add any content then show an error toast notification
     if (newPost === "" && !filmzPhoto) {
       toast.error("Please add a text or image");
       return;
     }
-    console.log("new post", newPost);
+    //* Filter any curse words out
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
 
+    //* Add Comment to database
     await addDoc(filmzRef, {
       id: uuidv4(),
       filmzId: filmzId,
@@ -56,12 +60,14 @@ function ReplyCreator({ filmzId }: Props) {
       comments: 0,
     });
 
+    //* Set state to its default state
     setNewPost("");
     setFilmzPhoto(null);
   };
+
+  //* Get User info and store it in a state
   const getInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
-
     setUserInfo(result);
   };
 
@@ -72,14 +78,25 @@ function ReplyCreator({ filmzId }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
+  //* Submit the comment to the database
   const handleEnter = async (e: any) => {
+    //* Check if the user click the 'Enter' Key
     if (e === "Enter") {
+      //* If user is not login then open the signup modal and end the sending process
+      if (!loginUser) {
+        signupModal.onOpen();
+        return;
+      }
+
+      //* If user did not add any content then show an error toast notification
       if (newPost === "" && !filmzPhoto) {
         toast.error("Please add a text or image");
         return;
       }
 
+      //* Filter any curse words out
       const post = newPost.length !== 0 ? filter.clean(newPost) : null;
+      //* Add Comment to database
       await addDoc(filmzRef, {
         id: uuidv4(),
         filmzId: filmzId,
@@ -96,6 +113,7 @@ function ReplyCreator({ filmzId }: Props) {
         comments: 0,
       });
 
+      //* Set state to its default state
       setNewPost("");
       setFilmzPhoto(null);
     } else {

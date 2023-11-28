@@ -9,13 +9,14 @@ import { useRouter } from "next/navigation";
 import {
   editUserById,
   getUserByLocalId,
-  updateUserByEmail,
+  updateUserChatInfo,
 } from "@/database/usersCRUD/Supabase";
 import useEditProfileModal from "@/app/hooks/useEditProfileModal";
 import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType } from "@/types/Types";
 
 type Props = {};
+
 enum STEPS {
   NAME,
   PROFILEIMG,
@@ -37,6 +38,7 @@ function EditProfileModal({}: Props) {
 
   const [step, setStep] = useState(STEPS.NAME);
 
+  //* Get the User info and store it in states
   const getUserInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
 
@@ -54,20 +56,26 @@ function EditProfileModal({}: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
+  //* Set the state to the previous state
   const onBack = () => {
     setStep((value) => value - 1);
   };
+  //* Set the state to the next state
   const onNext = () => {
     setStep((value) => value + 1);
   };
+  //* Update user photo and name in their chats
   const updateUser = async () => {
-    await updateUserByEmail(loginUser.email, photoUrl, name);
+    await updateUserChatInfo(loginUser.email, photoUrl, name);
   };
+
+  //* Add update info to the database
   const onSubmit = () => {
+    //* If user is not in the last step then go to the next step
     if (step !== STEPS.BACKGROUNDIMG) {
       return onNext();
     }
-
+    //* Edit user info to the database
     editUserById(localId, {
       name,
       photoUrl,
@@ -87,6 +95,7 @@ function EditProfileModal({}: Props) {
         toast.error(error.message);
       });
   };
+  //* If the user at the last step then 'Edit' if not then 'Next'
   const actionLabel = useMemo(() => {
     if (step === STEPS.BACKGROUNDIMG) {
       return "Edit";
@@ -94,6 +103,7 @@ function EditProfileModal({}: Props) {
     return "Next";
   }, [step]);
 
+  //* If the user is in the first step return nothing else return 'Back'
   const secondaryActionLabel = useMemo(() => {
     if (step === STEPS.NAME) {
       return undefined;
