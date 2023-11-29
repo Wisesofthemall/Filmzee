@@ -80,7 +80,7 @@ export default function Home() {
         />
         <NewsContainer
           header="Whats Coming ?"
-          subtitle="What is going to be added!"
+          subtitle="What is going to be added! (hopefully 😅)"
           content={news}
         />
       </div>
