@@ -29,7 +29,7 @@ export default function Home() {
         - Owner of groupchat can remove and remove Users
       </div>
       <div className="font-bold">- Owner of groupchat edit the group info</div>
-      <div className="font-bold">- Users can edit and delete messages</div>
+      <div className="font-bold">- Users can delete messages</div>
       <div className="font-bold">
         {" "}
         - Disable /message route on users that are not logged in

@@ -84,24 +84,9 @@ NEXT_PUBLIC_measurementId=
 
 # Goals
 
-- [ ] Enable videos correctly
-- [ ] Make the 'Navbar' Search bar optimal
-- [ ] can see requested messages
-- [ ] can see unread messages
 - [ ] a popup appears on recent messages
-- [ ] make a edit group chat info modal
-- [ ] user can delete and edit messages
-- [x] make a profile page
-- [x] add Comments Section
-- [x] add delete Filmz Functionality
-- [x] add Image Expander when User Click an image
-- [x] Image on Messages
-- [x] add a group chat mode
-- [ ] able to ban users
-- [x] when a user messaage another user, both users can see the chat
 
 # Blockers
 
 - [ ] adding a video algorithm
-
 - [ ] setting up video properly
