@@ -11,7 +11,7 @@ import ImageModal from "./components/modals/ImageModal";
 
 export default function Home() {
   const [IsLoaded, setIsLoaded] = useState(true);
-  const [videos, setVideos] = useState<any>([]);
+  const [videos, setVideos] = useState<VideoType[]>([]);
   const [selected, setSelected] = useState("");
   const [filmzId, setFilmzId] = useState("");
   const [image, setImage] = useState("");
@@ -25,13 +25,15 @@ export default function Home() {
   }, []);
   const content = (
     <div className="my-2">
-      <div className="font-bold">- Owner of groupchat can remove Users</div>
-      <div className="font-bold">- Owner of groupchat can add Users</div>
+      <div className="font-bold">
+        - Owner of groupchat can remove and remove Users
+      </div>
+      <div className="font-bold">- Owner of groupchat edit the group info</div>
+      <div className="font-bold">- Users can edit and delete messages</div>
       <div className="font-bold">
         {" "}
         - Disable /message route on users that are not logged in
       </div>
-      <div className="font-bold">- Fix Video Player Error</div>
     </div>
   );
   const test = (
@@ -42,8 +44,9 @@ export default function Home() {
   );
   const news = (
     <div className="my-2">
-      <div className="font-bold">- Can Edit your group chat</div>
-      <div className="font-bold">- New ForYou Page</div>
+      <div className="font-bold">- ForYou page (full release) </div>
+      <div className="font-bold">- Following page (full release) </div>
+      <div className="font-bold">- Explore page (full release) </div>
     </div>
   );
   return (
@@ -67,7 +70,7 @@ export default function Home() {
       <div className="col-span-3  w-full h-[100vh] lg:block hidden p-2">
         <NewsContainer
           header="Whats New?"
-          subtitle="Version 2.9"
+          subtitle="Version 3.0"
           content={content}
         />
         <NewsContainer

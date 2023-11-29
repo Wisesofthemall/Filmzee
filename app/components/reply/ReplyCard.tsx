@@ -15,11 +15,11 @@ type Props = {
   post: {
     text: string;
     createdAt: any;
-    likes: any;
+    likes: { [key: string]: string };
     senderId: string;
     sender: FirebaseUserType;
     image: string;
-    id: any;
+    id: string;
   };
 };
 

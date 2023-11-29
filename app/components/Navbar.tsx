@@ -9,14 +9,14 @@ import UserIcon from "./user/UserIcon";
 import { useAuth } from "@/auth/AuthState";
 import useLoginModal from "../hooks/useLoginModal";
 import useSignupModal from "../hooks/useSignupModal";
-import { UserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import { retrieveUser } from "@/database/usersCRUD/Supabase";
 
 type Props = {};
 
 function Navbar({}: Props) {
   const router = useRouter();
-  const user: UserType = useAuth();
+  const user: FirebaseUserType = useAuth();
 
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();

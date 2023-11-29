@@ -13,7 +13,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-type Props = { likes: any; id: any };
+type Props = { likes: { [key: string]: string }; id: string };
 
 function ReplyCardButtons({ likes, id }: Props) {
   const loginUser: FirebaseUserType = useAuth();

@@ -7,18 +7,22 @@ import { collection, query, where } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import FilmzCardButtons from "./FilmzCardButtons";
+import { FilmzType } from "@/types/Types";
 
-type Props = { filmzId: any; setFilmzId: any };
+type Props = {
+  filmzId: string;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
+};
 
 function FilmzMain({ filmzId, setFilmzId }: Props) {
-  const [main, setMain] = useState<any>(null);
+  const [main, setMain] = useState<FilmzType | null>(null);
   const filmzRef = collection(db, "filmz");
   const queryRef = query(filmzRef, where("id", "==", filmzId));
   const [Post] = useCollectionData(queryRef);
 
   useEffect(() => {
     if (Post && Post.length > 0) {
-      setMain(Post[0]);
+      setMain(Post[0] as FilmzType);
     }
   }, [Post]);
 
@@ -77,7 +81,7 @@ function FilmzMain({ filmzId, setFilmzId }: Props) {
             </div>
           )}
           <FilmzCardButtons
-            likes={main?.likes}
+            likes={main?.likes as { [key: string]: string }}
             id={main?.createdAt}
             filmzId={filmzId}
             setFilmzId={setFilmzId}

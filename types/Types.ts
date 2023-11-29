@@ -12,13 +12,13 @@ export type VideoType = {
 export type UserType = {
   displayName?: string;
   id: number;
-  createdAt: string;
+  created_at: Date;
   uniq: string;
   name: string;
   email: string;
   photoUrl: string;
   localId: string;
-  Bio: string;
+  bio: string;
   location: string;
   backgroundImg: string;
 };
@@ -29,6 +29,14 @@ export type FirebaseUserType = {
   email: string;
   localId: string;
   photoUrl: string;
+};
+export type MessageType = {
+  roomId: string;
+  sender: FirebaseUserType;
+  createdAt: any;
+  text: string;
+  image: string;
+  edit: boolean;
 };
 export type ChatType = {
   show?: boolean;
@@ -44,10 +52,20 @@ export type ChatType = {
   roomId: string;
 };
 
-export type MemberType = {
-  name: string;
+export type FilmzType = {
+  id: string;
+  createdAt: any;
+  image: string;
+  likes: { [key: string]: string };
+  sender: FirebaseUserType;
+  senderId: string;
+  text: string;
+};
+
+export type FirebaseMemberType = {
   email: string;
-  photoUrl: string;
   localId: string;
+  name: string;
+  photoUrl: string;
   uniq: string;
 };

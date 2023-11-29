@@ -8,7 +8,10 @@ import { getShorts } from "@/api/Youtube";
 import { CgFeed } from "react-icons/cg";
 import { getQueryParam, pushSelected } from "@/functions/urlParams";
 
-type Props = { setSelected: any; selected: any };
+type Props = {
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  selected: string;
+};
 
 function MenuController({ setSelected, selected }: Props) {
   const shortsss = async () => {

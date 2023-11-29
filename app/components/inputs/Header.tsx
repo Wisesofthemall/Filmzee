@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import MemberCard from "../members/MemberCard";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseMemberType, FirebaseUserType } from "@/types/Types";
 import { useAuth } from "@/auth/AuthState";
 import toast from "react-hot-toast";
 import { deleteChatByLocalID } from "@/database/chatsCRUD/Supabase";
@@ -29,10 +29,9 @@ type Props = {
   photo: string;
   name: string;
   uniq: string;
-  showCurrent: any;
-  setShowCurrent: any;
-  localId: any;
-  email: any;
+  setShowCurrent: React.Dispatch<React.SetStateAction<boolean>>;
+  localId: string;
+  email: string;
   isGroupChat: boolean;
   id: number | null;
   roomId: string;
@@ -42,7 +41,6 @@ export default function Header({
   photo,
   name,
   uniq,
-  showCurrent,
   setShowCurrent,
   email,
   localId,
@@ -95,7 +93,7 @@ export default function Header({
     if (Posts) {
       updateDoc(groupRef, {
         membersArray: Posts[0].membersArray.filter(
-          (mem: any) => mem.localId !== num,
+          (mem: FirebaseMemberType) => mem.localId !== num,
         ),
       });
     }
@@ -135,7 +133,7 @@ export default function Header({
     if (Posts && Posts[0]) {
       let currentMembers: [] = Posts[0].membersArray;
       let check = currentMembers.filter(
-        (member: any) => member.localId === loginUser.localId,
+        (member: FirebaseMemberType) => member.localId === loginUser.localId,
       );
       //* Give a toast notification to the deleted user that he has been removed and refresh website
       if (check.length === 0) {
@@ -236,15 +234,17 @@ export default function Header({
                     {Posts &&
                       Posts[0] &&
                       Posts[0].membersArray &&
-                      Posts[0].membersArray.slice(1).map((post: any) => (
-                        <div key={post.uniq} className="w-full my-1">
-                          <MemberCard
-                            mem={post}
-                            key={post.localId}
-                            onRemove={() => handleRemove(post.localId)}
-                          />
-                        </div>
-                      ))}
+                      Posts[0].membersArray
+                        .slice(1)
+                        .map((post: FirebaseMemberType) => (
+                          <div key={post.uniq} className="w-full my-1">
+                            <MemberCard
+                              mem={post}
+                              key={post.localId}
+                              onRemove={() => handleRemove(post.localId)}
+                            />
+                          </div>
+                        ))}
                   </div>
                 </div>
               </MenuItem>

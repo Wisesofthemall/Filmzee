@@ -7,15 +7,26 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { format } from "date-fns";
-import { collection, query, where } from "firebase/firestore";
+import {
+  DocumentData,
+  Query,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import DynamicPhoto from "../DynamicPhoto";
+import { UserType } from "@/types/Types";
 
-type Props = { setUsers: any; Users: any; id: any };
+type Props = {
+  setUsers: React.Dispatch<React.SetStateAction<UserType>>;
+  Users: UserType;
+  id: string;
+};
 
 export default function ProfileCard({ setUsers, Users, id }: Props) {
-  const [queryRef, setQueryRef] = useState<any>(null);
+  const [queryRef, setQueryRef] = useState<Query<DocumentData> | null>(null);
 
   const filmzRef = collection(db, "filmz");
   const anyCollection = query(filmzRef);

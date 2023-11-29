@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import UserSearch from "../user/UserSearch";
 import ChatsContainer from "./ChatsContainer";
 import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType } from "@/types/Types";
+import { ChatType, FirebaseUserType, UserType } from "@/types/Types";
 import { getAllChatsbyID } from "@/database/chatsCRUD/Supabase";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { IoReload } from "react-icons/io5";
@@ -11,12 +11,12 @@ import toast from "react-hot-toast";
 import GroupChatModal from "../modals/GroupChatModal";
 
 type Props = {
-  selected: any;
-  setSelected: any;
-  showCurrent: any;
-  setShowCurrent: any;
-  hide: any;
-  setHide: any;
+  selected: ChatType;
+  setSelected: React.Dispatch<React.SetStateAction<ChatType>>;
+  showCurrent: boolean;
+  setShowCurrent: React.Dispatch<React.SetStateAction<boolean>>;
+  hide: boolean;
+  setHide: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function MyChats({
@@ -27,23 +27,25 @@ function MyChats({
   hide,
   setHide,
 }: Props) {
-  const [myChats, setMyChats] = useState<any[] | null>([]);
+  const [myChats, setMyChats] = useState<ChatType[]>([]);
   const loginUser: FirebaseUserType = useAuth();
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
 
   //* Set MyChats
-  const getChat: any = async (chats: any) => {
+  const getChat = async (chats: ChatType[]) => {
     setMyChats(chats);
   };
   //* Get all the chats the login User is in
   const getAllChat = async () => {
     const chats = await getAllChatsbyID(loginUser.localId);
 
-    setMyChats(chats);
+    if (chats) {
+      setMyChats(chats);
+    }
   };
   //* Set User Info
   const getUserInfo = async () => {
-    const user = await getUserByLocalId(loginUser.localId);
+    const user: UserType | null = await getUserByLocalId(loginUser.localId);
     setUserInfo(user);
   };
 

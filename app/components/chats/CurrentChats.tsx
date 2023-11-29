@@ -6,44 +6,43 @@ import { collection, addDoc, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
-import { ChatType } from "@/types/Types";
+import { ChatType, MessageType, UserType } from "@/types/Types";
 import Header from "../inputs/Header";
 import Messages from "../message/Messages";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 
 type Props = {
   selected: ChatType;
-  showCurrent: any;
-  setShowCurrent: any;
-  setHide: any;
-  hide: any;
-  setImage: any;
+  showCurrent: boolean;
+  setShowCurrent: React.Dispatch<React.SetStateAction<boolean>>;
+
+  hide: boolean;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function CurrentChats({
   selected,
   showCurrent,
   setShowCurrent,
-  setHide,
   hide,
   setImage,
 }: Props) {
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
   const [newMessage, setNewMessage] = useState("");
-  const [messagePhoto, setMessagePhoto] = useState<any>(null);
+  const [messagePhoto, setMessagePhoto] = useState<string | null>(null);
   const [scroll, setScroll] = useState(false);
   const roomId = selected.roomId;
 
   const messagesRef = collection(db, "messages");
   const queryRef = query(messagesRef, where("roomId", "==", roomId));
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
 
   const [Message] = useCollectionData(queryRef);
 
   const loginUser = useAuth();
 
   //* Sends Message to Users
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async () => {
     //* Check if theres any content to be sent
     if (newMessage === "" && !messagePhoto) return;
     //* Filter out any curse words the user might've sent
@@ -54,11 +53,12 @@ function CurrentChats({
       image: messagePhoto,
       sender: {
         ...loginUser,
-        displayName: userInfo.name,
-        photoUrl: userInfo.photoUrl,
+        displayName: userInfo?.name,
+        photoUrl: userInfo?.photoUrl,
       },
       createdAt: new Date(),
       roomId,
+      edit: false,
     });
     //* Reset Message States
     setNewMessage("");
@@ -69,9 +69,9 @@ function CurrentChats({
   };
 
   //* Sends Message to Users
-  const handleEnter = async (e: any) => {
+  const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     //* Check if user press the 'Enter' Key
-    if (e === "Enter") {
+    if (e.key === "Enter") {
       //* Check if theres any content to be sent
       if (newMessage.length === 0 && !messagePhoto) return;
       //* Filter out any curse words the user might've sent
@@ -82,11 +82,12 @@ function CurrentChats({
         image: messagePhoto,
         sender: {
           ...loginUser,
-          displayName: userInfo.name,
-          photoUrl: userInfo.photoUrl,
+          displayName: userInfo?.name,
+          photoUrl: userInfo?.photoUrl,
         },
         createdAt: new Date(),
         roomId,
+        edit: false,
       });
 
       //* Reset Message States
@@ -132,7 +133,7 @@ function CurrentChats({
         return dateA - dateB;
       });
 
-      setMessages(filterMessage);
+      setMessages(filterMessage as MessageType[]);
       setScroll(true);
     }
   }, [Message, roomId]);
@@ -159,7 +160,6 @@ function CurrentChats({
     >
       <Header
         localId={selected.recepientLocalID}
-        showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
         photo={selected.recepientPhoto}
         name={selected.recepientName}

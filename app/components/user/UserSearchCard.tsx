@@ -2,7 +2,7 @@
 import { useAuth } from "@/auth/AuthState";
 import { retrieveChat } from "@/database/chatsCRUD/Supabase";
 import { colorMaker } from "@/functions/profileGenerator";
-import { FirebaseUserType, UserType } from "@/types/Types";
+import { ChatType, FirebaseUserType, UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -11,8 +11,8 @@ import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   user: UserType;
-  getChat: any;
-  loginInfo: UserType;
+  getChat: (chat: ChatType[]) => {};
+  loginInfo: UserType | null;
 };
 
 export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
@@ -33,12 +33,13 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
     }
     //* Creates and retrieve a new chat
     const newChats = await retrieveChat(
-      loginUser.localId,
-      loginInfo.id,
+      (loginInfo as UserType).localId,
+      (loginInfo as UserType).id,
       loginUser.createdAt,
-      loginInfo.displayName || loginInfo.email.split("@")[0],
-      loginUser.email,
-      loginInfo.photoUrl,
+      (loginInfo as UserType).displayName ||
+        (loginInfo as UserType).email.split("@")[0],
+      (loginInfo as UserType).email,
+      (loginInfo as UserType).photoUrl,
       user.id,
       user.uniq,
       user.name,
@@ -48,7 +49,7 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
       roomID,
     );
     toast.success("Sucessfully created chat");
-    getChat(newChats);
+    getChat(newChats as ChatType[]);
   };
 
   useEffect(() => {
@@ -68,7 +69,6 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
-  const color: any = colorMaker(picId);
   return (
     <div
       onClick={() => updateChat()}
@@ -86,7 +86,7 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
         ) : (
           <Avatar
             sx={{
-              bgcolor: color(picId),
+              bgcolor: colorMaker(picId),
             }}
           >
             {user.email[0].toUpperCase()}

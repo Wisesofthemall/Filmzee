@@ -5,7 +5,7 @@ import CurrentChats from "../chats/CurrentChats";
 import { ChatType } from "@/types/Types";
 
 type Props = {
-  setImage: any;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function MessageContainer({ setImage }: Props) {
@@ -38,7 +38,6 @@ function MessageContainer({ setImage }: Props) {
       <CurrentChats
         setImage={setImage}
         hide={hide}
-        setHide={setHide}
         selected={selectedChat}
         showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}

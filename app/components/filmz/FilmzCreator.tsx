@@ -4,7 +4,7 @@ import { useAuth } from "@/auth/AuthState";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { filter } from "@/functions/profanityBlocker";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
@@ -17,8 +17,8 @@ import toast from "react-hot-toast";
 type Props = {};
 
 function FilmzCreator({}: Props) {
-  const [userInfo, setUserInfo] = useState<any>({});
-  const [filmzPhoto, setFilmzPhoto] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
+  const [filmzPhoto, setFilmzPhoto] = useState<string | null>(null);
   const router = useRouter();
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
@@ -49,8 +49,8 @@ function FilmzCreator({}: Props) {
       image: filmzPhoto,
       sender: {
         ...loginUser,
-        displayName: userInfo.name,
-        photoUrl: userInfo.photoUrl,
+        displayName: userInfo?.name,
+        photoUrl: userInfo?.photoUrl,
       },
       createdAt: new Date(),
       likes: {},
@@ -60,9 +60,9 @@ function FilmzCreator({}: Props) {
     setNewPost("");
     setFilmzPhoto(null);
   };
-  const handleEnter = async (e: any) => {
+  const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     //* Check is user press the 'Enter' Key
-    if (e === "Enter") {
+    if (e.key === "Enter") {
       //* Check if user is authorized , if not then show sign up modal
       if (!loginUser) {
         signupModal.onOpen();
@@ -83,8 +83,8 @@ function FilmzCreator({}: Props) {
         image: filmzPhoto,
         sender: {
           ...loginUser,
-          displayName: userInfo.name,
-          photoUrl: userInfo.photoUrl,
+          displayName: userInfo?.name,
+          photoUrl: userInfo?.photoUrl,
         },
         createdAt: new Date(),
         likes: {},
@@ -109,7 +109,7 @@ function FilmzCreator({}: Props) {
     if (loginUser) {
       getInfo();
     } else {
-      setUserInfo({});
+      setUserInfo(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
@@ -123,7 +123,7 @@ function FilmzCreator({}: Props) {
       >
         <div
           className="  mt-1 cursor-pointer hover:opacity-60"
-          onClick={() => router.push(`/profile/${userInfo.localId}`)}
+          onClick={() => router.push(`/profile/${userInfo?.localId}`)}
         >
           <DynamicPhoto
             photoUrl={userInfo ? userInfo.photoUrl : undefined}
@@ -141,7 +141,9 @@ function FilmzCreator({}: Props) {
             <div className="text-gray-800 text-sm ml-2">{loginUser?.email}</div>
           </div>
           <textarea
-            onKeyDown={(e) => handleEnter(e.key)}
+            onKeyDown={(e) =>
+              handleEnter(e as unknown as React.KeyboardEvent<HTMLInputElement>)
+            }
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
             className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-4/5 h-16  my-2 mx-1 p-2  font-semibold"
@@ -157,7 +159,7 @@ function FilmzCreator({}: Props) {
             <div className="flex justify-between">
               <div className="flex items-center justify-items-center cursor-pointer ">
                 <FilmzImageUploader
-                  value={filmzPhoto}
+                  value={filmzPhoto || ""}
                   onChange={setFilmzPhoto}
                 />
               </div>

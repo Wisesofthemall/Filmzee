@@ -6,10 +6,10 @@ import ForYouPlayer from "./ForYouPlayer";
 
 type Props = {
   videos: VideoType[];
-  selected: any;
+  selected: string;
   filmzId: string;
-  setFilmzId: any;
-  setImage: any;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 const TestFilmz = [1, 2, 3, 4, 5, 6, 7];
 function ContentContainer({

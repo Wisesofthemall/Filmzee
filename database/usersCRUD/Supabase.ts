@@ -1,4 +1,4 @@
-import { UserType, VideoType } from "@/types/Types";
+import { FirebaseUserType, UserType, VideoType } from "@/types/Types";
 import { createClient } from "@supabase/supabase-js";
 require("dotenv").config();
 
@@ -42,7 +42,7 @@ export const getUserByLocalId = async (localId: string) => {
     return null;
   }
 };
-export const postUser = async (user: UserType) => {
+export const postUser = async (user: FirebaseUserType) => {
   const parsedName = user.email?.split("@")[0];
 
   try {
@@ -68,7 +68,7 @@ export const postUser = async (user: UserType) => {
   }
 };
 
-export const retrieveUser = async (uniq: string, user: UserType) => {
+export const retrieveUser = async (uniq: string, user: FirebaseUserType) => {
   const result = await getUserByUniq(uniq);
 
   if (!result) {

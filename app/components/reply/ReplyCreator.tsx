@@ -4,7 +4,7 @@ import { useAuth } from "@/auth/AuthState";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { filter } from "@/functions/profanityBlocker";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
@@ -14,11 +14,11 @@ import FilmzImageRender from "../filmz/FilmzImageRender";
 import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
 
-type Props = { filmzId: any };
+type Props = { filmzId: string };
 
 function ReplyCreator({ filmzId }: Props) {
-  const [userInfo, setUserInfo] = useState<any>({});
-  const [filmzPhoto, setFilmzPhoto] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
+  const [filmzPhoto, setFilmzPhoto] = useState<string | null>(null);
   const router = useRouter();
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
@@ -52,8 +52,8 @@ function ReplyCreator({ filmzId }: Props) {
       image: filmzPhoto,
       sender: {
         ...loginUser,
-        displayName: userInfo.name,
-        photoUrl: userInfo.photoUrl,
+        displayName: (userInfo as UserType).name,
+        photoUrl: (userInfo as UserType).photoUrl,
       },
       createdAt: new Date(),
       likes: {},
@@ -105,8 +105,8 @@ function ReplyCreator({ filmzId }: Props) {
         image: filmzPhoto,
         sender: {
           ...loginUser,
-          displayName: userInfo.name,
-          photoUrl: userInfo.photoUrl,
+          displayName: (userInfo as UserType).name,
+          photoUrl: (userInfo as UserType).photoUrl,
         },
         createdAt: new Date(),
         likes: {},
@@ -130,7 +130,7 @@ function ReplyCreator({ filmzId }: Props) {
       >
         <div
           className="  mt-1 cursor-pointer hover:opacity-60"
-          onClick={() => router.push(`/profile/${userInfo.localId}`)}
+          onClick={() => router.push(`/profile/${userInfo?.localId}`)}
         >
           <DynamicPhoto
             photoUrl={userInfo ? userInfo.photoUrl : undefined}
@@ -165,7 +165,7 @@ function ReplyCreator({ filmzId }: Props) {
             <div className="flex justify-between">
               <div className="flex items-center justify-items-center cursor-pointer ">
                 <FilmzImageUploader
-                  value={filmzPhoto}
+                  value={filmzPhoto || ""}
                   onChange={setFilmzPhoto}
                 />
               </div>

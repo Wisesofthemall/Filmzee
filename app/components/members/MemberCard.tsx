@@ -1,12 +1,16 @@
 "use client";
 import { colorMaker } from "@/functions/profileGenerator";
-import { MemberType } from "@/types/Types";
+import { FirebaseMemberType } from "@/types/Types";
+
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
 
-type Props = { mem: MemberType; onRemove: any };
+type Props = {
+  mem: FirebaseMemberType;
+  onRemove: (mem: FirebaseMemberType) => void;
+};
 
 function MemberCard({ mem, onRemove }: Props) {
   return (

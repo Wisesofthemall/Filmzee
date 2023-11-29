@@ -18,10 +18,10 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 
 type Props = {
-  likes: any;
-  id: any;
-  filmzId: any;
-  setFilmzId: any;
+  likes: { [key: string]: string };
+  id: string;
+  filmzId: string;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
   disabled?: boolean;
 };
 

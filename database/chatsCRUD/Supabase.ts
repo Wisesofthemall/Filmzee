@@ -1,4 +1,4 @@
-import { MemberType, UserType, VideoType } from "@/types/Types";
+import { FirebaseMemberType, UserType, VideoType } from "@/types/Types";
 import { createClient } from "@supabase/supabase-js";
 require("dotenv").config();
 
@@ -134,7 +134,7 @@ export const getAllChatsbyID = async (userId: string) => {
 };
 
 export const createGroupChat = async (
-  membersIds: MemberType[],
+  membersIds: FirebaseMemberType[],
   groupName: string,
   groupPhoto: string,
   roomId: string,

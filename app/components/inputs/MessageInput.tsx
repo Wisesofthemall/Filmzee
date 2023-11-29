@@ -11,11 +11,11 @@ type Props = {
   type?: string;
   disabled?: boolean;
   stateChange: React.Dispatch<React.SetStateAction<string>>;
-  submit: any;
-  enter: any;
+  submit: () => void;
+  enter: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   required: boolean;
-  messagePhoto: any;
-  setMessagePhoto: any;
+  messagePhoto: string | null;
+  setMessagePhoto: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 function MessageInput({
@@ -37,7 +37,7 @@ function MessageInput({
         value={value}
         id={id}
         onKeyDown={(e) => {
-          enter(e.key);
+          enter(e);
         }}
         disabled={disabled}
         type={type}
@@ -71,7 +71,10 @@ function MessageInput({
         font-semibold
         text-white`}
       >
-        <FilmzImageUploader value={messagePhoto} onChange={setMessagePhoto} />
+        <FilmzImageUploader
+          value={messagePhoto || ""}
+          onChange={setMessagePhoto}
+        />
         {messagePhoto && (
           <FilmzImageRender
             photo={messagePhoto}
@@ -90,17 +93,4 @@ function MessageInput({
   );
 }
 
-// {filmzPhoto && (
-//   <FilmzImageRender
-//     photo={filmzPhoto}
-//     deletePhoto={() => setFilmzPhoto(null)}
-//   />
-// )}
-// <div className="px-3">
-//   <div className="flex justify-between">
-//     <div className="flex items-center justify-items-center cursor-pointer ">
-//       <FilmzImageUploader
-//         value={filmzPhoto}
-//         onChange={setFilmzPhoto}
-//       />
 export default MessageInput;

@@ -7,12 +7,13 @@ import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { UserType } from "@/types/Types";
 
 type Props = {};
 
 function UserIcon({}: Props) {
   const [picId, setPicId] = useState(100);
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
   const user = useAuth();
   const signup = useSignupModal();
 

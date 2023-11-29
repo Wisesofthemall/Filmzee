@@ -13,7 +13,7 @@ type Props = {
   body?: React.ReactElement;
   disabled?: boolean;
   filmzId: string;
-  setFilmzId: any;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function CModal({
@@ -22,7 +22,6 @@ function CModal({
   title,
   body,
   disabled,
-
   filmzId,
   setFilmzId,
 }: Props) {

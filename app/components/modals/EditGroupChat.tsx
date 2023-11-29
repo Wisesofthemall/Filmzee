@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import Heading from "../inputs/Heading";
 import Modal from "./Modal";
 import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType, MemberType } from "@/types/Types";
+import { FirebaseMemberType, FirebaseUserType, UserType } from "@/types/Types";
 import {
   createGroupChat,
   getChatByRoomId,
@@ -47,15 +47,19 @@ function EditGroupChatModal({ chatName, chatImage, roomId, uniq }: Props) {
   const [query, setQuery] = useState("");
   const [apiQuery, setApiQuery] = useState("");
   const [typing, setTyping] = useState(false);
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
   const loginUser: FirebaseUserType = useAuth();
   const [groupName, setGroupName] = useState("");
   const [groupIMG, setGroupIMG] = useState("");
   const [step, setStep] = useState(STEPS.NAME);
-  const [members, setMembers] = useState<MemberType | {}>({});
+  const [members, setMembers] = useState<
+    { [key: string]: FirebaseMemberType } | {}
+  >({});
   const [docID, setDocID] = useState("");
   const groupInfoRef = collection(db, "groupInfo");
-  const [existingMembers, setExistingMembers] = useState([]);
+  const [existingMembers, setExistingMembers] = useState<FirebaseMemberType[]>(
+    [],
+  );
   const router = useRouter();
 
   const membersRef = fireQuery(groupInfoRef, where("roomId", "==", roomId));
@@ -77,7 +81,7 @@ function EditGroupChatModal({ chatName, chatImage, roomId, uniq }: Props) {
       return onNext();
     }
     //* Convert it to an array of Users
-    const membersArray: any = Object.values(members);
+    const membersArray: FirebaseMemberType[] = Object.values(members);
 
     //* Add users to the groupchat and update the 'groupInfo' with the new members
     try {
@@ -154,20 +158,20 @@ function EditGroupChatModal({ chatName, chatImage, roomId, uniq }: Props) {
   };
 
   //* When the user start typing then store the value and set typing to true
-  const handleOnChange = (event: any) => {
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
     setTyping(true);
   };
 
   //*Remove member from the groupchat invite list
-  const handleDeleteMember = (member: MemberType) => {
+  const handleDeleteMember = (member: FirebaseMemberType) => {
     //* Check if Owner try to remove themselves (They can't do that)
-    if (member.localId === userInfo.localId) {
+    if (member.localId === userInfo?.localId) {
       toast.error("You can not remove yourself from the group");
       return;
     }
     //* Removes the user
-    setMembers((prevMembers: any) => {
+    setMembers((prevMembers: { [key: string]: FirebaseMemberType }) => {
       const { [member.localId]: deletedValue, ...newMembers } = prevMembers;
       return newMembers;
     });
@@ -175,9 +179,9 @@ function EditGroupChatModal({ chatName, chatImage, roomId, uniq }: Props) {
   };
 
   //* Adds a user to the groupchat invite list
-  const handleAddMember = (member: MemberType) => {
+  const handleAddMember = (member: FirebaseMemberType) => {
     let check = existingMembers.filter(
-      (mem: any) => mem.localId === member.localId,
+      (mem: FirebaseMemberType) => mem.localId === member.localId,
     );
 
     //* Check if user already in groupchat
@@ -187,7 +191,7 @@ function EditGroupChatModal({ chatName, chatImage, roomId, uniq }: Props) {
     }
 
     //* Add user to the groupchat invite list
-    setMembers((prevMembers: any) => {
+    setMembers((prevMembers: { [key: string]: FirebaseMemberType }) => {
       return { ...prevMembers, [member.localId]: member };
     });
     toast.success(`${member.name} added to group`);
@@ -297,7 +301,7 @@ function EditGroupChatModal({ chatName, chatImage, roomId, uniq }: Props) {
         </div>
         <div className="text-white font-bold text-xl mb-2">Members: </div>
         <div className="flex items-center overflow-x-scroll w-full">
-          {Object.values(members).map((mem: any) => (
+          {Object.values(members).map((mem: FirebaseMemberType) => (
             <MemberCard
               mem={mem}
               key={mem.localId}

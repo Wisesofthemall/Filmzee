@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 
 type Props = {
   FilmzUser: string;
-  id: any;
+  id: string;
   reply?: boolean;
 };
 

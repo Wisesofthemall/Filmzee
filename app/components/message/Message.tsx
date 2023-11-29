@@ -1,10 +1,15 @@
 "use client";
 import useImageModal from "@/app/hooks/useImageModal";
+import { FirebaseUserType, MessageType } from "@/types/Types";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import React from "react";
 
-type Props = { message: any; loginUser: any; setImage: any };
+type Props = {
+  message: MessageType;
+  loginUser: FirebaseUserType;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
+};
 
 function Message({ message, loginUser, setImage }: Props) {
   const imageModal = useImageModal();

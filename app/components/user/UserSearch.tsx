@@ -1,15 +1,15 @@
 "use client";
 import { Skeleton } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import SearchQuery from "./SearchQuery";
 import { useAuth } from "@/auth/AuthState";
-import { UserType } from "@/types/Types";
+import { ChatType, UserType } from "@/types/Types";
 import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";
 
 type Props = {
-  getChat: (userId?: number) => {};
-  loginInfo: UserType;
+  getChat: (chat: ChatType[]) => {};
+  loginInfo: UserType | null;
 };
 
 function UserSearch({ getChat, loginInfo }: Props) {
@@ -38,7 +38,7 @@ function UserSearch({ getChat, loginInfo }: Props) {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  const handleOnChange = (event: any) => {
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
     setTyping(true);
   };
