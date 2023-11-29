@@ -1,6 +1,6 @@
 "use client";
 import { getUsersByName } from "@/database/usersCRUD/Supabase";
-import { UserType } from "@/types/Types";
+import { FirebaseMemberType, UserType } from "@/types/Types";
 
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -9,9 +9,8 @@ import MembersSearchCard from "./MembersSearchCard";
 type Props = {
   query: string;
   hide: boolean;
-
-  setHide: any;
-  addMember: any;
+  setHide: React.Dispatch<React.SetStateAction<boolean>>;
+  addMember: (mem: FirebaseMemberType) => void;
 };
 
 function MembersQuery({ query, hide, setHide, addMember }: Props) {

@@ -6,15 +6,16 @@ import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType, UserType } from "@/types/Types";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 
-type Props = { Users: any };
+type Props = { Users: UserType };
 
 function ProfileNavBar({ Users }: Props) {
-  const [loginInfo, setLoginInfo] = useState<any>({});
+  const [loginInfo, setLoginInfo] = useState<UserType | null>(null);
   const [disabled, setDisabled] = useState(false);
   const router = useRouter();
 
   const loginUser: FirebaseUserType = useAuth();
 
+  //* Get the login user info and store it
   const getLoginInfo = async () => {
     const info = await getUserByLocalId(loginUser.localId);
     setLoginInfo(info);
@@ -26,16 +27,19 @@ function ProfileNavBar({ Users }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
+  //* Creates chat between the user and the receipient and navigate to the '/message' route
   const updateChat = async () => {
+    //* Creates a roomid based on the login user and receipient localIDs
     const roomId = [...loginUser.localId, ...Users.localId].sort().join("");
     setDisabled(true);
     await retrieveChat(
       loginUser.localId,
-      loginInfo.id,
+      (loginInfo as UserType).id,
       loginUser.createdAt,
-      loginInfo?.displayName || loginInfo?.email.split("@")[0],
+      (loginInfo as UserType)?.displayName ||
+        (loginInfo as UserType)?.email.split("@")[0],
       loginUser.email,
-      loginInfo?.photoUrl,
+      (loginInfo as UserType)?.photoUrl,
       Users.id,
       Users.uniq,
       Users.name,

@@ -2,13 +2,14 @@
 import React from "react";
 import ChatsCard from "./ChatsCard";
 import { memo } from "react";
+import { ChatType } from "@/types/Types";
 
 type Props = {
-  myChats: any;
-  setSelected: any;
-  selected: any;
-  setShowCurrent: any;
-  setHide: any;
+  myChats: ChatType[];
+  setSelected: React.Dispatch<React.SetStateAction<ChatType>>;
+  selected: ChatType;
+  setShowCurrent: React.Dispatch<React.SetStateAction<boolean>>;
+  setHide: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ChatsContainer = memo(function ChatsContainer({
@@ -20,7 +21,7 @@ const ChatsContainer = memo(function ChatsContainer({
 }: Props) {
   return (
     <div className="overflow-y-scroll overflow-x-hidden">
-      {myChats.map((user: any) => (
+      {myChats.map((user: ChatType) => (
         <ChatsCard
           setHide={setHide}
           setShowCurrent={setShowCurrent}

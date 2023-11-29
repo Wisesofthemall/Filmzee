@@ -1,12 +1,16 @@
 "use client";
 import { colorMaker } from "@/functions/profileGenerator";
-import { MemberType } from "@/types/Types";
+import { FirebaseMemberType } from "@/types/Types";
+
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
 
-type Props = { mem: MemberType; onRemove: any };
+type Props = {
+  mem: FirebaseMemberType;
+  onRemove: (mem: FirebaseMemberType) => void;
+};
 
 function MemberCard({ mem, onRemove }: Props) {
   return (
@@ -31,9 +35,9 @@ function MemberCard({ mem, onRemove }: Props) {
         )}
         <div
           onClick={() => onRemove(mem)}
-          className="text-sm text-white mr-1 cursor-pointer"
+          className="text-sm text-white mr-1 cursor-pointer hover:text-red-500"
         >
-          <RxCross2 size={15} />
+          <RxCross2 size={20} />
         </div>
       </div>
       <div className={`mx-1`}>

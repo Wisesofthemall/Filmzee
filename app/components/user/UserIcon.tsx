@@ -5,16 +5,17 @@ import { AiOutlineUser } from "react-icons/ai";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import UserMenu from "./UserMenu";
-import { colorMaker } from "@/functions/profileGenerator";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { UserType } from "@/types/Types";
 
 type Props = {};
 
 function UserIcon({}: Props) {
   const [picId, setPicId] = useState(100);
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
   const user = useAuth();
+  const signup = useSignupModal();
 
   useEffect(() => {
     if (user) {
@@ -23,11 +24,6 @@ function UserIcon({}: Props) {
     }
   }, [user]);
 
-  const color: any = colorMaker(picId);
-  const signup = useSignupModal();
-  const OpenModal = () => {
-    signup.onOpen();
-  };
   const getInfo = async () => {
     const result = await getUserByLocalId(user.localId);
 
@@ -57,7 +53,7 @@ function UserIcon({}: Props) {
           </Menu>
         </div>
       ) : (
-        <div onClick={() => OpenModal()}>
+        <div onClick={() => signup.onOpen()}>
           <AiOutlineUser size={26} />
         </div>
       )}

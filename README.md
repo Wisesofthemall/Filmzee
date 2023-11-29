@@ -17,6 +17,8 @@
 
 - Users can message other users in real-time using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
 
+- Users can delete their message in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
+
 - User can post content for everyone to see in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
 
 - Users can delete their post using [Firebase Firestore](https://firebase.google.com/products/firestore).
@@ -28,6 +30,10 @@
 - Users can edit their profile using [Supabase](https://supabase.io/).
 
 - Users can group chat with other users using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- Owners of the group can remove and add users to their group using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+
+- Owners of the group can also edit their group image and name using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
 
 - Users can watch videos on the ForYou page (pre-release) using [Youtube API](https://developers.google.com/youtube/registering_an_application) and [Supabase](https://supabase.io/).
 
@@ -83,6 +89,8 @@ NEXT_PUBLIC_measurementId=
 - [ ] can see requested messages
 - [ ] can see unread messages
 - [ ] a popup appears on recent messages
+- [ ] make a edit group chat info modal
+- [ ] user can delete and edit messages
 - [x] make a profile page
 - [x] add Comments Section
 - [x] add delete Filmz Functionality

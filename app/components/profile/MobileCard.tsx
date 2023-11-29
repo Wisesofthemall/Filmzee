@@ -1,7 +1,13 @@
 "use client";
 import { db } from "@/auth/Firebase";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
-import { collection, query, where } from "firebase/firestore";
+import {
+  DocumentData,
+  Query,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { CiLocationOn } from "react-icons/ci";
@@ -9,25 +15,30 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { format } from "date-fns";
 import Image from "next/image";
 import Logo from "@/assets/Logo.png";
+import { UserType } from "@/types/Types";
 
+//! Edit this to correct typescript
 type Props = {
-  Users: any;
-  setUsers: any;
-  id: any;
+  Users: UserType;
+  setUsers: React.Dispatch<React.SetStateAction<UserType>>;
+  id: string;
 };
 
 function MobileCard({ Users, setUsers, id }: Props) {
-  const [queryRef, setQueryRef] = useState<any>(null);
+  const [queryRef, setQueryRef] = useState<Query<DocumentData> | null>(null);
 
   const filmzRef = collection(db, "filmz");
   const anyCollection = query(filmzRef);
 
+  //* Set query to grab all the filmz by the user or grab all the filmz
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [Posts] = queryRef
     ? // eslint-disable-next-line react-hooks/rules-of-hooks
       useCollectionData(queryRef)
     : // eslint-disable-next-line react-hooks/rules-of-hooks
       useCollectionData(anyCollection);
+
+  //* Set query to grab all the filmz by the user
   const getProfileUser = async () => {
     if (id) {
       const Query = query(filmzRef, where("senderId", "==", id));

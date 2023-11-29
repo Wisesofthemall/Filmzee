@@ -1,15 +1,15 @@
 "use client";
 import { Skeleton } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import SearchQuery from "./SearchQuery";
 import { useAuth } from "@/auth/AuthState";
-import { UserType } from "@/types/Types";
+import { ChatType, UserType } from "@/types/Types";
 import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";
 
 type Props = {
-  getChat: (userId?: number) => {};
-  loginInfo: UserType;
+  getChat: (chat: ChatType[]) => {};
+  loginInfo: UserType | null;
 };
 
 function UserSearch({ getChat, loginInfo }: Props) {
@@ -20,6 +20,10 @@ function UserSearch({ getChat, loginInfo }: Props) {
   const [typing, setTyping] = useState(false);
   const user = useAuth();
   const groupChat = useCreateGroupChatModal();
+
+  //* This useEffect is use to check if the user stop typing for 1 second
+  //* If so then make a query to the database
+  //* This prevent over calling the database when the user isn't even finish typing
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (query.length) {
@@ -34,15 +38,18 @@ function UserSearch({ getChat, loginInfo }: Props) {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  const handleOnChange = (event: any) => {
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
     setTyping(true);
   };
 
   useEffect(() => {
     if (user) {
+      //* If user have a display name then store it
       if (user.displayName) {
         setUsername(user.displayName);
+
+        //* Else create one by their email
       } else {
         const parsedName = user.email?.split("@")[0];
         setUsername(parsedName);

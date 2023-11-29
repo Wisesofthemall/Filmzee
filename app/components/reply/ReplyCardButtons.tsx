@@ -13,7 +13,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-type Props = { likes: any; id: any };
+type Props = { likes: { [key: string]: string }; id: string };
 
 function ReplyCardButtons({ likes, id }: Props) {
   const loginUser: FirebaseUserType = useAuth();
@@ -22,6 +22,8 @@ function ReplyCardButtons({ likes, id }: Props) {
 
   const replyCardRef = collection(db, "replies");
   const q = query(replyCardRef, where("createdAt", "==", id));
+
+  //* Get the Document ID of the current comment and store it
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -36,18 +38,25 @@ function ReplyCardButtons({ likes, id }: Props) {
       });
   };
 
+  //* Update the like of the comment
   const updateLike = (num: number) => {
+    //* Check if login user already like comment
     const isLiked = likes[loginUser.localId] ? true : false;
     const replyRef = doc(db, "replies", docID);
     if (num > 0) {
+      //* Change the state of the heart to a 'red' heart
       setLiked(true);
 
+      //* If login user did not like the comment then add them to the 'likes' object
       if (!isLiked) {
         likes[loginUser.localId] = loginUser.localId;
         updateDoc(replyRef, { likes: likes });
       }
     } else {
+      //* Change the state of the heart to a 'transparent' heart
       setLiked(false);
+
+      //* If login user did like the comment then remove them from the 'likes' object
       if (isLiked) {
         delete likes[loginUser.localId];
         updateDoc(replyRef, { likes: likes });
@@ -57,6 +66,7 @@ function ReplyCardButtons({ likes, id }: Props) {
 
   useEffect(() => {
     getDocName();
+    //* Check if login user like the comment already
     if (loginUser) {
       setLiked(likes[loginUser.localId] ? true : false);
     }

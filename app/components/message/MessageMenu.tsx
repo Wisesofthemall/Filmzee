@@ -15,24 +15,18 @@ import {
   where,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
+import { FiEdit3 } from "react-icons/fi";
 
 type Props = {
-  FilmzUser: string;
   id: string;
-  reply?: boolean;
 };
 
-function FilmzMenu({ FilmzUser, id, reply }: Props) {
-  const loginUser: FirebaseUserType = useAuth();
-
+function MessageMenu({ id }: Props) {
   const [docID, setDocID] = useState("");
 
-  const filmzCardRef = reply
-    ? collection(db, "replies")
-    : collection(db, "filmz");
-  const q = id
-    ? query(filmzCardRef, where("createdAt", "==", id))
-    : query(filmzCardRef, where("createdAt", "==", new Date()));
+  const messageRef = collection(db, "messages");
+
+  const q = query(messageRef, where("id", "==", id));
 
   //* get filmz Document ID and store it
   const getDocName = async () => {
@@ -50,9 +44,7 @@ function FilmzMenu({ FilmzUser, id, reply }: Props) {
   };
   //* Deletes the Filmz or Comment
   const handleDelete = () => {
-    const filmzRef = reply
-      ? doc(db, "replies", docID)
-      : doc(db, "filmz", docID);
+    const filmzRef = doc(db, "messages", docID);
 
     deleteDoc(filmzRef)
       .then(() => {
@@ -76,31 +68,19 @@ function FilmzMenu({ FilmzUser, id, reply }: Props) {
   return (
     <MenuList className="grid justify-center bg-gray-900  text-white rounded-lg">
       {/* MenuItems are not rendered unless Menu is open */}
-      {FilmzUser === loginUser?.localId && (
-        <MenuItem
-          as="a"
-          className="my-1 mr-1 cursor-pointer hover:text-blue-400"
-          onClick={() => handleDelete()}
-        >
-          <div className="mx-2">
-            <FaRegTrashCan />
-          </div>
-          Delete
-        </MenuItem>
-      )}
 
       <MenuItem
         as="a"
         className="my-1 mr-1 cursor-pointer hover:text-blue-400"
-        onClick={() => handleReport()}
+        onClick={() => handleDelete()}
       >
         <div className="mx-2">
-          <MdReportGmailerrorred />
+          <FaRegTrashCan />
         </div>
-        Report
+        Delete
       </MenuItem>
     </MenuList>
   );
 }
 
-export default FilmzMenu;
+export default MessageMenu;

@@ -5,12 +5,13 @@ import FilmzCreator from "./FilmzCreator";
 import { collection, orderBy, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
+import { FilmzType } from "@/types/Types";
 
 type Props = {
   main?: boolean;
   senderId?: string;
-  setFilmzId: any;
-  setImage: any;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
@@ -18,10 +19,11 @@ function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
   const queryRef = senderId
     ? query(filmzRef, where("senderId", "==", senderId))
     : query(filmzRef, orderBy("createdAt", "desc"));
-  const [filmz, setFilmz] = useState<any>([]);
+  const [filmz, setFilmz] = useState<FilmzType[]>([]);
 
   const [Posts] = useCollectionData(queryRef);
   useEffect(() => {
+    //* if you're in the /profile page then sort and set state
     if (Posts && senderId) {
       const sortedMessage = Posts.sort(function (a, b) {
         const dateA = a.createdAt;
@@ -29,9 +31,10 @@ function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
         return dateB - dateA;
       });
 
-      setFilmz(sortedMessage);
+      setFilmz(sortedMessage as FilmzType[]);
     } else if (Posts) {
-      setFilmz(Posts);
+      //* else you're in the main page then set state
+      setFilmz(Posts as FilmzType[]);
     }
   }, [Posts, senderId]);
 
@@ -43,7 +46,7 @@ function FilmzContainer({ main, senderId, setFilmzId, setImage }: Props) {
     >
       {main && <FilmzCreator />}
 
-      {filmz.map((post: any) => (
+      {filmz.map((post: FilmzType) => (
         <FilmzCard
           key={post.createdAt}
           main={main}

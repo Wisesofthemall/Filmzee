@@ -16,25 +16,30 @@ type Props = {
   post: {
     text: string;
     createdAt: any;
-    likes: any;
+    likes: { [key: string]: string };
     senderId: string;
     sender: FirebaseUserType;
     image: string;
-    id: any;
+    id: string;
   };
-  setFilmzId: any;
-  setImage: any;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function FilmzCard({ main, post, setFilmzId, setImage }: Props) {
   const router = useRouter();
   const imageModal = useImageModal();
 
-  const formattedTimeDifference = formatDistanceToNow(post.createdAt.toDate(), {
-    addSuffix: true,
-    includeSeconds: true,
-  });
+  //* Returns the estimated time of the filmz
+  const formattedTimeDifference: string = formatDistanceToNow(
+    post.createdAt.toDate(),
+    {
+      addSuffix: true,
+      includeSeconds: true,
+    },
+  );
 
+  //* Opens Modal that have the expanded image of the filmz
   const handleImageExpander = (image: string) => {
     setImage(image);
     imageModal.onOpen();

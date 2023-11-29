@@ -5,7 +5,7 @@ import useImageModal from "@/app/hooks/useImageModal";
 
 type Props = {
   image: string;
-  setImage: any;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function ImageModal({ image }: Props) {

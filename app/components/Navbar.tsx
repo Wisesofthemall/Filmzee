@@ -9,14 +9,14 @@ import UserIcon from "./user/UserIcon";
 import { useAuth } from "@/auth/AuthState";
 import useLoginModal from "../hooks/useLoginModal";
 import useSignupModal from "../hooks/useSignupModal";
-import { UserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import { retrieveUser } from "@/database/usersCRUD/Supabase";
 
 type Props = {};
 
 function Navbar({}: Props) {
   const router = useRouter();
-  const user: UserType = useAuth();
+  const user: FirebaseUserType = useAuth();
 
   const loginModal = useLoginModal();
   const signupModal = useSignupModal();
@@ -28,17 +28,25 @@ function Navbar({}: Props) {
       signupModal.onOpen();
     }
   };
+
   const navHome = () => {
     router.push("/");
   };
+
   useEffect(() => {
-    if (user) {
-      signupModal.onClose();
-      loginModal.onClose();
-      retrieveUser(user.createdAt, user);
-    } else {
-      signupModal.onOpen();
-    }
+    const timeout = setTimeout(() => {
+      //* If user is login then close auth modals and retrieve the login User Information
+      if (user) {
+        signupModal.onClose();
+        loginModal.onClose();
+        retrieveUser(user.createdAt, user);
+        //* If user is not login then open signup modal
+      } else {
+        signupModal.onOpen();
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 

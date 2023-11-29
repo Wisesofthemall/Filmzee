@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
 import Modal from "./Modal";
 import useCreateGroupChatModal from "@/app/hooks/useCreateGroupChat";
 import { useAuth } from "@/auth/AuthState";
-import { FirebaseUserType, MemberType, UserType } from "@/types/Types";
+import { FirebaseMemberType, FirebaseUserType, UserType } from "@/types/Types";
 import { createGroupChat } from "@/database/chatsCRUD/Supabase";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
 import { Skeleton } from "@mui/material";
@@ -19,7 +19,7 @@ import { db } from "@/auth/Firebase";
 import { addDoc, collection } from "firebase/firestore";
 
 type Props = {
-  getAllChat: any;
+  getAllChat: () => void;
 };
 
 enum STEPS {
@@ -33,14 +33,19 @@ function GroupChatModal({ getAllChat }: Props) {
   const [query, setQuery] = useState("");
   const [apiQuery, setApiQuery] = useState("");
   const [typing, setTyping] = useState(false);
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
   const loginUser: FirebaseUserType = useAuth();
   const [chatName, setChatName] = useState("");
   const [chatImage, setChatImage] = useState("");
   const [step, setStep] = useState(STEPS.NAME);
-  const [members, setMembers] = useState<MemberType | {}>({});
+  const [members, setMembers] = useState<{ [key: string]: FirebaseMemberType }>(
+    {},
+  );
   const groupInfoRef = collection(db, "groupInfo");
 
+  //* This useEffect is use to check if the user stop typing for 1 second
+  //* If so then make a query to the database
+  //* This prevent over calling the database when the user isn't even finish typing
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (query.length) {
@@ -55,33 +60,39 @@ function GroupChatModal({ getAllChat }: Props) {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  const handleOnChange = (event: any) => {
+  const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
     setTyping(true);
   };
 
-  const handleDeleteMember = (member: MemberType) => {
-    if (member.localId === userInfo.localId) {
+  //* Removes members from the group chat invite list
+  const handleDeleteMember = (member: FirebaseMemberType) => {
+    //* Check to see if the owner try to remove themselves (They can't do that)
+    if (member.localId === userInfo?.localId) {
       toast.error("You can not remove yourself from the group");
       return;
     }
-    setMembers((prevMembers: any) => {
+    //* Return object with deleted member from the group chat invite list
+    setMembers((prevMembers: { [key: string]: FirebaseMemberType }) => {
       const { [member.localId]: deletedValue, ...newMembers } = prevMembers;
       return newMembers;
     });
     toast.success(`${member.name} removed from group`);
   };
-  const handleAddMember = (member: MemberType) => {
-    setMembers((prevMembers: any) => {
+
+  //* Add member to the group chat invite list
+  const handleAddMember = (member: FirebaseMemberType) => {
+    setMembers((prevMembers: { [key: string]: FirebaseMemberType }) => {
       return { ...prevMembers, [member.localId]: member };
     });
     toast.success(`${member.name} added to group`);
   };
 
+  //* Setting the login user (owner) to be a member by default
   const getUserInfo = async () => {
     const user: UserType = await getUserByLocalId(loginUser.localId);
     setUserInfo(user);
-    setMembers((prevMembers: any) => {
+    setMembers((prevMembers: { [key: string]: FirebaseMemberType }) => {
       return {
         ...prevMembers,
         [user.localId]: {
@@ -133,7 +144,7 @@ function GroupChatModal({ getAllChat }: Props) {
     if (Object.keys(members).length === 1) {
       return toast.error("Please add atleast one other member to your group");
     }
-    const membersArray: any = Object.values(members);
+    const membersArray: FirebaseMemberType[] = Object.values(members);
     let roomId = uuidv4();
     let uniq = uniqGenerator();
     try {
@@ -152,12 +163,12 @@ function GroupChatModal({ getAllChat }: Props) {
       setMembers((prevMembers: any) => {
         return {
           ...prevMembers,
-          [userInfo.localId]: {
-            name: userInfo.name,
-            email: userInfo.email,
-            photoUrl: userInfo.photoUrl,
-            localId: userInfo.localId,
-            uniq: userInfo.uniq,
+          [(userInfo as UserType).localId]: {
+            name: userInfo?.name,
+            email: userInfo?.email,
+            photoUrl: userInfo?.photoUrl,
+            localId: userInfo?.localId,
+            uniq: userInfo?.uniq,
           },
         };
       });
@@ -229,7 +240,7 @@ function GroupChatModal({ getAllChat }: Props) {
         </div>
         <div className="text-white font-bold text-xl mb-2">Members: </div>
         <div className="flex items-center overflow-x-scroll w-full">
-          {Object.values(members).map((mem: any) => (
+          {Object.values(members).map((mem: FirebaseMemberType) => (
             <MemberCard
               mem={mem}
               key={mem.localId}

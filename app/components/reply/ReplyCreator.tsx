@@ -4,7 +4,7 @@ import { useAuth } from "@/auth/AuthState";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { filter } from "@/functions/profanityBlocker";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
@@ -14,11 +14,11 @@ import FilmzImageRender from "../filmz/FilmzImageRender";
 import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
 
-type Props = { filmzId: any };
+type Props = { filmzId: string };
 
 function ReplyCreator({ filmzId }: Props) {
-  const [userInfo, setUserInfo] = useState<any>({});
-  const [filmzPhoto, setFilmzPhoto] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
+  const [filmzPhoto, setFilmzPhoto] = useState<string | null>(null);
   const router = useRouter();
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
@@ -28,18 +28,22 @@ function ReplyCreator({ filmzId }: Props) {
 
   const filmzRef = collection(db, "replies");
 
+  //* Submit the comment to the database
   const handleSubmit = async () => {
+    //* If user is not login then open the signup modal and end the sending process
     if (!loginUser) {
       signupModal.onOpen();
       return;
     }
+    //* If user did not add any content then show an error toast notification
     if (newPost === "" && !filmzPhoto) {
       toast.error("Please add a text or image");
       return;
     }
-    console.log("new post", newPost);
+    //* Filter any curse words out
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
 
+    //* Add Comment to database
     await addDoc(filmzRef, {
       id: uuidv4(),
       filmzId: filmzId,
@@ -48,20 +52,22 @@ function ReplyCreator({ filmzId }: Props) {
       image: filmzPhoto,
       sender: {
         ...loginUser,
-        displayName: userInfo.name,
-        photoUrl: userInfo.photoUrl,
+        displayName: (userInfo as UserType).name,
+        photoUrl: (userInfo as UserType).photoUrl,
       },
       createdAt: new Date(),
       likes: {},
       comments: 0,
     });
 
+    //* Set state to its default state
     setNewPost("");
     setFilmzPhoto(null);
   };
+
+  //* Get User info and store it in a state
   const getInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
-
     setUserInfo(result);
   };
 
@@ -72,14 +78,25 @@ function ReplyCreator({ filmzId }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
+  //* Submit the comment to the database
   const handleEnter = async (e: any) => {
+    //* Check if the user click the 'Enter' Key
     if (e === "Enter") {
+      //* If user is not login then open the signup modal and end the sending process
+      if (!loginUser) {
+        signupModal.onOpen();
+        return;
+      }
+
+      //* If user did not add any content then show an error toast notification
       if (newPost === "" && !filmzPhoto) {
         toast.error("Please add a text or image");
         return;
       }
 
+      //* Filter any curse words out
       const post = newPost.length !== 0 ? filter.clean(newPost) : null;
+      //* Add Comment to database
       await addDoc(filmzRef, {
         id: uuidv4(),
         filmzId: filmzId,
@@ -88,14 +105,15 @@ function ReplyCreator({ filmzId }: Props) {
         image: filmzPhoto,
         sender: {
           ...loginUser,
-          displayName: userInfo.name,
-          photoUrl: userInfo.photoUrl,
+          displayName: (userInfo as UserType).name,
+          photoUrl: (userInfo as UserType).photoUrl,
         },
         createdAt: new Date(),
         likes: {},
         comments: 0,
       });
 
+      //* Set state to its default state
       setNewPost("");
       setFilmzPhoto(null);
     } else {
@@ -112,7 +130,7 @@ function ReplyCreator({ filmzId }: Props) {
       >
         <div
           className="  mt-1 cursor-pointer hover:opacity-60"
-          onClick={() => router.push(`/profile/${userInfo.localId}`)}
+          onClick={() => router.push(`/profile/${userInfo?.localId}`)}
         >
           <DynamicPhoto
             photoUrl={userInfo ? userInfo.photoUrl : undefined}
@@ -147,7 +165,7 @@ function ReplyCreator({ filmzId }: Props) {
             <div className="flex justify-between">
               <div className="flex items-center justify-items-center cursor-pointer ">
                 <FilmzImageUploader
-                  value={filmzPhoto}
+                  value={filmzPhoto || ""}
                   onChange={setFilmzPhoto}
                 />
               </div>

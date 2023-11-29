@@ -4,20 +4,25 @@ import { collection, orderBy, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import ReplyCard from "./ReplyCard";
+import { FilmzType } from "@/types/Types";
 
 type Props = {
   main?: boolean;
-  filmzId: any;
+  filmzId: string;
 };
 
 function ReplyContainer({ main, filmzId }: Props) {
+  const [filmz, setFilmz] = useState<FilmzType[]>([]);
   const filmzRef = collection(db, "replies");
+
+  //* query that get all the comments associated with the filmz
   const queryRef = filmzId
     ? query(filmzRef, where("filmzId", "==", filmzId))
     : query(filmzRef, orderBy("createdAt", "desc"));
-  const [filmz, setFilmz] = useState<any>([]);
 
   const [Posts] = useCollectionData(queryRef);
+
+  //* Simply sort the comment base on when it was created
   useEffect(() => {
     if (Posts) {
       const filterMessage = Posts.sort(function (a, b) {
@@ -30,7 +35,7 @@ function ReplyContainer({ main, filmzId }: Props) {
         return dateB - dateA;
       });
 
-      setFilmz(filterMessage);
+      setFilmz(filterMessage as FilmzType[]);
     } else if (Posts) {
       setFilmz(Posts);
     }
@@ -38,7 +43,7 @@ function ReplyContainer({ main, filmzId }: Props) {
 
   return (
     <div className={`w-full h-2/5 flex flex-wrap mt-3  `}>
-      {filmz.map((post: any) => (
+      {filmz.map((post: FilmzType) => (
         <ReplyCard key={post.createdAt} main={main} post={post} />
       ))}
     </div>

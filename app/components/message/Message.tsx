@@ -1,14 +1,20 @@
 "use client";
 import useImageModal from "@/app/hooks/useImageModal";
+import { FirebaseUserType, MessageType } from "@/types/Types";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import React from "react";
 
-type Props = { message: any; loginUser: any; setImage: any };
+type Props = {
+  message: MessageType;
+  loginUser: FirebaseUserType;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
+};
 
 function Message({ message, loginUser, setImage }: Props) {
   const imageModal = useImageModal();
 
+  //* Allow User to expand the image that have been sent
   const handleImageExpander = (image: string) => {
     setImage(image);
     imageModal.onOpen();
@@ -39,7 +45,7 @@ function Message({ message, loginUser, setImage }: Props) {
         } w-fit `}
       >
         {message.text && (
-          <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end  font-semibold w-fit">
+          <div className="rounded-lg p-2 bg-blue-950 mr-1 text-end  font-semibold w-fit flex-wrap">
             {message.text}
           </div>
         )}

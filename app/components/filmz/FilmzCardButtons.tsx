@@ -18,10 +18,10 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 
 type Props = {
-  likes: any;
-  id: any;
-  filmzId: any;
-  setFilmzId: any;
+  likes: { [key: string]: string };
+  id: string;
+  filmzId: string;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
   disabled?: boolean;
 };
 
@@ -40,6 +40,8 @@ function FilmzCardButtons({ likes, id, filmzId, setFilmzId, disabled }: Props) {
   const q = id
     ? query(filmzCardRef, where("createdAt", "==", id))
     : query(filmzCardRef, where("createdAt", "==", new Date()));
+
+  //* Get the Document ID of the current Filmz and store it in a state
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -54,25 +56,34 @@ function FilmzCardButtons({ likes, id, filmzId, setFilmzId, disabled }: Props) {
       });
   };
 
+  //* Update the current like status of the current Filmz
   const updateLike = (num: number) => {
+    //* Did the login user already like the filmz ?
     const isLiked = likes[loginUser.localId] ? true : false;
     const filmzRef = doc(db, "filmz", docID);
+    //* Turns the heart icon red
     if (num > 0) {
       setLiked(true);
 
+      //* If login users didn't like then add the user to the like object
       if (!isLiked) {
         likes[loginUser.localId] = loginUser.localId;
+        //* Update the filmz like status
         updateDoc(filmzRef, { likes: likes });
       }
     } else {
+      //* Turns the heart icon blank
       setLiked(false);
       if (isLiked) {
+        //* If login users already like then remove the user from the like object
         delete likes[loginUser.localId];
+        //* Update the filmz like status
         updateDoc(filmzRef, { likes: likes });
       }
     }
   };
 
+  //* Opens the Modal that contains the Comment Section
   const setComments = () => {
     if (disabled) {
       return;
@@ -80,6 +91,7 @@ function FilmzCardButtons({ likes, id, filmzId, setFilmzId, disabled }: Props) {
     setFilmzId(filmzId);
     commentModal.onOpen();
   };
+  //* Get the Document ID and check if user liked the filmz already
   useEffect(() => {
     getDocName();
     if (loginUser && likes) {

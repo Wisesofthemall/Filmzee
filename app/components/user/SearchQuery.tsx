@@ -1,17 +1,17 @@
 "use client";
 import { getUsersByName } from "@/database/usersCRUD/Supabase";
-import { UserType } from "@/types/Types";
+import { ChatType, UserType } from "@/types/Types";
 import React, { useEffect, useState } from "react";
 import UserSearchCard from "./UserSearchCard";
 import { AiOutlineClose } from "react-icons/ai";
 
 type Props = {
-  getChat: (userId?: number) => {};
+  getChat: (chat: ChatType[]) => {};
   query: string;
   hide: boolean;
   name: string | undefined;
-  setHide: any;
-  loginInfo: UserType;
+  setHide: React.Dispatch<React.SetStateAction<boolean>>;
+  loginInfo: UserType | null;
 };
 
 function SearchQuery({

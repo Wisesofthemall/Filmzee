@@ -5,7 +5,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 
 type Props = {
   photo: string;
-  deletePhoto: any;
+  deletePhoto: () => void;
   size?: number;
 };
 

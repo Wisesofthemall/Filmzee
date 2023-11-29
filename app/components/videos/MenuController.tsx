@@ -8,7 +8,10 @@ import { getShorts } from "@/api/Youtube";
 import { CgFeed } from "react-icons/cg";
 import { getQueryParam, pushSelected } from "@/functions/urlParams";
 
-type Props = { setSelected: any; selected: any };
+type Props = {
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  selected: string;
+};
 
 function MenuController({ setSelected, selected }: Props) {
   const shortsss = async () => {
@@ -17,6 +20,7 @@ function MenuController({ setSelected, selected }: Props) {
     return response;
   };
 
+  //* Push value to the url params
   const pushSelect = (value: string) => {
     pushSelected("select", value);
     const select = getQueryParam("select");
@@ -24,6 +28,7 @@ function MenuController({ setSelected, selected }: Props) {
     setSelected(select as string);
   };
 
+  //* On page load , automatically push 'Filmz' in the url param
   useEffect(() => {
     pushSelect("Filmz");
 

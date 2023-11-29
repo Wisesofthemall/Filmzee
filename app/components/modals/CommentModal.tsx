@@ -5,8 +5,8 @@ import FilmzMain from "../filmz/FilmzMain";
 import CModal from "./CModal";
 
 type Props = {
-  filmzId: any;
-  setFilmzId: any;
+  filmzId: string;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function CommentModal({ filmzId, setFilmzId }: Props) {

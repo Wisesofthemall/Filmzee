@@ -1,6 +1,5 @@
-import { MemberType, UserType, VideoType } from "@/types/Types";
+import { FirebaseMemberType, UserType, VideoType } from "@/types/Types";
 import { createClient } from "@supabase/supabase-js";
-import { formatISO9075 } from "date-fns";
 require("dotenv").config();
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -80,6 +79,9 @@ export const retrieveChat = async (
   roomId: string,
 ) => {
   try {
+    if (userLocalID === recepientLocalID) {
+      return;
+    }
     const chat = await getChatByRoomId(userLocalID, recepientEmail);
     const secondChat = await getChatByRoomId(recepientLocalID, userEmail);
 
@@ -132,7 +134,7 @@ export const getAllChatsbyID = async (userId: string) => {
 };
 
 export const createGroupChat = async (
-  membersIds: MemberType[],
+  membersIds: FirebaseMemberType[],
   groupName: string,
   groupPhoto: string,
   roomId: string,
@@ -151,4 +153,67 @@ export const createGroupChat = async (
     );
   }
   return;
+};
+
+export const deleteChatByLocalID = async (localID: string) => {
+  try {
+    const { error } = await supabase
+      .from("Chats")
+      .delete()
+      .eq("userId", localID); // Assuming "recepientLocalID" is the field to match local IDs
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    return "Chat deleted successfully";
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const updateGroupChatInfo = async (
+  name: string,
+  image: string,
+  id: string,
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("Chats")
+      .update({
+        recepientPhoto: image,
+        recepientName: name,
+      })
+      .eq("roomId", id);
+
+    if (error) {
+      console.error("Error updating groupchat data:", error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error in updateGroupChatInfo function:", error);
+    return null;
+  }
+};
+
+export const getGroupChatInfoByRoomId = async (id: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("Chats")
+      .select("*")
+      .eq("roomId", id);
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    return data[0];
+  } catch (error) {
+    return null;
+  }
 };

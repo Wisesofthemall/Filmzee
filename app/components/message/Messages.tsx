@@ -1,32 +1,30 @@
 "use client";
-import { FirebaseUserType } from "@/types/Types";
-import { useEffect, useRef } from "react";
+import { FirebaseUserType, MessageType } from "@/types/Types";
+import { useEffect, useRef, useState } from "react";
 import DynamicPhoto from "../DynamicPhoto";
 import Message from "./Message";
 import { useRouter } from "next/router";
+import { HiDotsVertical } from "react-icons/hi";
+import { Menu, MenuButton } from "@chakra-ui/react";
+import MessageMenu from "./MessageMenu";
+import message from "@/pages/message";
 
-type MessageType = {
-  roomId: string;
-  sender: FirebaseUserType;
-  createdAt: string;
-  text: string;
-  photo: string;
-};
 type Props = {
   messages: MessageType[];
   loginUser: FirebaseUserType;
-  scroll: any;
-  setScroll: any;
-  setImage: any;
+  scroll: boolean;
+  setScroll: React.Dispatch<React.SetStateAction<boolean>>;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
   const router = useRouter();
-  const dummy: any = useRef();
+  const dummy: React.MutableRefObject<any> = useRef();
   const shouldScroll = () => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  //* Activate Auto Scrolling
   useEffect(() => {
     shouldScroll();
     setScroll(false);
@@ -49,6 +47,7 @@ function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
                 loginUser={loginUser}
                 setImage={setImage}
               />
+
               <div
                 onClick={() =>
                   router.push(`/profile/${message.sender.localId}`)
@@ -60,6 +59,14 @@ function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
                   picId={parseInt(message.sender.createdAt.slice(-3))}
                   email={message.sender.email}
                 />
+              </div>
+              <div className="flex justify-center items-center">
+                <Menu isLazy>
+                  <MenuButton>
+                    <HiDotsVertical size={20} />
+                  </MenuButton>
+                  <MessageMenu id={message.id} />
+                </Menu>
               </div>
             </div>
           ) : (

@@ -1,14 +1,16 @@
 "use client";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import MobileCard from "./MobileCard";
 import DynamicPhoto from "../DynamicPhoto";
+import { UserType } from "@/types/Types";
 
+//!Edit this to correct type
 type Props = {
-  setUsers: any;
-  Users: any;
-  pic: any;
-  id: any;
+  setUsers: React.Dispatch<React.SetStateAction<UserType>>;
+  Users: UserType;
+  pic: string | StaticImageData;
+  id: string;
 };
 
 function MobileProfileCard({ Users, pic, setUsers, id }: Props) {

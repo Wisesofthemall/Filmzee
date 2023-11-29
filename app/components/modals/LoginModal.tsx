@@ -55,6 +55,8 @@ function LoginModal({}: Props) {
       toast.error(error.message);
     }
   };
+
+  //* Close Login Modal and switch to the Signup Modal
   const toggle = useCallback(() => {
     loginModal.onClose();
     signupModal.onOpen();

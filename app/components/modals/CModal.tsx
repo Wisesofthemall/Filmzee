@@ -13,7 +13,7 @@ type Props = {
   body?: React.ReactElement;
   disabled?: boolean;
   filmzId: string;
-  setFilmzId: any;
+  setFilmzId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function CModal({
@@ -22,16 +22,17 @@ function CModal({
   title,
   body,
   disabled,
-
   filmzId,
   setFilmzId,
 }: Props) {
   const [showModal, setShowModal] = useState(isOpen);
 
+  //* Open the Modal
   useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
 
+  //* Close the Modal
   const handleClose = useCallback(() => {
     if (disabled) {
       return;

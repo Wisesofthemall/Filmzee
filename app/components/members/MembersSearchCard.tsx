@@ -1,6 +1,6 @@
 "use client";
 import { colorMaker } from "@/functions/profileGenerator";
-import { UserType } from "@/types/Types";
+import { FirebaseMemberType, UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   user: UserType;
-  addMember: any;
+  addMember: (mem: FirebaseMemberType) => void;
 };
 
 export default function MembersSearchCard({ user, addMember }: Props) {
@@ -21,7 +21,6 @@ export default function MembersSearchCard({ user, addMember }: Props) {
     }
   }, [user]);
 
-  const color: any = colorMaker(picId);
   return (
     <div
       onClick={() =>
@@ -47,7 +46,7 @@ export default function MembersSearchCard({ user, addMember }: Props) {
         ) : (
           <Avatar
             sx={{
-              bgcolor: color(picId),
+              bgcolor: colorMaker(picId),
             }}
           >
             {user.email[0].toUpperCase()}

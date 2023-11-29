@@ -9,15 +9,16 @@ function ForYouPlayer({}: Props) {
   const [index, setIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
 
+  //* Get all videos and set the index state
   const getVideos = async () => {
     const videos = await getAllVideos();
-    console.log(videos);
     setEndIndex(videos.length - 1);
     setVideos(videos);
   };
   const changeIndex = (value: number) => {
     setIndex(index + value);
   };
+
   useEffect(() => {
     getVideos();
   }, []);

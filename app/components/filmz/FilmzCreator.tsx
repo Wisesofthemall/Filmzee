@@ -4,7 +4,7 @@ import { useAuth } from "@/auth/AuthState";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/auth/Firebase";
 import { filter } from "@/functions/profanityBlocker";
-import { FirebaseUserType } from "@/types/Types";
+import { FirebaseUserType, UserType } from "@/types/Types";
 import useSignupModal from "@/app/hooks/useSignupModal";
 import DynamicPhoto from "../DynamicPhoto";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
@@ -17,8 +17,8 @@ import toast from "react-hot-toast";
 type Props = {};
 
 function FilmzCreator({}: Props) {
-  const [userInfo, setUserInfo] = useState<any>({});
-  const [filmzPhoto, setFilmzPhoto] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
+  const [filmzPhoto, setFilmzPhoto] = useState<string | null>(null);
   const router = useRouter();
   const main = true;
   const loginUser: FirebaseUserType = useAuth();
@@ -29,16 +29,19 @@ function FilmzCreator({}: Props) {
   const filmzRef = collection(db, "filmz");
 
   const handleSubmit = async () => {
+    //* Check if user is authorized , if not then show sign up modal
     if (!loginUser) {
       signupModal.onOpen();
       return;
     }
+    //* Check if theres any content to be sent
     if (newPost === "" && !filmzPhoto) {
       toast.error("Please add a text or image");
       return;
     }
+    //* Filter out any curse words the user may have sent
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
-
+    //* Add Filmz to our database
     await addDoc(filmzRef, {
       id: uuidv4(),
       senderId: loginUser.localId,
@@ -46,38 +49,33 @@ function FilmzCreator({}: Props) {
       image: filmzPhoto,
       sender: {
         ...loginUser,
-        displayName: userInfo.name,
-        photoUrl: userInfo.photoUrl,
+        displayName: userInfo?.name,
+        photoUrl: userInfo?.photoUrl,
       },
       createdAt: new Date(),
       likes: {},
     });
 
+    //* Reset Filmz State
     setNewPost("");
     setFilmzPhoto(null);
   };
-  const getInfo = async () => {
-    const result = await getUserByLocalId(loginUser.localId);
-
-    setUserInfo(result);
-  };
-
-  useEffect(() => {
-    if (loginUser) {
-      getInfo();
-    } else {
-      setUserInfo({});
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginUser]);
-
-  const handleEnter = async (e: any) => {
-    if (e === "Enter") {
+  const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    //* Check is user press the 'Enter' Key
+    if (e.key === "Enter") {
+      //* Check if user is authorized , if not then show sign up modal
+      if (!loginUser) {
+        signupModal.onOpen();
+        return;
+      }
+      //* Check if theres any content to be sent
       if (newPost === "" && !filmzPhoto) {
         toast.error("Please add a text or image");
         return;
       }
+      //* Filter out any curse words the user may have sent
       const post = newPost.length !== 0 ? filter.clean(newPost) : null;
+      //* Add Filmz to our database
       await addDoc(filmzRef, {
         id: uuidv4(),
         senderId: loginUser.localId,
@@ -85,19 +83,36 @@ function FilmzCreator({}: Props) {
         image: filmzPhoto,
         sender: {
           ...loginUser,
-          displayName: userInfo.name,
-          photoUrl: userInfo.photoUrl,
+          displayName: userInfo?.name,
+          photoUrl: userInfo?.photoUrl,
         },
         createdAt: new Date(),
         likes: {},
       });
 
+      //* Reset Filmz State
       setNewPost("");
       setFilmzPhoto(null);
     } else {
       return;
     }
   };
+
+  //* Get login user's info and store it in a state
+  const getInfo = async () => {
+    const result = await getUserByLocalId(loginUser.localId);
+    setUserInfo(result);
+  };
+
+  //* Fetch login user info or reset state
+  useEffect(() => {
+    if (loginUser) {
+      getInfo();
+    } else {
+      setUserInfo(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   return (
     <div className="w-full">
@@ -108,7 +123,7 @@ function FilmzCreator({}: Props) {
       >
         <div
           className="  mt-1 cursor-pointer hover:opacity-60"
-          onClick={() => router.push(`/profile/${userInfo.localId}`)}
+          onClick={() => router.push(`/profile/${userInfo?.localId}`)}
         >
           <DynamicPhoto
             photoUrl={userInfo ? userInfo.photoUrl : undefined}
@@ -126,7 +141,9 @@ function FilmzCreator({}: Props) {
             <div className="text-gray-800 text-sm ml-2">{loginUser?.email}</div>
           </div>
           <textarea
-            onKeyDown={(e) => handleEnter(e.key)}
+            onKeyDown={(e) =>
+              handleEnter(e as unknown as React.KeyboardEvent<HTMLInputElement>)
+            }
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
             className="rounded-lg bg-gray-950 border border-blue-400 col-span-8 outline-none w-4/5 h-16  my-2 mx-1 p-2  font-semibold"
@@ -142,7 +159,7 @@ function FilmzCreator({}: Props) {
             <div className="flex justify-between">
               <div className="flex items-center justify-items-center cursor-pointer ">
                 <FilmzImageUploader
-                  value={filmzPhoto}
+                  value={filmzPhoto || ""}
                   onChange={setFilmzPhoto}
                 />
               </div>

@@ -2,16 +2,17 @@
 import { useAuth } from "@/auth/AuthState";
 import { retrieveChat } from "@/database/chatsCRUD/Supabase";
 import { colorMaker } from "@/functions/profileGenerator";
-import { FirebaseUserType, UserType } from "@/types/Types";
+import { ChatType, FirebaseUserType, UserType } from "@/types/Types";
 import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
 
 type Props = {
   user: UserType;
-  getChat: any;
-  loginInfo: UserType;
+  getChat: (chat: ChatType[]) => {};
+  loginInfo: UserType | null;
 };
 
 export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
@@ -23,14 +24,22 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
   // userName: string,
   // userEmail: string,
   // userPhoto: string,
+
+  //* Update the login user's chat list
   const updateChat = async () => {
+    if (loginUser.localId === user.localId) {
+      toast.error("Cannot create a chat with yourself");
+      return;
+    }
+    //* Creates and retrieve a new chat
     const newChats = await retrieveChat(
-      loginUser.localId,
-      loginInfo.id,
+      (loginInfo as UserType).localId,
+      (loginInfo as UserType).id,
       loginUser.createdAt,
-      loginInfo.displayName || loginInfo.email.split("@")[0],
-      loginUser.email,
-      loginInfo.photoUrl,
+      (loginInfo as UserType).displayName ||
+        (loginInfo as UserType).email.split("@")[0],
+      (loginInfo as UserType).email,
+      (loginInfo as UserType).photoUrl,
       user.id,
       user.uniq,
       user.name,
@@ -39,12 +48,13 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
       user.localId,
       roomID,
     );
-
-    getChat(newChats);
+    toast.success("Sucessfully created chat");
+    getChat(newChats as ChatType[]);
   };
 
   useEffect(() => {
     if (user) {
+      //* Creating a picID base on the user 'uniq'
       const id = parseInt(user.uniq.slice(-3));
       setPicId(id);
     }
@@ -52,13 +62,13 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
 
   useEffect(() => {
     if (loginUser) {
+      //* Creating a roomID base on the user and login user localIDs
       const roomId = [...user.localId, ...loginUser.localId].sort().join("");
       setRoomID(roomId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
-  const color: any = colorMaker(picId);
   return (
     <div
       onClick={() => updateChat()}
@@ -76,7 +86,7 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
         ) : (
           <Avatar
             sx={{
-              bgcolor: color(picId),
+              bgcolor: colorMaker(picId),
             }}
           >
             {user.email[0].toUpperCase()}

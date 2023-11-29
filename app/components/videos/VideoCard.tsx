@@ -11,7 +11,6 @@ type Props = {
 };
 
 function VideoCard({ video, changeIndex, index, endIndex }: Props) {
-  console.log("video", video);
   return (
     <div className="w-[90%] h-[70vh] rounded-lg m-4  flex">
       <iframe

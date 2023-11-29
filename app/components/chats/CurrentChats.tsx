@@ -6,82 +6,97 @@ import { collection, addDoc, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/auth/Firebase";
 import { useAuth } from "@/auth/AuthState";
-import { ChatType } from "@/types/Types";
+import { ChatType, MessageType, UserType } from "@/types/Types";
 import Header from "../inputs/Header";
 import Messages from "../message/Messages";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { v4 as uuidv4 } from "uuid";
 
 type Props = {
   selected: ChatType;
-  showCurrent: any;
-  setShowCurrent: any;
-  setHide: any;
-  hide: any;
-  setImage: any;
+  showCurrent: boolean;
+  setShowCurrent: React.Dispatch<React.SetStateAction<boolean>>;
+
+  hide: boolean;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function CurrentChats({
   selected,
   showCurrent,
   setShowCurrent,
-  setHide,
   hide,
   setImage,
 }: Props) {
-  const [userInfo, setUserInfo] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
   const [newMessage, setNewMessage] = useState("");
-  const [messagePhoto, setMessagePhoto] = useState<any>(null);
+  const [messagePhoto, setMessagePhoto] = useState<string | null>(null);
   const [scroll, setScroll] = useState(false);
   const roomId = selected.roomId;
 
   const messagesRef = collection(db, "messages");
   const queryRef = query(messagesRef, where("roomId", "==", roomId));
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
 
   const [Message] = useCollectionData(queryRef);
 
   const loginUser = useAuth();
 
-  const handleSubmit = async (e: any) => {
+  //* Sends Message to Users
+  const handleSubmit = async () => {
+    //* Check if theres any content to be sent
     if (newMessage === "" && !messagePhoto) return;
+    //* Filter out any curse words the user might've sent
     const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
+    //* Add the message to our database
     await addDoc(messagesRef, {
+      id: uuidv4(),
       text: message,
       image: messagePhoto,
       sender: {
         ...loginUser,
-        displayName: userInfo.name,
-        photoUrl: userInfo.photoUrl,
+        displayName: userInfo?.name,
+        photoUrl: userInfo?.photoUrl,
       },
       createdAt: new Date(),
       roomId,
+      edit: false,
     });
-
+    //* Reset Message States
     setNewMessage("");
     setMessagePhoto(null);
+    //* Activate auto scroll
     setScroll(true);
     setScroll(false);
   };
-  const handleEnter = async (e: any) => {
-    if (e === "Enter") {
-      if (newMessage === "" && !messagePhoto) return;
+
+  //* Sends Message to Users
+  const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    //* Check if user press the 'Enter' Key
+    if (e.key === "Enter") {
+      //* Check if theres any content to be sent
+      if (newMessage.length === 0 && !messagePhoto) return;
+      //* Filter out any curse words the user might've sent
       const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
-      if (!message) return;
+      //* Add the message to our database
       await addDoc(messagesRef, {
+        id: uuidv4(),
         text: message,
         image: messagePhoto,
         sender: {
           ...loginUser,
-          displayName: userInfo.name,
-          photoUrl: userInfo.photoUrl,
+          displayName: userInfo?.name,
+          photoUrl: userInfo?.photoUrl,
         },
         createdAt: new Date(),
         roomId,
+        edit: false,
       });
 
+      //* Reset Message States
       setNewMessage("");
-
       setMessagePhoto(null);
+      //* Activate auto scroll
       setScroll(true);
       setScroll(false);
     } else {
@@ -90,13 +105,14 @@ function CurrentChats({
   };
 
   useEffect(() => {
+    //* Activate Auto Scroll
     setScroll(true);
     setScroll(false);
   }, [selected]);
 
+  //* Set the User Info
   const getInfo = async () => {
     const result = await getUserByLocalId(loginUser.localId);
-
     setUserInfo(result);
   };
 
@@ -108,6 +124,7 @@ function CurrentChats({
   }, [loginUser]);
 
   useEffect(() => {
+    //* Sort Messages between the users by time
     if (Message) {
       const filterMessage = Message.sort(function (a, b) {
         // Convert Firestore Timestamps to JavaScript Date objects
@@ -119,7 +136,7 @@ function CurrentChats({
         return dateA - dateB;
       });
 
-      setMessages(filterMessage);
+      setMessages(filterMessage as MessageType[]);
       setScroll(true);
     }
   }, [Message, roomId]);
@@ -146,14 +163,13 @@ function CurrentChats({
     >
       <Header
         localId={selected.recepientLocalID}
-        showCurrent={showCurrent}
         setShowCurrent={setShowCurrent}
         photo={selected.recepientPhoto}
         name={selected.recepientName}
         uniq={selected.recepientUniq}
         email={selected.recepientEmail}
         id={selected.recepientId}
-        edit={!selected.recepientId}
+        isGroupChat={!selected.recepientId}
         roomId={roomId}
       />
       <div className="flex-grow h-[25rem]">

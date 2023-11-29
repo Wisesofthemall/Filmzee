@@ -32,10 +32,12 @@ function Modal({
 }: Props) {
   const [showModal, setShowModal] = useState(isOpen);
 
+  //* Opens Modal
   useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
 
+  //* Close Modal if its not disabled
   const handleClose = useCallback(() => {
     if (disabled) {
       return;
@@ -46,6 +48,7 @@ function Modal({
     }, 300);
   }, [disabled, onClose]);
 
+  //* Invoke Submit Function if its not disable
   const handleSubmit = useCallback(() => {
     if (disabled) {
       return;
@@ -53,12 +56,14 @@ function Modal({
     onSubmit();
   }, [disabled, onSubmit]);
 
+  //* Function returns nothing if secondaryAction is not defined or disabled
   const handleSecondaryAction = useCallback(() => {
     if (disabled || !secondaryAction) {
       return;
     }
     secondaryAction();
   }, [disabled, secondaryAction]);
+
   if (!isOpen) {
     return null;
   }
