@@ -40,7 +40,7 @@ function ReplyCreator({ filmzId }: Props) {
       toast.error("Please add a text or image");
       return;
     }
-    //* Filter any curse words out
+    //* Filter out any curse words the user may have text
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
 
     //* Add Comment to database
@@ -94,7 +94,7 @@ function ReplyCreator({ filmzId }: Props) {
         return;
       }
 
-      //* Filter any curse words out
+      //* Filter out any curse words the user may have text
       const post = newPost.length !== 0 ? filter.clean(newPost) : null;
       //* Add Comment to database
       await addDoc(filmzRef, {

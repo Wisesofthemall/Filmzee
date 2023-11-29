@@ -28,7 +28,7 @@ function MessageMenu({ id }: Props) {
 
   const q = query(messageRef, where("id", "==", id));
 
-  //* get filmz Document ID and store it
+  //* get message Document ID and store it
   const getDocName = async () => {
     getDocs(q)
       .then((querySnapshot) => {
@@ -42,7 +42,7 @@ function MessageMenu({ id }: Props) {
         console.error("Error querying documents: ", error);
       });
   };
-  //* Deletes the Filmz or Comment
+  //* Deletes the message
   const handleDelete = () => {
     const filmzRef = doc(db, "messages", docID);
 
@@ -56,10 +56,7 @@ function MessageMenu({ id }: Props) {
 
     return;
   };
-  //* Does absolutley nothing but a toast notification
-  const handleReport = () => {
-    toast.success("Successfully Reported");
-  };
+
   useEffect(() => {
     getDocName();
     // eslint-disable-next-line react-hooks/exhaustive-deps

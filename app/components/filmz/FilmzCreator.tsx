@@ -39,7 +39,7 @@ function FilmzCreator({}: Props) {
       toast.error("Please add a text or image");
       return;
     }
-    //* Filter out any curse words the user may have sent
+    //* Filter out any curse words the user may have text
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
     //* Add Filmz to our database
     await addDoc(filmzRef, {
@@ -73,7 +73,7 @@ function FilmzCreator({}: Props) {
         toast.error("Please add a text or image");
         return;
       }
-      //* Filter out any curse words the user may have sent
+      //* Filter out any curse words the user may have text
       const post = newPost.length !== 0 ? filter.clean(newPost) : null;
       //* Add Filmz to our database
       await addDoc(filmzRef, {
