@@ -31,6 +31,7 @@ export type FirebaseUserType = {
   photoUrl: string;
 };
 export type MessageType = {
+  id: string;
   roomId: string;
   sender: FirebaseUserType;
   createdAt: any;

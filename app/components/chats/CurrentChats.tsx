@@ -10,6 +10,7 @@ import { ChatType, MessageType, UserType } from "@/types/Types";
 import Header from "../inputs/Header";
 import Messages from "../message/Messages";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import { v4 as uuidv4 } from "uuid";
 
 type Props = {
   selected: ChatType;
@@ -49,6 +50,7 @@ function CurrentChats({
     const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
     //* Add the message to our database
     await addDoc(messagesRef, {
+      id: uuidv4(),
       text: message,
       image: messagePhoto,
       sender: {
@@ -78,6 +80,7 @@ function CurrentChats({
       const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
       //* Add the message to our database
       await addDoc(messagesRef, {
+        id: uuidv4(),
         text: message,
         image: messagePhoto,
         sender: {

@@ -17,7 +17,7 @@
 
 - Users can message other users in real-time using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
 
-- Users can edit and delete their message in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Users can delete their message in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
 
 - User can post content for everyone to see in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
 

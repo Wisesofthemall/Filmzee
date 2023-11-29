@@ -1,10 +1,13 @@
 "use client";
 import { FirebaseUserType, MessageType } from "@/types/Types";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import DynamicPhoto from "../DynamicPhoto";
 import Message from "./Message";
 import { useRouter } from "next/router";
 import { HiDotsVertical } from "react-icons/hi";
+import { Menu, MenuButton } from "@chakra-ui/react";
+import MessageMenu from "./MessageMenu";
+import message from "@/pages/message";
 
 type Props = {
   messages: MessageType[];
@@ -44,6 +47,7 @@ function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
                 loginUser={loginUser}
                 setImage={setImage}
               />
+
               <div
                 onClick={() =>
                   router.push(`/profile/${message.sender.localId}`)
@@ -57,7 +61,12 @@ function Messages({ messages, loginUser, scroll, setScroll, setImage }: Props) {
                 />
               </div>
               <div className="flex justify-center items-center">
-                <HiDotsVertical />
+                <Menu isLazy>
+                  <MenuButton>
+                    <HiDotsVertical size={20} />
+                  </MenuButton>
+                  <MessageMenu id={message.id} />
+                </Menu>
               </div>
             </div>
           ) : (
