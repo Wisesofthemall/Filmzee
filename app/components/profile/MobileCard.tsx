@@ -17,7 +17,6 @@ import Image from "next/image";
 import Logo from "@/assets/Logo.png";
 import { UserType } from "@/types/Types";
 
-//! Edit this to correct typescript
 type Props = {
   Users: UserType;
   setUsers: React.Dispatch<React.SetStateAction<UserType>>;

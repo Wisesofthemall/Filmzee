@@ -46,7 +46,7 @@ function CurrentChats({
   const handleSubmit = async () => {
     //* Check if theres any content to be sent
     if (newMessage === "" && !messagePhoto) return;
-    //* Filter out any curse words the user might've sent
+    //* Filter out any curse words the user may have text
     const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
     //* Add the message to our database
     await addDoc(messagesRef, {
@@ -76,7 +76,7 @@ function CurrentChats({
     if (e.key === "Enter") {
       //* Check if theres any content to be sent
       if (newMessage.length === 0 && !messagePhoto) return;
-      //* Filter out any curse words the user might've sent
+      //* Filter out any curse words the user may have text
       const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
       //* Add the message to our database
       await addDoc(messagesRef, {
