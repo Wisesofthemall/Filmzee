@@ -9,7 +9,7 @@ type Props = {
   image: string;
 };
 
-function IModal({ isOpen, onClose, image }: Props) {
+function IModal({ isOpen, onClose, image = "" }: Props) {
   const [showModal, setShowModal] = useState(isOpen);
 
   //* Open Modal

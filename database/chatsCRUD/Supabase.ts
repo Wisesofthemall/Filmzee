@@ -173,3 +173,47 @@ export const deleteChatByLocalID = async (localID: string) => {
     return null;
   }
 };
+
+export const updateGroupChatInfo = async (
+  name: string,
+  image: string,
+  id: string,
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("Chats")
+      .update({
+        recepientPhoto: image,
+        recepientName: name,
+      })
+      .eq("roomId", id);
+
+    if (error) {
+      console.error("Error updating groupchat data:", error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error in updateGroupChatInfo function:", error);
+    return null;
+  }
+};
+
+export const getGroupChatInfoByRoomId = async (id: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("Chats")
+      .select("*")
+      .eq("roomId", id);
+
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    return data[0];
+  } catch (error) {
+    return null;
+  }
+};

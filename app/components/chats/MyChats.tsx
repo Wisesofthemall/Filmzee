@@ -70,7 +70,7 @@ function MyChats({
           getAllChat();
           toast.success("Reloaded Chats Sucessfully");
         }}
-        className="text-white font-bold text-end flex justify-end px-6 cursor-pointer"
+        className="text-white font-bold text-end flex justify-end px-6 cursor-pointer w-fit"
       >
         <IoReload size={20} />
       </div>

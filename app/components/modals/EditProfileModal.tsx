@@ -91,7 +91,6 @@ function EditProfileModal({}: Props) {
         profileModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
         toast.error(error.message);
       });
   };

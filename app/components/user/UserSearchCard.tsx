@@ -47,7 +47,7 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
       user.localId,
       roomID,
     );
-
+    toast.success("Sucessfully created chat");
     getChat(newChats);
   };
 

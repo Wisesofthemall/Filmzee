@@ -21,9 +21,9 @@ import { FirebaseUserType } from "@/types/Types";
 import { useAuth } from "@/auth/AuthState";
 import toast from "react-hot-toast";
 import { deleteChatByLocalID } from "@/database/chatsCRUD/Supabase";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import useAddMemberModal from "@/app/hooks/useAddMemberModal";
-import AddMemberModal from "../modals/AddMemberModal";
+import { TbPencil } from "react-icons/tb";
+import EditGroupChatModal from "../modals/EditGroupChat";
 
 type Props = {
   photo: string;
@@ -51,10 +51,8 @@ export default function Header({
   roomId,
 }: Props) {
   const [picId, setPicId] = useState(200);
-
   const [docID, setDocID] = useState("");
   const [currentMemberLength, setCurrentMemberLength] = useState(0);
-
   const router = useRouter();
   const groupInfoRef = collection(db, "groupInfo");
   const queryRef = query(groupInfoRef, where("roomId", "==", roomId));
@@ -62,6 +60,8 @@ export default function Header({
   const addMember = useAddMemberModal();
 
   const [Posts] = useCollectionData(queryRef);
+
+  //* Creates a picID base on 'uniq' and stores it
   useEffect(() => {
     if (uniq) {
       const id = parseInt(uniq.slice(-3));
@@ -132,7 +132,7 @@ export default function Header({
   }, [localId]);
 
   useEffect(() => {
-    if (Posts) {
+    if (Posts && Posts[0]) {
       let currentMembers: [] = Posts[0].membersArray;
       let check = currentMembers.filter(
         (member: any) => member.localId === loginUser.localId,
@@ -163,7 +163,7 @@ export default function Header({
 
   return (
     <div className="w-full bg-blue-400  flex items-center rounded-lg">
-      <AddMemberModal
+      <EditGroupChatModal
         roomId={roomId}
         chatName={name}
         chatImage={photo}
@@ -206,7 +206,7 @@ export default function Header({
                 onClick={() => addMember.onOpen()}
                 className="mx-2 font-bold cursor-pointer"
               >
-                <IoMdAddCircleOutline size={30} />
+                <TbPencil size={30} />
               </div>
             )}
 
