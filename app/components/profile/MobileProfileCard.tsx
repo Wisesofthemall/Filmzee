@@ -5,7 +5,6 @@ import MobileCard from "./MobileCard";
 import DynamicPhoto from "../DynamicPhoto";
 import { UserType } from "@/types/Types";
 
-//!Edit this to correct type
 type Props = {
   setUsers: React.Dispatch<React.SetStateAction<UserType>>;
   Users: UserType;
