@@ -25,10 +25,10 @@ export default function Home() {
   }, []);
   const content = (
     <div className="my-2">
+      <div className="font-bold">- Owner of groupchat can remove Users</div>
       <div className="font-bold">
-        - Owner of groupchat can remove and remove Users
+        - Owner of groupchat can edit the group&apos;s info
       </div>
-      <div className="font-bold">- Owner of groupchat edit the group info</div>
       <div className="font-bold">- Users can delete messages</div>
       <div className="font-bold">
         {" "}
@@ -80,7 +80,7 @@ export default function Home() {
         />
         <NewsContainer
           header="Whats Coming ?"
-          subtitle="What is going to be added!"
+          subtitle="What is going to be added! (hopefully 😅)"
           content={news}
         />
       </div>
