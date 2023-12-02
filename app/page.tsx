@@ -16,9 +16,13 @@ export default function Home() {
   const [filmzId, setFilmzId] = useState("");
   const [image, setImage] = useState("");
   const RetrieveVideos = async () => {
-    const video: VideoType[] = await getAllVideos();
-    setVideos(video);
-    setIsLoaded(true);
+    try {
+      const video: VideoType[] = await getAllVideos();
+      setVideos(video);
+      setIsLoaded(true);
+    } catch (error) {
+      console.log("Error Retrieving Video", error);
+    }
   };
   useEffect(() => {
     //! LAGGING THE PAGE RetrieveVideos();

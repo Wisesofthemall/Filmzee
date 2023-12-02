@@ -90,20 +90,24 @@ function GroupChatModal({ getAllChat }: Props) {
 
   //* Setting the login user (owner) to be a member by default
   const getUserInfo = async () => {
-    const user: UserType = await getUserByLocalId(loginUser.localId);
-    setUserInfo(user);
-    setMembers((prevMembers: { [key: string]: FirebaseMemberType }) => {
-      return {
-        ...prevMembers,
-        [user.localId]: {
-          name: user.name,
-          email: user.email,
-          photoUrl: user.photoUrl,
-          localId: user.localId,
-          uniq: user.uniq,
-        },
-      };
-    });
+    try {
+      const user: UserType = await getUserByLocalId(loginUser.localId);
+      setUserInfo(user);
+      setMembers((prevMembers: { [key: string]: FirebaseMemberType }) => {
+        return {
+          ...prevMembers,
+          [user.localId]: {
+            name: user.name,
+            email: user.email,
+            photoUrl: user.photoUrl,
+            localId: user.localId,
+            uniq: user.uniq,
+          },
+        };
+      });
+    } catch (error) {
+      console.error("Error Fetching User Info");
+    }
   };
 
   useEffect(() => {

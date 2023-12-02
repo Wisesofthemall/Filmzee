@@ -37,16 +37,23 @@ function MyChats({
   };
   //* Get all the chats the login User is in
   const getAllChat = async () => {
-    const chats = await getAllChatsbyID(loginUser.localId);
-
-    if (chats) {
-      setMyChats(chats);
+    try {
+      const chats = await getAllChatsbyID(loginUser.localId);
+      if (chats) {
+        setMyChats(chats);
+      }
+    } catch (error) {
+      console.error("Error getting chats", error);
     }
   };
   //* Set User Info
   const getUserInfo = async () => {
-    const user: UserType | null = await getUserByLocalId(loginUser.localId);
-    setUserInfo(user);
+    try {
+      const user: UserType | null = await getUserByLocalId(loginUser.localId);
+      setUserInfo(user);
+    } catch (error) {
+      console.error("Error fetching user info", error);
+    }
   };
 
   //* Invoke these function everytime the login User changes

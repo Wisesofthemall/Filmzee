@@ -24,8 +24,12 @@ function SearchQuery({
 }: Props) {
   const [results, setResults] = useState<UserType[] | []>([]);
   const getResults = async () => {
-    const users: UserType[] = await getUsersByName(query, name || "");
-    setResults(users);
+    try {
+      const users: UserType[] = await getUsersByName(query, name || "");
+      setResults(users);
+    } catch (error) {
+      console.error("Error Fetching User Info", error);
+    }
   };
   useEffect(() => {
     getResults();
