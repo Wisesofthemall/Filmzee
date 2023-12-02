@@ -32,24 +32,28 @@ export default function UserSearchCard({ user, getChat, loginInfo }: Props) {
       return;
     }
     //* Creates and retrieve a new chat
-    const newChats = await retrieveChat(
-      (loginInfo as UserType).localId,
-      (loginInfo as UserType).id,
-      loginUser.createdAt,
-      (loginInfo as UserType).displayName ||
-        (loginInfo as UserType).email.split("@")[0],
-      (loginInfo as UserType).email,
-      (loginInfo as UserType).photoUrl,
-      user.id,
-      user.uniq,
-      user.name,
-      user.email,
-      user.photoUrl,
-      user.localId,
-      roomID,
-    );
-    toast.success("Sucessfully created chat");
-    getChat(newChats as ChatType[]);
+    try {
+      const newChats = await retrieveChat(
+        (loginInfo as UserType).localId,
+        (loginInfo as UserType).id,
+        loginUser.createdAt,
+        (loginInfo as UserType).displayName ||
+          (loginInfo as UserType).email.split("@")[0],
+        (loginInfo as UserType).email,
+        (loginInfo as UserType).photoUrl,
+        user.id,
+        user.uniq,
+        user.name,
+        user.email,
+        user.photoUrl,
+        user.localId,
+        roomID,
+      );
+      toast.success("Sucessfully created chat");
+      getChat(newChats as ChatType[]);
+    } catch (error) {
+      toast.error("Failed to create chat");
+    }
   };
 
   useEffect(() => {

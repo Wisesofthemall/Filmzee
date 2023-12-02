@@ -42,23 +42,27 @@ function FilmzCreator({}: Props) {
     //* Filter out any curse words the user may have text
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
     //* Add Filmz to our database
-    await addDoc(filmzRef, {
-      id: uuidv4(),
-      senderId: loginUser.localId,
-      text: post,
-      image: filmzPhoto,
-      sender: {
-        ...loginUser,
-        displayName: userInfo?.name,
-        photoUrl: userInfo?.photoUrl,
-      },
-      createdAt: new Date(),
-      likes: {},
-    });
-
-    //* Reset Filmz State
-    setNewPost("");
-    setFilmzPhoto(null);
+    try {
+      await addDoc(filmzRef, {
+        id: uuidv4(),
+        senderId: loginUser.localId,
+        text: post,
+        image: filmzPhoto,
+        sender: {
+          ...loginUser,
+          displayName: userInfo?.name,
+          photoUrl: userInfo?.photoUrl,
+        },
+        createdAt: new Date(),
+        likes: {},
+      });
+    } catch (error) {
+      console.error("Error Adding Filmz to Database", error);
+    } finally {
+      //* Reset Filmz State
+      setNewPost("");
+      setFilmzPhoto(null);
+    }
   };
   const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     //* Check is user press the 'Enter' Key
@@ -76,23 +80,27 @@ function FilmzCreator({}: Props) {
       //* Filter out any curse words the user may have text
       const post = newPost.length !== 0 ? filter.clean(newPost) : null;
       //* Add Filmz to our database
-      await addDoc(filmzRef, {
-        id: uuidv4(),
-        senderId: loginUser.localId,
-        text: post,
-        image: filmzPhoto,
-        sender: {
-          ...loginUser,
-          displayName: userInfo?.name,
-          photoUrl: userInfo?.photoUrl,
-        },
-        createdAt: new Date(),
-        likes: {},
-      });
-
-      //* Reset Filmz State
-      setNewPost("");
-      setFilmzPhoto(null);
+      try {
+        await addDoc(filmzRef, {
+          id: uuidv4(),
+          senderId: loginUser.localId,
+          text: post,
+          image: filmzPhoto,
+          sender: {
+            ...loginUser,
+            displayName: userInfo?.name,
+            photoUrl: userInfo?.photoUrl,
+          },
+          createdAt: new Date(),
+          likes: {},
+        });
+      } catch (error) {
+        console.error("Error Adding Filmz to Database", error);
+      } finally {
+        //* Reset Filmz State
+        setNewPost("");
+        setFilmzPhoto(null);
+      }
     } else {
       return;
     }
@@ -100,8 +108,12 @@ function FilmzCreator({}: Props) {
 
   //* Get login user's info and store it in a state
   const getInfo = async () => {
-    const result = await getUserByLocalId(loginUser.localId);
-    setUserInfo(result);
+    try {
+      const result = await getUserByLocalId(loginUser.localId);
+      setUserInfo(result);
+    } catch (error) {
+      console.error("Error fetching user info", error);
+    }
   };
 
   //* Fetch login user info or reset state

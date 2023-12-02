@@ -44,31 +44,39 @@ function ReplyCreator({ filmzId }: Props) {
     const post = newPost.length !== 0 ? filter.clean(newPost) : null;
 
     //* Add Comment to database
-    await addDoc(filmzRef, {
-      id: uuidv4(),
-      filmzId: filmzId,
-      senderId: loginUser.localId,
-      text: post,
-      image: filmzPhoto,
-      sender: {
-        ...loginUser,
-        displayName: (userInfo as UserType).name,
-        photoUrl: (userInfo as UserType).photoUrl,
-      },
-      createdAt: new Date(),
-      likes: {},
-      comments: 0,
-    });
+    try {
+      await addDoc(filmzRef, {
+        id: uuidv4(),
+        filmzId: filmzId,
+        senderId: loginUser.localId,
+        text: post,
+        image: filmzPhoto,
+        sender: {
+          ...loginUser,
+          displayName: (userInfo as UserType).name,
+          photoUrl: (userInfo as UserType).photoUrl,
+        },
+        createdAt: new Date(),
+        likes: {},
+        comments: 0,
+      });
 
-    //* Set state to its default state
-    setNewPost("");
-    setFilmzPhoto(null);
+      //* Set state to its default state
+      setNewPost("");
+      setFilmzPhoto(null);
+    } catch (error) {
+      console.error("Error Adding comment to the Database");
+    }
   };
 
   //* Get User info and store it in a state
   const getInfo = async () => {
-    const result = await getUserByLocalId(loginUser.localId);
-    setUserInfo(result);
+    try {
+      const result = await getUserByLocalId(loginUser.localId);
+      setUserInfo(result);
+    } catch (error) {
+      console.error("Error Fetching User Info", error);
+    }
   };
 
   useEffect(() => {

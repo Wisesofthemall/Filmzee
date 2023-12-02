@@ -40,14 +40,17 @@ function EditProfileModal({}: Props) {
 
   //* Get the User info and store it in states
   const getUserInfo = async () => {
-    const result = await getUserByLocalId(loginUser.localId);
-
-    setName(result.name);
-    setPhotoUrl(result.photoUrl);
-    setBio(result.bio);
-    setLocation(result.location);
-    setBackgroundImg(result.backgroundImg);
-    setLocalId(result.localId);
+    try {
+      const result = await getUserByLocalId(loginUser.localId);
+      setName(result.name);
+      setPhotoUrl(result.photoUrl);
+      setBio(result.bio);
+      setLocation(result.location);
+      setBackgroundImg(result.backgroundImg);
+      setLocalId(result.localId);
+    } catch (error) {
+      console.error("Error Fetching User Info", error);
+    }
   };
   useEffect(() => {
     if (loginUser) {

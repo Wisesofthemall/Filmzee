@@ -11,9 +11,13 @@ function ForYouPlayer({}: Props) {
 
   //* Get all videos and set the index state
   const getVideos = async () => {
-    const videos = await getAllVideos();
-    setEndIndex(videos.length - 1);
-    setVideos(videos);
+    try {
+      const videos = await getAllVideos();
+      setEndIndex(videos.length - 1);
+      setVideos(videos);
+    } catch (error) {
+      console.error("Error Fetching Videos", error);
+    }
   };
   const changeIndex = (value: number) => {
     setIndex(index + value);

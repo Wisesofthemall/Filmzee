@@ -42,9 +42,13 @@ function MobileCard({ Users, setUsers, id }: Props) {
     if (id) {
       const Query = query(filmzRef, where("senderId", "==", id));
       setQueryRef(Query);
-      const profileUser = await getUserByLocalId(id);
+      try {
+        const profileUser = await getUserByLocalId(id);
 
-      setUsers(profileUser);
+        setUsers(profileUser);
+      } catch (error) {
+        console.error("Error Fetching User Filmz", error);
+      }
     }
   };
 

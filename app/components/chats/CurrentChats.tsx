@@ -49,36 +49,7 @@ function CurrentChats({
     //* Filter out any curse words the user may have text
     const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
     //* Add the message to our database
-    await addDoc(messagesRef, {
-      id: uuidv4(),
-      text: message,
-      image: messagePhoto,
-      sender: {
-        ...loginUser,
-        displayName: userInfo?.name,
-        photoUrl: userInfo?.photoUrl,
-      },
-      createdAt: new Date(),
-      roomId,
-      edit: false,
-    });
-    //* Reset Message States
-    setNewMessage("");
-    setMessagePhoto(null);
-    //* Activate auto scroll
-    setScroll(true);
-    setScroll(false);
-  };
-
-  //* Sends Message to Users
-  const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    //* Check if user press the 'Enter' Key
-    if (e.key === "Enter") {
-      //* Check if theres any content to be sent
-      if (newMessage.length === 0 && !messagePhoto) return;
-      //* Filter out any curse words the user may have text
-      const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
-      //* Add the message to our database
+    try {
       await addDoc(messagesRef, {
         id: uuidv4(),
         text: message,
@@ -92,13 +63,51 @@ function CurrentChats({
         roomId,
         edit: false,
       });
-
+    } catch (error) {
+      console.error("Error Adding Message to Database", error);
+    } finally {
       //* Reset Message States
       setNewMessage("");
       setMessagePhoto(null);
       //* Activate auto scroll
       setScroll(true);
       setScroll(false);
+    }
+  };
+
+  //* Sends Message to Users
+  const handleEnter = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    //* Check if user press the 'Enter' Key
+    if (e.key === "Enter") {
+      //* Check if theres any content to be sent
+      if (newMessage.length === 0 && !messagePhoto) return;
+      //* Filter out any curse words the user may have text
+      const message = newMessage.length !== 0 ? filter.clean(newMessage) : null;
+      //* Add the message to our database
+      try {
+        await addDoc(messagesRef, {
+          id: uuidv4(),
+          text: message,
+          image: messagePhoto,
+          sender: {
+            ...loginUser,
+            displayName: userInfo?.name,
+            photoUrl: userInfo?.photoUrl,
+          },
+          createdAt: new Date(),
+          roomId,
+          edit: false,
+        });
+      } catch (error) {
+        console.error("Error Adding Message to Database", error);
+      } finally {
+        //* Reset Message States
+        setNewMessage("");
+        setMessagePhoto(null);
+        //* Activate auto scroll
+        setScroll(true);
+        setScroll(false);
+      }
     } else {
       return;
     }
@@ -112,8 +121,12 @@ function CurrentChats({
 
   //* Set the User Info
   const getInfo = async () => {
-    const result = await getUserByLocalId(loginUser.localId);
-    setUserInfo(result);
+    try {
+      const result = await getUserByLocalId(loginUser.localId);
+      setUserInfo(result);
+    } catch (error) {
+      console.error("Error fetching user info", error);
+    }
   };
 
   useEffect(() => {

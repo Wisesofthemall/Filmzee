@@ -17,8 +17,12 @@ function ProfileNavBar({ Users }: Props) {
 
   //* Get the login user info and store it
   const getLoginInfo = async () => {
-    const info = await getUserByLocalId(loginUser.localId);
-    setLoginInfo(info);
+    try {
+      const info = await getUserByLocalId(loginUser.localId);
+      setLoginInfo(info);
+    } catch (error) {
+      console.error("Error Fetching User Info", error);
+    }
   };
   useEffect(() => {
     if (loginUser) {
@@ -32,25 +36,29 @@ function ProfileNavBar({ Users }: Props) {
     //* Creates a roomid based on the login user and receipient localIDs
     const roomId = [...loginUser.localId, ...Users.localId].sort().join("");
     setDisabled(true);
-    await retrieveChat(
-      loginUser.localId,
-      (loginInfo as UserType).id,
-      loginUser.createdAt,
-      (loginInfo as UserType)?.displayName ||
-        (loginInfo as UserType)?.email.split("@")[0],
-      loginUser.email,
-      (loginInfo as UserType)?.photoUrl,
-      Users.id,
-      Users.uniq,
-      Users.name,
-      Users.email,
-      Users.photoUrl,
-      Users.localId,
-      roomId,
-    );
+    try {
+      await retrieveChat(
+        loginUser.localId,
+        (loginInfo as UserType).id,
+        loginUser.createdAt,
+        (loginInfo as UserType)?.displayName ||
+          (loginInfo as UserType)?.email.split("@")[0],
+        loginUser.email,
+        (loginInfo as UserType)?.photoUrl,
+        Users.id,
+        Users.uniq,
+        Users.name,
+        Users.email,
+        Users.photoUrl,
+        Users.localId,
+        roomId,
+      );
 
-    setDisabled(false);
-    router.push("/message");
+      setDisabled(false);
+      router.push("/message");
+    } catch (error) {
+      console.error("Error Updating chat", error);
+    }
   };
 
   return (
