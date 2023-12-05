@@ -32,7 +32,7 @@ function ReplyCreator({ filmzId }: Props) {
   const handleSubmit = async () => {
     //* If user is not login then open the signup modal and end the sending process
     if (!loginUser) {
-      signupModal.onOpen();
+      toast.error("Please signup before commenting");
       return;
     }
     //* If user did not add any content then show an error toast notification
@@ -69,30 +69,13 @@ function ReplyCreator({ filmzId }: Props) {
     }
   };
 
-  //* Get User info and store it in a state
-  const getInfo = async () => {
-    try {
-      const result = await getUserByLocalId(loginUser.localId);
-      setUserInfo(result);
-    } catch (error) {
-      console.error("Error Fetching User Info", error);
-    }
-  };
-
-  useEffect(() => {
-    if (loginUser) {
-      getInfo();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginUser]);
-
   //* Submit the comment to the database
   const handleEnter = async (e: any) => {
     //* Check if the user click the 'Enter' Key
     if (e === "Enter") {
       //* If user is not login then open the signup modal and end the sending process
       if (!loginUser) {
-        signupModal.onOpen();
+        toast.error("Please signup before commenting");
         return;
       }
 
@@ -128,6 +111,25 @@ function ReplyCreator({ filmzId }: Props) {
       return;
     }
   };
+
+  //* Get User info and store it in a state
+  const getInfo = async () => {
+    try {
+      const result = await getUserByLocalId(loginUser.localId);
+      setUserInfo(result);
+    } catch (error) {
+      console.error("Error Fetching User Info", error);
+    }
+  };
+
+  useEffect(() => {
+    if (loginUser) {
+      getInfo();
+    } else {
+      setUserInfo(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginUser]);
 
   return (
     <div className="w-full sticky bottom-0">
