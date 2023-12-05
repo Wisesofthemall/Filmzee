@@ -160,7 +160,7 @@ export const deleteChatByLocalID = async (localID: string) => {
     const { error } = await supabase
       .from("Chats")
       .delete()
-      .eq("userId", localID); // Assuming "recepientLocalID" is the field to match local IDs
+      .eq("userId", localID);
 
     if (error) {
       console.log(error);

@@ -1,5 +1,4 @@
 "use client";
-//
 import MenuController from "./components/videos/MenuController";
 import { useEffect, useState } from "react";
 import { getAllVideos } from "@/database/videosCRUD/Supabase";
@@ -21,12 +20,10 @@ export default function Home() {
       setVideos(video);
       setIsLoaded(true);
     } catch (error) {
-      console.log("Error Retrieving Video", error);
+      console.error("Error Retrieving Video", error);
     }
   };
-  useEffect(() => {
-    //! LAGGING THE PAGE RetrieveVideos();
-  }, []);
+
   const content = (
     <div className="my-2">
       <div className="font-bold">- Owner of groupchat can remove Users</div>

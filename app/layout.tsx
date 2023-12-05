@@ -1,6 +1,5 @@
 import ToasterProvider from "@/providers/ToastProvider";
 import "./globals.css";
-import Head from "next/head";
 
 import { Inter } from "next/font/google";
 import LoginModal from "./components/modals/LoginModal";
@@ -18,9 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <link rel="icon" href="/Logo.png" />
+
       <body className={inter.className}>
         <ToasterProvider />
 

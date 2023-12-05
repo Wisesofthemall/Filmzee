@@ -31,6 +31,7 @@ function FilmzCreator({}: Props) {
   const handleSubmit = async () => {
     //* Check if user is authorized , if not then show sign up modal
     if (!loginUser) {
+      toast.error("Please signup before posting");
       signupModal.onOpen();
       return;
     }
@@ -69,6 +70,7 @@ function FilmzCreator({}: Props) {
     if (e.key === "Enter") {
       //* Check if user is authorized , if not then show sign up modal
       if (!loginUser) {
+        toast.error("Please signup before posting");
         signupModal.onOpen();
         return;
       }

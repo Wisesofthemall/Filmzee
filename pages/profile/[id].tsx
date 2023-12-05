@@ -14,6 +14,8 @@ import CommentModal from "@/app/components/modals/CommentModal";
 import ImageModal from "@/app/components/modals/ImageModal";
 import useImageModal from "@/app/hooks/useImageModal";
 import ToasterProvider from "@/providers/ToastProvider";
+import LoginModal from "@/app/components/modals/LoginModal";
+import SignupModal from "@/app/components/modals/SignupModal";
 
 type Props = {};
 
@@ -37,6 +39,8 @@ function ProfileContainer({}: Props) {
       <ImageModal image={image} setImage={setImage} />
       <Navbar />
       <EditProfileModal />
+      <LoginModal />
+      <SignupModal />
       <div className="w-full h-[15rem] relative">
         <div className="">
           <div className="hidden md:block">
