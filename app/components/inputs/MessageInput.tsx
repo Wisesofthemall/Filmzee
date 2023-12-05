@@ -60,6 +60,7 @@ function MessageInput({
         font-semibold
         text-white`}
       />
+
       <label
         className={`
         flex

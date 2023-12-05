@@ -39,7 +39,7 @@ function ProfileNavBar({ Users }: Props) {
     //* Check if user is logged in , if not then return a toast notification
     if (!loginInfo) {
       signupModal.onOpen();
-      toast.error("Please sign up first before messaging");
+      toast.error("Please signup first before messaging");
       return;
     }
     //* Creates a roomid based on the login user and receipient localIDs
