@@ -11,31 +11,31 @@
 
 # Features List
 
-- Users can create an account using their email, Google, or Github using [Firebase Authentication](https://firebase.google.com/products/auth).
+- Users can create an account using their email, Google, or Github
 
-- Users can upload images to their post and messages using [Cloudinary](https://cloudinary.com/).
+- Users can upload images to their post and messages
 
-- Users can message other users in real-time using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Users can message other users in real-time
 
-- Users can delete their message in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Users can delete their message in real-time
 
-- User can post content for everyone to see in real-time using [Firebase Firestore](https://firebase.google.com/products/firestore).
+- User can post content for everyone to see in real-time
 
-- Users can delete their post using [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Users can delete their post
 
-- Users can comment and like on other users' posts using [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Users can comment and like on other users' posts
 
-- Users can view other users' profiles and their posts using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Users can view other users' profiles and their posts
 
-- Users can edit their profile using [Supabase](https://supabase.io/).
+- Users can edit their profile
 
-- Users can group chat with other users using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Users can group chat with other users
 
-- Owners of the group can remove and add users to their group using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Owners of the group can remove and add users to their group
 
-- Owners of the group can also edit their group image and name using [Supabase](https://supabase.io/) and [Firebase Firestore](https://firebase.google.com/products/firestore).
+- Owners of the group can also edit their group image and name
 
-- Users can watch videos on the ForYou page (pre-release) using [Youtube API](https://developers.google.com/youtube/registering_an_application) and [Supabase](https://supabase.io/).
+- Users can watch videos on the ForYou page (pre-release)
 
 # Filmz Page
 

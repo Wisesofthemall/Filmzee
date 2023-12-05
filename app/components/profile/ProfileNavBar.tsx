@@ -5,6 +5,8 @@ import { retrieveChat } from "@/database/chatsCRUD/Supabase";
 import { useAuth } from "@/auth/AuthState";
 import { FirebaseUserType, UserType } from "@/types/Types";
 import { getUserByLocalId } from "@/database/usersCRUD/Supabase";
+import toast from "react-hot-toast";
+import useSignupModal from "@/app/hooks/useSignupModal";
 
 type Props = { Users: UserType };
 
@@ -12,6 +14,7 @@ function ProfileNavBar({ Users }: Props) {
   const [loginInfo, setLoginInfo] = useState<UserType | null>(null);
   const [disabled, setDisabled] = useState(false);
   const router = useRouter();
+  const signupModal = useSignupModal();
 
   const loginUser: FirebaseUserType = useAuth();
 
@@ -33,6 +36,12 @@ function ProfileNavBar({ Users }: Props) {
 
   //* Creates chat between the user and the receipient and navigate to the '/message' route
   const updateChat = async () => {
+    //* Check if user is logged in , if not then return a toast notification
+    if (!loginInfo) {
+      signupModal.onOpen();
+      toast.error("Please sign up first before messaging");
+      return;
+    }
     //* Creates a roomid based on the login user and receipient localIDs
     const roomId = [...loginUser.localId, ...Users.localId].sort().join("");
     setDisabled(true);

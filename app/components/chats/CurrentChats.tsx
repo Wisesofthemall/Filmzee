@@ -140,12 +140,12 @@ function CurrentChats({
     //* Sort Messages between the users by time
     if (Message) {
       const filterMessage = Message.sort(function (a, b) {
-        // Convert Firestore Timestamps to JavaScript Date objects
+        //* Convert Firestore Timestamps to JavaScript Date objects
 
         const dateA = a.createdAt.toDate();
         const dateB = b.createdAt.toDate();
 
-        // Compare the Date objects to sort in ascending order
+        //* Compare the Date objects to sort in ascending order
         return dateA - dateB;
       });
 
