@@ -27,7 +27,6 @@ export default function RootLayout({
         <SignupModal />
         <Navbar />
         {children}
-        <Analytics />
       </body>
     </html>
   );
